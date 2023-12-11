@@ -10,8 +10,8 @@ namespace CycladeUI.Utils.Logging
     public class Log
     {
         public const string DebugKey = "CycladeUIDebug";
-        public static readonly Cache<bool> isDebug = new(() => SessionState.GetBool(DebugKey, false));
-        
+        public static readonly Cache<bool> IsDebug = new(() => SessionState.GetBool(DebugKey, false));
+
         public enum LogType
         {
             Log,
@@ -33,46 +33,46 @@ namespace CycladeUI.Utils.Logging
             QueueMode = queueMode;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         public void PrintData(string o, string name = "Data")
         {
-            if (!isDebug)
+            if (!IsDebug)
                 return;
 
             LogInternal(LogType.Log, $"[D] {_tag} {name}: {o}");
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         public void Trace(string s)
         {
-            if (!isDebug)
+            if (!IsDebug)
                 return;
 
             LogInternal(LogType.Log, $"[T] {_tag}{s}");
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         public void Debug(string s)
         {
-            if (!isDebug)
+            if (!IsDebug)
                 return;
-                    
+
             LogInternal(LogType.Log, $"[D] {_tag}{s}");
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         public void Info(string s) => LogInternal(LogType.Log, $"{_tag}{s}");
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         public void Warn(string s) => LogInternal(LogType.Warn, $"{_tag}{s}");
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         public void Error(string s) => LogInternal(LogType.Error, $"{_tag}{s}");
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         public void Fatal(string s) => LogInternal(LogType.Error, $"[FATAL] {_tag}{s}");
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         public void Exception(Exception ex) => LogInternal(LogType.Exception, ex);
 
         public void LogInternal(LogType type, object info, bool forceInstantPrint = false)
@@ -123,17 +123,18 @@ namespace CycladeUI.Utils.Logging
         public void DequeueAllLogs(string deferredTitle = "Deferred")
         {
             var haveQueue = _queue.Count > 0;
-            if (haveQueue && isDebug)
+            if (haveQueue && IsDebug)
                 LogInternal(LogType.Log, $"[D] {_tag}-- {deferredTitle} logs queue:", true);
 
             while (_queue.Count > 0)
             {
                 var info = _queue.Dequeue();
                 var split = info.Split("^^^");
-                LogInternal(Enum.Parse<LogType>(split[0]), split[1], true);
+                var logType = Enum.Parse<LogType>(split[0]);
+                LogInternal(logType, split[1], true);
             }
-            
-            if (haveQueue && isDebug)
+
+            if (haveQueue && IsDebug)
                 LogInternal(LogType.Log, $"[D] {_tag}-- {deferredTitle} logs queue printed", true);
         }
 

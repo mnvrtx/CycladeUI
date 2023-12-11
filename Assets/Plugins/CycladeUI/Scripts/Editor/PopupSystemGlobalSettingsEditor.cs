@@ -80,7 +80,7 @@ namespace CycladeUIEditor
             {
                 _cycladeUIDebug = newCycladeUIDebug;
                 SessionState.SetBool(Log.DebugKey, _cycladeUIDebug);
-                Log.isDebug.ResetCache();
+                Log.IsDebug.ResetCache();
                 log.Info($"set DebugCycladeUI: {_cycladeUIDebug}");
             }
         }

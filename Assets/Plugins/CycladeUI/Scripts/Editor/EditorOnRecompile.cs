@@ -32,13 +32,6 @@ namespace CycladeUIEditor
                     break;
             }
         }
-        
-        [DidReloadScripts]
-        private static void OnScriptsReloaded()
-        {
-            var log = new Log(nameof(OnScriptsReloaded));
-            PopupsDetailAnalyzer.AnalyzeAll(log); 
-        }
 
         private static bool CheckPopup(out List<PopupEntryData> list)
         {
@@ -58,6 +51,13 @@ namespace CycladeUIEditor
             PopupsScanner.Scan(settings, list, log);
 
             return true;
+        }
+
+        [DidReloadScripts]
+        private static void OnScriptsReloaded()
+        {
+            var log = new Log(nameof(OnScriptsReloaded));
+            PopupsDetailAnalyzer.AnalyzeAll(log); 
         }
     }
 }
