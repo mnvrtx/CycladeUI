@@ -1,0 +1,12 @@
+{
+    "name": "com.mnvrtx.CycladeUI",
+    "displayName": "CycladeUI",
+    "author": { "name": "MnVrtx" },
+    "version": "2.5.0",
+    "unity": "2018.4",
+    "description": "Enhances UI interfaces management efficiency in Unity.",
+    "keywords": [ "ui", "ux", "interface", "popup", "screen" ],
+    "license": "MIT",
+    "category": "ui",
+    "dependencies": {}
+}
