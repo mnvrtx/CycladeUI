@@ -75,11 +75,13 @@ namespace CycladeUIEditor
                 EditorGUILayout.PropertyField(property, true);
             }
 
-            var newCycladeUIDebug = EditorGUILayout.Toggle("DebugCycladeUI", _cycladeUIDebug);
+            var newCycladeUIDebug = EditorGUILayout.Toggle("Debug CycladeUI", _cycladeUIDebug);
             if (newCycladeUIDebug != _cycladeUIDebug)
             {
                 _cycladeUIDebug = newCycladeUIDebug;
                 SessionState.SetBool(Log.DebugKey, _cycladeUIDebug);
+                Log.isDebug.ResetCache();
+                log.Info($"set DebugCycladeUI: {_cycladeUIDebug}");
             }
         }
 

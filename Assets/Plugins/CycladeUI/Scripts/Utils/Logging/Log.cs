@@ -10,7 +10,7 @@ namespace CycladeUI.Utils.Logging
     public class Log
     {
         public const string DebugKey = "CycladeUIDebug";
-        private static readonly Cache<bool> isDebug = new(() => SessionState.GetBool(DebugKey, false));
+        public static readonly Cache<bool> isDebug = new(() => SessionState.GetBool(DebugKey, false));
         
         public enum LogType
         {
