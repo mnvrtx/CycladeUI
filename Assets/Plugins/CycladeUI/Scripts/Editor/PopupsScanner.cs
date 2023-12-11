@@ -36,7 +36,7 @@ namespace CycladeUIEditor
 
         private static void FindPopups(GlobalPopupSystemSettings settings, List<PopupEntryData> foundEntryDataList)
         {
-            settings.entries.Clear();
+            settings.entries = new List<PopupEntry>();
             foundEntryDataList.Clear();
 
             foreach (string assemblyName in settings.assemblies)

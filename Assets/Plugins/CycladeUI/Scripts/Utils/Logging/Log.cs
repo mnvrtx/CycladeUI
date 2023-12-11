@@ -9,9 +9,9 @@ namespace CycladeUI.Utils.Logging
 {
     public class Log
     {
-        private const bool IsDebug = true;
-        private const bool IsTrace = true;
-
+        public const string DebugKey = "CycladeUIDebug";
+        private static readonly Cache<bool> isDebug = new(() => SessionState.GetBool(DebugKey, false));
+        
         public enum LogType
         {
             Log,
@@ -36,7 +36,7 @@ namespace CycladeUI.Utils.Logging
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void PrintData(string o, string name = "Data")
         {
-            if (!IsDebug)
+            if (!isDebug)
                 return;
 
             LogInternal(LogType.Log, $"[D] {_tag} {name}: {o}");
@@ -45,7 +45,7 @@ namespace CycladeUI.Utils.Logging
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Trace(string s)
         {
-            if (!IsTrace)
+            if (!isDebug)
                 return;
 
             LogInternal(LogType.Log, $"[T] {_tag}{s}");
@@ -54,7 +54,7 @@ namespace CycladeUI.Utils.Logging
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Debug(string s)
         {
-            if (!IsDebug)
+            if (!isDebug)
                 return;
                     
             LogInternal(LogType.Log, $"[D] {_tag}{s}");
@@ -105,12 +105,12 @@ namespace CycladeUI.Utils.Logging
 
         public void SaveQueue()
         {
-            SessionState.SetString($"savedLog_{TagTitle}", _queue.Aggregate((q, q2) => $"{q}|||{q2}"));
+            SessionState.SetString($"CycladeUISavedLog_{TagTitle}", _queue.Aggregate((q, q2) => $"{q}|||{q2}"));
         }
 
         public void LoadQueue()
         {
-            var str = SessionState.GetString($"savedLog_{TagTitle}", "");
+            var str = SessionState.GetString($"CycladeUISavedLog_{TagTitle}", "");
             if (string.IsNullOrEmpty(str))
                 return;
 
@@ -123,7 +123,7 @@ namespace CycladeUI.Utils.Logging
         public void DequeueAllLogs(string deferredTitle = "Deferred")
         {
             var haveQueue = _queue.Count > 0;
-            if (haveQueue && IsDebug)
+            if (haveQueue && isDebug)
                 LogInternal(LogType.Log, $"[D] {_tag}-- {deferredTitle} logs queue:", true);
 
             while (_queue.Count > 0)
@@ -133,7 +133,7 @@ namespace CycladeUI.Utils.Logging
                 LogInternal(Enum.Parse<LogType>(split[0]), split[1], true);
             }
             
-            if (haveQueue && IsDebug)
+            if (haveQueue && isDebug)
                 LogInternal(LogType.Log, $"[D] {_tag}-- {deferredTitle} logs queue printed", true);
         }
 

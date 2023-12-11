@@ -23,9 +23,11 @@ namespace CycladeUIEditor
 
         private readonly EditorCommon _editorCommon = new();
 
+        private bool _cycladeUIDebug;
+
         public override void OnInspectorGUI()
         {
-            isDebug = GUILayout.Toggle(isDebug, "Debug");
+            isDebug = GUILayout.Toggle(isDebug, "Debug view");
 
             if (isDebug)
             {
@@ -72,6 +74,13 @@ namespace CycladeUIEditor
 
                 EditorGUILayout.PropertyField(property, true);
             }
+
+            var newCycladeUIDebug = EditorGUILayout.Toggle("DebugCycladeUI", _cycladeUIDebug);
+            if (newCycladeUIDebug != _cycladeUIDebug)
+            {
+                SessionState.SetBool(Log.DebugKey, _cycladeUIDebug);
+                _cycladeUIDebug = newCycladeUIDebug;
+            }
         }
 
         private void DrawButtons(GlobalPopupSystemSettings settings)
@@ -81,6 +90,7 @@ namespace CycladeUIEditor
                 var sw = Stopwatch.StartNew();
                 PopupsScanner.Scan(settings, _foundEntryDataList, log);
                 log.Debug($"RescanPopups{(!_scanned ? "(auto)" : "(manual)")}. Found {settings.assemblies.Count} assemblies with {_foundEntryDataList.Count} popups. Elapsed: {sw.ElapsedMilliseconds}ms");
+                _cycladeUIDebug = SessionState.GetBool(Log.DebugKey, false);
                 _scanned = true;
             }
 
