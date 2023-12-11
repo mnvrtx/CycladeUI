@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEditor;
-using UnityEngine;
 
 namespace CycladeUI.Utils.Logging
 {
@@ -33,7 +31,6 @@ namespace CycladeUI.Utils.Logging
             QueueMode = queueMode;
         }
 
-
         public void PrintData(string o, string name = "Data")
         {
             if (!IsDebug)
@@ -41,7 +38,6 @@ namespace CycladeUI.Utils.Logging
 
             LogInternal(LogType.Log, $"[D] {_tag} {name}: {o}");
         }
-
 
         public void Trace(string s)
         {
@@ -51,7 +47,6 @@ namespace CycladeUI.Utils.Logging
             LogInternal(LogType.Log, $"[T] {_tag}{s}");
         }
 
-
         public void Debug(string s)
         {
             if (!IsDebug)
@@ -60,18 +55,13 @@ namespace CycladeUI.Utils.Logging
             LogInternal(LogType.Log, $"[D] {_tag}{s}");
         }
 
-
         public void Info(string s) => LogInternal(LogType.Log, $"{_tag}{s}");
-
 
         public void Warn(string s) => LogInternal(LogType.Warn, $"{_tag}{s}");
 
-
         public void Error(string s) => LogInternal(LogType.Error, $"{_tag}{s}");
 
-
         public void Fatal(string s) => LogInternal(LogType.Error, $"[FATAL] {_tag}{s}");
-
 
         public void Exception(Exception ex) => LogInternal(LogType.Exception, ex);
 
@@ -105,7 +95,7 @@ namespace CycladeUI.Utils.Logging
 
         public void SaveQueue()
         {
-            SessionState.SetString($"CycladeUISavedLog_{TagTitle}", _queue.Aggregate((q, q2) => $"{q}|||{q2}"));
+            SessionState.SetString($"CycladeUISavedLog_{TagTitle}", _queue.Count > 0 ? _queue.Aggregate((q, q2) => $"{q}|||{q2}") : "");
         }
 
         public void LoadQueue()
