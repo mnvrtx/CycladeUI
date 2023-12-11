@@ -12,11 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f0cd7de53b4d8490dd1d58b7882b70, type: 3}
   m_Name: GlobalPopupSystemSettings
   m_EditorClassIdentifier: 
-  assemblies: []
-  entries: []
+  assemblies:
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  entries:
+  - type:
+      assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      fullName: CycladeUI.Popups.ChangeTextPopup
+    assetPath: Assets/Resources/ChangeText.prefab
+  - type:
+      assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      fullName: CycladeUI.Popups.ConfirmationPopup
+    assetPath: Assets/Resources/Confirmation.prefab
+  - type:
+      assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      fullName: CycladeUI.Popups.InfoPopup
+    assetPath: Assets/Resources/Info.prefab
+  - type:
+      assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      fullName: CycladeUI.Popups.PrefEditor.PrefEditorPopup
+    assetPath: Assets/Resources/PrefEditor.prefab
   debugSafeAreaSettings:
-    enabled: 0
-    top: 0
-    left: 0
-    bot: 0
-    right: 0
+    enabled: 1
+    top: 20
+    left: 20
+    bot: 20
+    right: 20

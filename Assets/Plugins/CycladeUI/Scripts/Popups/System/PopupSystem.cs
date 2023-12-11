@@ -222,7 +222,14 @@ namespace CycladeUI.Popups.System
 
             var typedWindow = (T)popup;
             log.Debug($"Show popup {holder.name}");
-            onCreate?.Invoke(typedWindow);
+            try
+            {
+                onCreate?.Invoke(typedWindow);
+            }
+            catch (Exception e)
+            {
+                log.Exception(e);
+            }
             return typedWindow;
         }
 
@@ -257,7 +264,7 @@ namespace CycladeUI.Popups.System
         private void ThrowIfNotRegistered(Type type)
         {
             if (!_entries.ContainsKey(type))
-                throw new Exception($"Not found {type.Name} popup.");
+                throw new Exception($"Not found {type.Name}. Please add it in PopupSettings scriptable object");
         }
 
         private BasePopup GetTemplate(Type type)
@@ -300,7 +307,14 @@ namespace CycladeUI.Popups.System
             log.Debug($"Close popup {holder.name}");
             Destroy(holder);
 
-            popup.OnClose.InvokeAll();
+            try
+            {
+                popup.OnClose.InvokeAll();
+            }
+            catch (Exception e)
+            {
+                log.Exception(e);
+            }
         }
     }
 }

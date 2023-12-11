@@ -41,6 +41,9 @@ namespace CycladeUI.Models
 
         public static PopupLoadEntry[] FromSerialized(string[] rawEntries)
         {
+            if (rawEntries == null)
+                return Array.Empty<PopupLoadEntry>();
+
             var arr = new PopupLoadEntry[rawEntries.Length];
 
             for (int i = 0; i < arr.Length; i++)

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cae6ff3bf71402998dfde5b250138b5, type: 3}
+  m_Name: PopupSystemSettings
+  m_EditorClassIdentifier: 
+  selectedPopupsSerialized:
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ChangeTextPopup|Assets/Resources/ChangeText.prefab|Preload
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ConfirmationPopup|Assets/Resources/Confirmation.prefab|Preload
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.InfoPopup|Assets/Resources/Info.prefab|Preload
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.PrefEditor.PrefEditorPopup|Assets/Resources/PrefEditor.prefab|Preload
+  globalSettings: {fileID: 11400000, guid: ead6c0938e6e340d2a61caf9a9ca8cd6, type: 2}
+  showExitDialogOnEscape: 0
