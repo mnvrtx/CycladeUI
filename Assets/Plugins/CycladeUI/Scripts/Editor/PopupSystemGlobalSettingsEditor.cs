@@ -78,8 +78,8 @@ namespace CycladeUIEditor
             var newCycladeUIDebug = EditorGUILayout.Toggle("DebugCycladeUI", _cycladeUIDebug);
             if (newCycladeUIDebug != _cycladeUIDebug)
             {
-                SessionState.SetBool(Log.DebugKey, _cycladeUIDebug);
                 _cycladeUIDebug = newCycladeUIDebug;
+                SessionState.SetBool(Log.DebugKey, _cycladeUIDebug);
             }
         }
 
