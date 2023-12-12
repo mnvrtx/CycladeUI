@@ -4,6 +4,7 @@ using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
 using CycladeUI.Utils.Logging;
 using UnityEditor;
+using UnityEngine;
 
 namespace CycladeUIEditor
 {
@@ -33,11 +34,12 @@ namespace CycladeUIEditor
 
                 if (asset == null && type != null) //check asset renamed or moved
                 {
+                    var firstPath = load.assetPath;
                     load.assetPath = PopupEntry.TryToFindAndSetAssetPathByType(load.assemblyName, load.typeFullName, log);
                     asset = AssetDatabase.LoadAssetAtPath<BasePopup>(load.assetPath);
                     if (asset == null) //asset not found
                     {
-                        log.Warn($"Asset by path {load.assetPath} in {settings.name} not found. Remove entry (auto)");
+                        log.Warn($"Asset by path {load.assetPath} (first: {firstPath}) in {settings.name} not found. Remove entry (auto)");
                         RemoveAndDecrI(ref settings.selectedPopups, ref i);
                     }
                     else
@@ -65,8 +67,8 @@ namespace CycladeUIEditor
 
         private static void Save(PopupSystemSettings settings)
         {
-            settings.SetToSerialized();
-            AssetDatabase.SaveAssetIfDirty(settings);
+            settings.selectedPopupsSerialized = PopupLoadEntry.ToSerialized(settings.selectedPopups);
+            EditorUtility.SetDirty(settings);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }

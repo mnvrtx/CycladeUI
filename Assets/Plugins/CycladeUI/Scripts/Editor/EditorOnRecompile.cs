@@ -56,6 +56,13 @@ namespace CycladeUIEditor
         [DidReloadScripts]
         private static void OnScriptsReloaded()
         {
+            //prevent first onReload
+            if (!SessionState.GetBool("CycladeUIOnScriptsReloaded", false))
+            {
+                SessionState.SetBool("CycladeUIOnScriptsReloaded", true);
+                return;
+            }
+
             var log = new Log(nameof(OnScriptsReloaded));
             PopupsDetailAnalyzer.AnalyzeAll(log); 
         }

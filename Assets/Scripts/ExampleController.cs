@@ -46,10 +46,11 @@ namespace CycladeUI.Test
         {
             var obj1 = new TestModel();
             var obj2 = new AnotherModel();
-            popupSystem.ShowPopup<PrefEditorPopup>(popup => popup.Initialize("PrefEditorTitle", () =>
+            var obj3 = new Player();
+            popupSystem.ShowPopup<PrefEditorPopup>(popup => popup.SetInitialExpanded(false).Initialize("PrefEditorTitle", () =>
             {
                 Debug.Log($"models changed. obj1.network.deep1.deep2.testUshort: {obj1.network.deep1.deep2.testUshort}");
-            }, obj1, obj2));
+            }, obj1, obj2, obj3));
         }
         
     }

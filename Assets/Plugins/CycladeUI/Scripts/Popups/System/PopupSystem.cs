@@ -18,7 +18,23 @@ namespace CycladeUI.Popups.System
         private Log log;
 
         public int OpenedPopupsCount => _stack.Count;
-        public DebugSafeAreaSettings SafeArea => settings.globalSettings.debugSafeAreaSettings;
+        public DebugSafeAreaSettings SafeArea
+        {
+            get
+            {
+                log.Info($"have settings: {settings != null}, have settings.globalSettings: {settings.globalSettings != null}, instanceID: {GetInstanceID()}");
+                if (settings == null)
+                {
+                    return new DebugSafeAreaSettings();
+                }
+                if (settings.globalSettings == null)
+                {
+                    return new DebugSafeAreaSettings();
+                }
+                
+                return settings.globalSettings.debugSafeAreaSettings;
+            }
+        }
 
         [SerializeField] private PopupSystemSettings settings;
         [SerializeField] private RectTransform backgroundTemplate;

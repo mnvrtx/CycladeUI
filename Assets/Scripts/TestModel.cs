@@ -64,5 +64,28 @@ namespace CycladeUI.Test
         public ushort testUshort;
     } 
     
+    [Serializable]
+    public class Player
+    {
+        public bool canJump;
+        public bool canMove;
+        public bool canAttack;
+        public AttackModel attackModel = new();
+    }
+    
+    public enum TypeOfAttack
+    {
+        Melee,
+        Range
+    }
+    
+    [Serializable]
+    public class AttackModel
+    {
+        public TypeOfAttack type;
+        public int range;
+        public float strength;
+    }
+    
     
 }

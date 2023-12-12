@@ -11,6 +11,7 @@ namespace CycladeUI.Utils.Logging
         {
 #if UNITY_EDITOR
             return UnityEditor.SessionState.GetBool(DebugKey, false);
+            // return true;
 #else
             return false;
 #endif

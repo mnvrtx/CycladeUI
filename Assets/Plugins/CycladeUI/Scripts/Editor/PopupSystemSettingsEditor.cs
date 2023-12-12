@@ -17,9 +17,9 @@ namespace CycladeUIEditor
         private static readonly Log log = new(nameof(PopupSystemSettingsEditor));
 
         private readonly EditorCommon _editorCommon = new();
-        private readonly List<PopupLoadEntry> _availablePopupsToAdd = new();
         private readonly Dictionary<string, PopupEntryData> _cachedAssets = new();
 
+        [NonSerialized] private readonly List<PopupLoadEntry> _availablePopupsToAdd = new();
         [NonSerialized] private GlobalPopupSystemSettings _currentSettings;
         [NonSerialized] private bool _resetCacheRequest;
 
@@ -35,16 +35,9 @@ namespace CycladeUIEditor
             {
                 enterChildren = false;
 
-                if (property.name == "selectedPopupsSerialized")
-                    continue;
-
-                if (property.name == "m_Script")
-                    EditorGUI.BeginDisabledGroup(true);
-
+                EditorGUI.BeginDisabledGroup(property.name is "m_Script" or "selectedPopupsSerialized");
                 EditorGUILayout.PropertyField(property, true);
-
-                if (property.name == "m_Script")
-                    EditorGUI.EndDisabledGroup();
+                EditorGUI.EndDisabledGroup();
             }
 
             if (settings.globalSettings != null)
@@ -61,10 +54,13 @@ namespace CycladeUIEditor
                 }
                 else
                 {
-                    EditorGUILayout.HelpBox("You need to create and set global settings", MessageType.Warning);    
+                    EditorGUILayout.HelpBox("You need to create and set global settings", MessageType.Warning);
                 }
             }
-            
+
+            if (settings.selectedPopups == null || settings.selectedPopups.Length == 0)
+                UpdateModel(settings);
+
             ApplyModified(settings);
         }
 
@@ -73,6 +69,8 @@ namespace CycladeUIEditor
             _editorCommon.DrawUILine(Color.gray);
 
             var selectedPopups = serializedObject.FindProperty("selectedPopupsSerialized");
+
+            var e = Event.current;
 
             CheckSettings(settings, selectedPopups);
 
@@ -91,11 +89,10 @@ namespace CycladeUIEditor
             else
                 EditorGUILayout.HelpBox("All popups added", MessageType.Info);
 
-            var e = Event.current;
 
             if (e.commandName == "UndoRedoPerformed")
                 ScanAvailablePopups(settings);
-            
+
             if (_resetCacheRequest)
             {
                 ResetCache(selectedPopups);
@@ -105,6 +102,7 @@ namespace CycladeUIEditor
 
         private string _selectedQuery = string.Empty;
         private int _querySelectedCount;
+
         private void DrawSelectedPopups(PopupSystemSettings settings, SerializedProperty selectedPopups)
         {
             GUILayout.BeginHorizontal();
@@ -142,7 +140,7 @@ namespace CycladeUIEditor
                     selectedPopups.GetArrayElementAtIndex(i).stringValue = load.ConvertToString();
                     ApplyModified(settings);
                 }
-                
+
                 var assetPath = load.assetPath;
                 if (!_cachedAssets.ContainsKey(assetPath))
                 {
@@ -186,8 +184,8 @@ namespace CycladeUIEditor
             var applied = serializedObject.ApplyModifiedProperties();
             if (applied)
             {
-                settings.FillFromSerialized();
-                AssetDatabase.SaveAssetIfDirty(settings);
+                UpdateModel(settings);
+                EditorUtility.SetDirty(settings);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
             }
@@ -195,6 +193,7 @@ namespace CycladeUIEditor
 
         private string _availableQuery = string.Empty;
         private int _queryAvailableCount;
+
         private void DrawAvailablePopups(PopupSystemSettings settings, SerializedProperty selectedPopups)
         {
             GUILayout.BeginHorizontal();
@@ -216,7 +215,7 @@ namespace CycladeUIEditor
                     continue;
 
                 _queryAvailableCount++;
-                
+
                 var beforeQuery = labelTitle.Substring(0, index);
                 var query = labelTitle.Substring(index, _availableQuery.Length);
                 var afterQuery = labelTitle.Substring(index + _availableQuery.Length);
@@ -224,7 +223,7 @@ namespace CycladeUIEditor
                 var displayTitle = $"{beforeQuery}{query.ColorMark()}{afterQuery}";
 
                 var buttonRect = GUILayoutUtility.GetRect(new GUIContent(displayTitle), _editorCommon.RichButton);
-                
+
                 //ADD
                 if (GUI.Button(buttonRect, displayTitle, _editorCommon.RichButton))
                 {
@@ -257,17 +256,15 @@ namespace CycladeUIEditor
         {
             if (_currentSettings != settings.globalSettings)
             {
-                if (_currentSettings != null) 
+                if (_currentSettings != null)
                     ResetCache(selectedPopups);
 
                 PopupsScanner.Scan(settings.globalSettings, new List<PopupEntryData>(), log);
                 PopupsDetailAnalyzer.AnalyzeOne(settings, log);
                 ScanAvailablePopups(settings);
                 _currentSettings = settings.globalSettings;
+                UpdateModel(settings);
             }
-            
-            if (settings.selectedPopups == null)
-                settings.FillFromSerialized();
         }
 
         private void ResetCache(SerializedProperty selectedPopups)
@@ -275,6 +272,12 @@ namespace CycladeUIEditor
             selectedPopups.ClearArray();
             _currentSettings = null;
             _cachedAssets.Clear();
+            log.Debug("reset cache");
+        }
+
+        public void UpdateModel(PopupSystemSettings settings)
+        {
+            settings.FillFromSerialized();
         }
     }
 }
