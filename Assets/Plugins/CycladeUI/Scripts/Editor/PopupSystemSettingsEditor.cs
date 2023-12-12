@@ -56,7 +56,7 @@ namespace CycladeUIEditor
                 var globalSettings = EditorCommon.FindScriptableObjects<GlobalPopupSystemSettings>();
                 if (globalSettings.Length > 0)
                 {
-                    settings.globalSettings = globalSettings[0];
+                    serializedObject.FindProperty("globalSettings").objectReferenceValue = globalSettings[0];
                     ApplyModified(settings);
                 }
                 else
@@ -185,7 +185,12 @@ namespace CycladeUIEditor
         {
             var applied = serializedObject.ApplyModifiedProperties();
             if (applied)
+            {
                 settings.FillFromSerialized();
+                AssetDatabase.SaveAssetIfDirty(settings);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
         }
 
         private string _availableQuery = string.Empty;

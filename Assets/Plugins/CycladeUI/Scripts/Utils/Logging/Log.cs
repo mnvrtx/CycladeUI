@@ -1,14 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 
 namespace CycladeUI.Utils.Logging
 {
     public class Log
     {
         public const string DebugKey = "CycladeUIDebug";
-        public static readonly Cache<bool> IsDebug = new(() => SessionState.GetBool(DebugKey, false));
+        public static readonly Cache<bool> IsDebug = new(() =>
+        {
+#if UNITY_EDITOR
+            return UnityEditor.SessionState.GetBool(DebugKey, false);
+#else
+            return false;
+#endif
+        });
 
         public enum LogType
         {
@@ -95,12 +101,15 @@ namespace CycladeUI.Utils.Logging
 
         public void SaveQueue()
         {
-            SessionState.SetString($"CycladeUISavedLog_{TagTitle}", _queue.Count > 0 ? _queue.Aggregate((q, q2) => $"{q}|||{q2}") : "");
+#if UNITY_EDITOR
+            UnityEditor.SessionState.SetString($"CycladeUISavedLog_{TagTitle}", _queue.Count > 0 ? _queue.Aggregate((q, q2) => $"{q}|||{q2}") : "");
+#endif
         }
 
         public void LoadQueue()
         {
-            var str = SessionState.GetString($"CycladeUISavedLog_{TagTitle}", "");
+#if UNITY_EDITOR
+            var str = UnityEditor.SessionState.GetString($"CycladeUISavedLog_{TagTitle}", "");
             if (string.IsNullOrEmpty(str))
                 return;
 
@@ -108,6 +117,7 @@ namespace CycladeUI.Utils.Logging
             _queue = new Queue<string>();
             foreach (var s in split)
                 _queue.Enqueue(s);
+#endif
         }
 
         public void DequeueAllLogs(string deferredTitle = "Deferred")

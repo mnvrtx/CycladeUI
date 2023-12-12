@@ -33,21 +33,21 @@ namespace CycladeUI.Popups.System
 
         [NonSerialized] private IPopupSystemLogic _logic;
 
-        private IEnumerator Start()
+        private void Awake()
         {
             log = new Log($"{gameObject.name}");
 
             if (settings == null)
             {
                 log.Error($"Not initialized. Settings is not set");
-                yield break;
+                return;
             }
 
             _canvas = transform.root.GetComponent<Canvas>();
             if (_canvas == null)
             {
                 log.Error($"Not initialized. Root is not canvas");
-                yield break;
+                return;
             }
 
             var stopWatch = Stopwatch.StartNew();
@@ -78,6 +78,13 @@ namespace CycladeUI.Popups.System
                 }
             }
 
+            StartCoroutine(LoadingFastFollow());
+
+            log.Debug($"Loading complete. Total elapsed: {stopWatch.ElapsedMilliseconds}ms");
+        }
+
+        public IEnumerator LoadingFastFollow()
+        {
             foreach (var kvp in _entries)
             {
                 var type = kvp.Key;
@@ -93,8 +100,6 @@ namespace CycladeUI.Popups.System
                 _loadedPopups.Add(type, (BasePopup)request.asset);
                 log.Debug($"FastFollow. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms");
             }
-
-            log.Debug($"Loading complete. Total elapsed: {stopWatch.ElapsedMilliseconds}ms");
         }
 
         /// <summary>

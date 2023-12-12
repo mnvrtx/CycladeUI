@@ -39,6 +39,8 @@ namespace CycladeUI.Models
             }
 
             return string.Empty;
+#else
+            return string.Empty;
 #endif
         }
     }
