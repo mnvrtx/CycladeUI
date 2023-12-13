@@ -13,15 +13,20 @@ MonoBehaviour:
   m_Name: GlobalPopupSystemSettings
   m_EditorClassIdentifier: 
   assemblies:
+  - Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   entries:
+  - type:
+      assemblyName: Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      fullName: CycladeUI.Test.Popups.ExampleShopPopup
+    assetPath: Assets/Resources/ExampleShop.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       fullName: CycladeUI.Popups.ChangeTextPopup
     assetPath: Assets/Resources/ChangeText.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      fullName: CycladeUI.Popups.ConfirmationPopup
+      fullName: CycladeUI.Popups.ConfirmPopup
     assetPath: Assets/Resources/Confirmation.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -32,7 +37,7 @@ MonoBehaviour:
       fullName: CycladeUI.Popups.PrefEditor.PrefEditorPopup
     assetPath: Assets/Resources/PrefEditor.prefab
   debugSafeAreaSettings:
-    enabled: 1
+    enabled: 0
     top: 20
     left: 20
     bot: 20

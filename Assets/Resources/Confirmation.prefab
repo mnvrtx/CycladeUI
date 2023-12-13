@@ -355,8 +355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f583cd478c0d4462b5db39258bc5af24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeBtn: {fileID: 8720003494040365668}
+  optionalCloseBtn: {fileID: 8720003494040365668}
   needBackground: 1
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.74}
   needSafeArea: 1
   description: {fileID: 5996275344076528640}
   yesText: {fileID: 3560428340581861831}

@@ -48,17 +48,17 @@ namespace CycladeUI.Popups.System
             });
         }
 
-        public ConfirmationPopup ShowConfirmation(string desc, string yes, string no, Action<bool> confirm, Action close = null)
+        public ConfirmPopup ShowConfirmation(string desc, string yes, string no, Action<bool> confirm, Action close = null)
         {
-            return ShowPopup<ConfirmationPopup>(popup =>
+            return ShowPopup<ConfirmPopup>(popup =>
             {
                 popup.description.text = desc;
                 popup.yesText.text = yes;
                 popup.noText.text = no;
                 popup.okBtn.onClick.AddListener(() =>
                 {
-                    confirm(true);
                     ClosePopup(popup);
+                    confirm(true);
                 });
                 popup.noBtn.onClick.AddListener(() =>
                 {

@@ -4,7 +4,6 @@ using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
 using CycladeUI.Utils.Logging;
 using UnityEditor;
-using UnityEngine;
 
 namespace CycladeUIEditor
 {
@@ -44,7 +43,7 @@ namespace CycladeUIEditor
                     }
                     else
                     {
-                        log.Debug($"Asset by path {load.assetPath} in {settings.name} updated");
+                        log.Info($"Asset by path {load.assetPath} in {settings.name} updated");
                     }
                     Save(settings);
                 }
@@ -54,7 +53,7 @@ namespace CycladeUIEditor
                     load.assemblyName = assetType.Assembly.FullName;
                     load.typeFullName = assetType.FullName;
                     Save(settings);
-                    log.Debug($"Asset with type {assetType.FullName} in {settings.name} updated");
+                    log.Info($"Asset with type {assetType.FullName} in {settings.name} updated");
                 }
                 else if (type == null && asset == null) //if all is null
                 {

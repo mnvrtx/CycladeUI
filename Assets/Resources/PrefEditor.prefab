@@ -267,8 +267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 903cd140bb674062a93bffbb6cdbcdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeBtn: {fileID: 0}
+  optionalCloseBtn: {fileID: 2708682846818200571}
   needBackground: 1
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.74}
   needSafeArea: 1
   title: {fileID: 2028706014834819247}
   prefBlocks:
@@ -2666,10 +2667,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6832555451255278355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 53.5, y: -50.585}
-  m_SizeDelta: {x: 55, y: 40}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6832555452282123421
 CanvasRenderer:
@@ -2913,10 +2914,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6832555451255278355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 153.12, y: -50.585}
-  m_SizeDelta: {x: 104.24, y: 56.13}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 56.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6832555452360532569
 CanvasRenderer:
@@ -5245,6 +5246,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2708682846818200571 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882558930787583088, guid: b1af08de944db42058c88ebbd0cf4ffc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6832555451383263115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &6186148503656544286 stripped

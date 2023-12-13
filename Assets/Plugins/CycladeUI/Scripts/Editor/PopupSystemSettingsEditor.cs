@@ -20,6 +20,7 @@ namespace CycladeUIEditor
         private readonly Dictionary<string, PopupEntryData> _cachedAssets = new();
 
         [NonSerialized] private readonly List<PopupLoadEntry> _availablePopupsToAdd = new();
+        [NonSerialized] private readonly List<PopupLoadEntry> _notFoundPopups = new();
         [NonSerialized] private GlobalPopupSystemSettings _currentSettings;
         [NonSerialized] private bool _resetCacheRequest;
 
@@ -88,6 +89,16 @@ namespace CycladeUIEditor
                 DrawAvailablePopups(settings, selectedPopups);
             else
                 EditorGUILayout.HelpBox("All popups added", MessageType.Info);
+
+            if (_notFoundPopups.Count > 0)
+            {
+                _editorCommon.DrawUILine(Color.gray);
+
+                EditorGUILayout.HelpBox($"Popups without prefabs ({_notFoundPopups.Count})", MessageType.Warning);
+
+                foreach (var entry in _notFoundPopups) 
+                    GUILayout.Label($"\"{PopupInfo.ToShortString(entry.typeFullName)}\" prefab not found. Please add it to the Resources folder.", _editorCommon.RichLabel);
+            }
 
 
             if (e.commandName == "UndoRedoPerformed")
@@ -241,12 +252,16 @@ namespace CycladeUIEditor
         private void ScanAvailablePopups(PopupSystemSettings settings)
         {
             _availablePopupsToAdd.Clear();
+            _notFoundPopups.Clear();
             foreach (var entry in settings.globalSettings.entries)
             {
                 if (settings.selectedPopups.Any(q => q.EqualsPopupInfo(entry.type)))
                     continue;
                 if (entry.assetPath == "")
+                {
+                    _notFoundPopups.Add(new PopupLoadEntry(entry));
                     continue;
+                }
 
                 _availablePopupsToAdd.Add(new PopupLoadEntry(entry));
             }

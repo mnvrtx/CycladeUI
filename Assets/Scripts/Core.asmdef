@@ -2,7 +2,8 @@
     "name": "Core",
     "rootNamespace": "",
     "references": [
-        "GUID:5a5dd3d1562fe41c6981d27c7b03a722"
+        "CycladeUI",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

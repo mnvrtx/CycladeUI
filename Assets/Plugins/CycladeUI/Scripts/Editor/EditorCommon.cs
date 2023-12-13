@@ -24,6 +24,15 @@ namespace CycladeUIEditor
             return s;
         });
 
+        public readonly Cache<GUIStyle> YellowLabel = new(() =>
+        {
+            var s = new GUIStyle(EditorStyles.label);
+            s.normal.textColor = new Color(1f, 0.75f, 0f);
+            s.fontSize = 12;
+            s.richText = true;
+            return s;
+        });
+
         public readonly Cache<GUIStyle> RichButton = new(() =>
         {
             var s = new GUIStyle(GUI.skin.GetStyle("Button"));

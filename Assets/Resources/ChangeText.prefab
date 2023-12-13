@@ -899,8 +899,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30e6ef411b8488fa82e37032c6c92a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeBtn: {fileID: 6493016622544498743}
+  optionalCloseBtn: {fileID: 6493016622544498743}
   needBackground: 1
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.74}
   needSafeArea: 1
   title: {fileID: 3650357202708959386}
   errorText: {fileID: 1355480000022257793}

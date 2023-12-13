@@ -36,6 +36,7 @@ namespace CycladeUI.Popups.System
             }
         }
 
+        [SerializeField] private bool needToLogInfo = true;
         [SerializeField] private PopupSystemSettings settings;
         [SerializeField] private RectTransform backgroundTemplate;
         [SerializeField] private RectTransform active;
@@ -90,13 +91,13 @@ namespace CycladeUI.Popups.System
                 if (load.type == PopupLoadType.Preload)
                 {
                     _loadedPopups.Add(type, PopupLoader.Load(type, load.assetPath));
-                    log.Debug($"Loaded: {type.Name}");
+                    log.Debug($"Loaded: {type.Name}", needToLogInfo);
                 }
             }
 
             StartCoroutine(LoadingFastFollow());
 
-            log.Debug($"Loading complete. Total elapsed: {stopWatch.ElapsedMilliseconds}ms");
+            log.Debug($"Loading complete. Total elapsed: {stopWatch.ElapsedMilliseconds}ms", needToLogInfo);
         }
 
         public IEnumerator LoadingFastFollow()
@@ -114,7 +115,7 @@ namespace CycladeUI.Popups.System
                 while (!request.isDone)
                     yield return null;
                 _loadedPopups.Add(type, (BasePopup)request.asset);
-                log.Debug($"FastFollow. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms");
+                log.Debug($"FastFollow. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", needToLogInfo);
             }
         }
 
@@ -227,11 +228,13 @@ namespace CycladeUI.Popups.System
                 var bg = Instantiate(backgroundTemplate, holder);
                 AddClosingEvents(popup, bg.GetComponent<Button>(), true);
                 bg.SetAsFirstSibling();
+                if (bg.TryGetComponent(out Image image)) 
+                    image.color = popup.backgroundColor;
                 bg.gameObject.SetActive(true);
             }
 
-            if (popup.closeBtn != null)
-                AddClosingEvents(popup, popup.closeBtn, false);
+            if (popup.optionalCloseBtn != null)
+                AddClosingEvents(popup, popup.optionalCloseBtn, false);
 
             if (popup.Animation != null)
                 popup.Animation.PlayForward();
@@ -242,7 +245,7 @@ namespace CycladeUI.Popups.System
             _stack.Add(popup);
 
             var typedWindow = (T)popup;
-            log.Debug($"Show popup {holder.name}");
+            log.Debug($"Show popup {holder.name}", needToLogInfo);
             try
             {
                 onCreate?.Invoke(typedWindow);
@@ -299,7 +302,7 @@ namespace CycladeUI.Popups.System
                     var sw = Stopwatch.StartNew();
                     prefab = PopupLoader.Load(type, load.assetPath);
                     _loadedPopups.Add(type, prefab);
-                    log.Debug($"OnDemand. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms");
+                    log.Debug($"OnDemand. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", needToLogInfo);
                 }
                 else
                 {
@@ -325,7 +328,7 @@ namespace CycladeUI.Popups.System
         private void OnClosePopup(BasePopup popup)
         {
             var holder = popup.transform.parent.gameObject;
-            log.Debug($"Close popup {holder.name}");
+            log.Debug($"Close popup {holder.name}", needToLogInfo);
             Destroy(holder);
 
             try

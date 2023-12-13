@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace CycladeUI.Popups
 {
-    public class ConfirmationPopup : BasePopup
+    public class ConfirmPopup : BasePopup
     {
 #if CYCLADEUI_TEXT_MESH_PRO
         public TMP_Text description;

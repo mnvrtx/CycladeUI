@@ -54,10 +54,13 @@ namespace CycladeUI.Utils.Logging
             LogInternal(LogType.Log, $"[T] {_tag}{s}");
         }
 
-        public void Debug(string s)
+        public void Debug(string s, bool force = false)
         {
-            if (!IsDebug)
-                return;
+            if (!force)
+            {
+                if (!IsDebug)
+                    return;
+            }
 
             LogInternal(LogType.Log, $"[D] {_tag}{s}");
         }

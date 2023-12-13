@@ -33,7 +33,7 @@ namespace CycladeUI.Models
                 var assetPath = UnityEditor.AssetDatabase.GetAssetPath(foundPrefabs[0]);
 
                 if (foundPrefabs.Length > 1)
-                    log.Warn($"More than one prefab of type {typeFullName} found.");
+                    log.Warn($"More than one prefab of type {typeFullName} found. Pick the first one: {foundPrefabs[0].name}");
 
                 return assetPath;
             }

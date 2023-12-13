@@ -28,7 +28,7 @@ namespace CycladeUIEditor
         public override void OnInspectorGUI()
         {
             isDebug = GUILayout.Toggle(isDebug, "Debug view");
-
+            
             if (isDebug)
             {
                 _editorCommon.DrawUILine(Color.gray);
@@ -61,6 +61,8 @@ namespace CycladeUIEditor
 
         public void DrawProperties()
         {
+            EditorGUILayout.HelpBox("Don't forget to press 'Save' before committing changes.", MessageType.Info);
+
             serializedObject.Update();
 
             var property = serializedObject.GetIterator();
@@ -72,7 +74,14 @@ namespace CycladeUIEditor
                 if (property.name != "debugSafeAreaSettings")
                     continue;
 
-                EditorGUILayout.PropertyField(property, true);
+                var changed = EditorGUILayout.PropertyField(property, true);
+                if (changed)
+                {
+                    EditorUtility.SetDirty((GlobalPopupSystemSettings)target);
+                    serializedObject.ApplyModifiedProperties();
+                    AssetDatabase.SaveAssets();
+                    AssetDatabase.Refresh();
+                }
             }
 
             var newCycladeUIDebug = EditorGUILayout.Toggle("Debug CycladeUI", _cycladeUIDebug);
@@ -91,7 +100,7 @@ namespace CycladeUIEditor
             {
                 var sw = Stopwatch.StartNew();
                 PopupsScanner.Scan(settings, _foundEntryDataList, log);
-                log.Debug($"RescanPopups{(!_scanned ? "(auto)" : "(manual)")}. Found {settings.assemblies.Count} assemblies with {_foundEntryDataList.Count} popups. Elapsed: {sw.ElapsedMilliseconds}ms");
+                log.Debug($"RescanPopups{(!_scanned ? "(auto)" : "(manual)")}. Found {settings.assemblies.Count} assemblies with {_foundEntryDataList.Count} popups. Elapsed: {sw.ElapsedMilliseconds}ms", _scanned);
                 _cycladeUIDebug = SessionState.GetBool(Log.DebugKey, false);
                 _scanned = true;
             }
@@ -144,7 +153,10 @@ namespace CycladeUIEditor
 
                 EditorGUI.BeginDisabledGroup(true);
 
-                EditorGUILayout.ObjectField(data.Asset, data.Type, false);
+                if (data.Asset == null)
+                    GUILayout.Label($"Prefab not found. Please add it to the Resources folder.", _editorCommon.YellowLabel);
+                else
+                    EditorGUILayout.ObjectField(data.Asset, data.Type, false);
 
                 EditorGUI.EndDisabledGroup();
                 EditorGUILayout.EndHorizontal();

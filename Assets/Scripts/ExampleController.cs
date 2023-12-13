@@ -1,6 +1,8 @@
 using System.Text.RegularExpressions;
 using CycladeUI.Popups.PrefEditor;
 using CycladeUI.Popups.System;
+using CycladeUI.Test.Popups;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CycladeUI.Test
@@ -12,6 +14,14 @@ namespace CycladeUI.Test
         private void Awake()
         {
             Application.targetFrameRate = 60;
+        }
+
+        public void U_ShowTestPopup()
+        {
+            popupSystem.ShowFastFollowPopup<ExampleShopPopup>(p =>
+            {
+                p.Initialize(new object());
+            }).ToUniTask(this).Forget();
         }
 
         public void U_ShowConfirmationDialog()
@@ -47,10 +57,14 @@ namespace CycladeUI.Test
             var obj1 = new TestModel();
             var obj2 = new AnotherModel();
             var obj3 = new Player();
-            popupSystem.ShowPopup<PrefEditorPopup>(popup => popup.SetInitialExpanded(false).Initialize("PrefEditorTitle", () =>
+            popupSystem.ShowPopup<PrefEditorPopup>(popup =>
             {
-                Debug.Log($"models changed. obj1.network.deep1.deep2.testUshort: {obj1.network.deep1.deep2.testUshort}");
-            }, obj1, obj2, obj3));
+                popup.SetInitialExpanded(false)
+                    .Initialize("PrefEditorTitle", () =>
+                    {
+                        Debug.Log($"models changed. obj1.network.deep1.deep2.testUshort: {obj1.network.deep1.deep2.testUshort}");
+                    }, obj1, obj2, obj3);
+            });
         }
         
     }
