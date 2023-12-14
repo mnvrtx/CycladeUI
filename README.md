@@ -10,8 +10,8 @@ To make working with UI interfaces convenient and fast. Adding a new screen to t
 There are 5 libraries in the repository: 
 - **CycladeBase** (required for all libraries)
 - **CycladeBindings**
-- **CycladeLocalization** (cannot use without `NewtonsoftJson` and `CycladeStorage`)
-- **CycladeStorage** (cannot use without `NewtonsoftJson`)
+- **CycladeLocalization** (requires `NewtonsoftJson` and `CycladeStorage` to function)
+- **CycladeStorage** (requires `NewtonsoftJson` to function)
 - **CycladeUI**
 
 **HOW TO ADD**
