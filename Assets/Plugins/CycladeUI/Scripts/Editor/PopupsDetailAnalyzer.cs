@@ -1,24 +1,26 @@
 using System.Linq;
+using CycladeBase.Utils.Logging;
+using CycladeBaseEditor.Editor;
 using CycladeUI.Models;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
-using CycladeUI.Utils.Logging;
 using UnityEditor;
+using UnityEngine;
 
 namespace CycladeUIEditor
 {
     public static class PopupsDetailAnalyzer
     {
-        public static void AnalyzeAll(UiLog log)
+        public static void AnalyzeAll(Log log)
         {
-            var popupSystems = EditorCommon.FindScriptableObjects<PopupSystemSettings>();
+            var popupSystems = ClUIEditorCommon.FindScriptableObjects<PopupSystemSettings>();
             log.PrintData(string.Join(", ", popupSystems.Select(q => q.name)), "PopupSystems");
 
             foreach (var popupSystem in popupSystems) 
                 AnalyzeOne(popupSystem, log);
         }
 
-        public static void AnalyzeOne(PopupSystemSettings settings, UiLog log)
+        public static void AnalyzeOne(PopupSystemSettings settings, Log log)
         {
             settings.FillFromSerialized();
             for (var i = 0; i < settings.selectedPopups.Length; i++)
@@ -26,7 +28,7 @@ namespace CycladeUIEditor
                 var load = settings.selectedPopups[i];
 
                 //validate asset and type
-                var asset = AssetDatabase.LoadAssetAtPath<BasePopup>(load.assetPath);
+                var asset = TryLoadAsset(load);
                 var type = load.TryFindType();
 
                 log.Trace($"{settings.name}. {i}. asset: {asset}. type: {type}");
@@ -35,7 +37,7 @@ namespace CycladeUIEditor
                 {
                     var firstPath = load.assetPath;
                     load.assetPath = PopupEntry.TryToFindAndSetAssetPathByType(load.assemblyName, load.typeFullName, log);
-                    asset = AssetDatabase.LoadAssetAtPath<BasePopup>(load.assetPath);
+                    asset = TryLoadAsset(load);
                     if (asset == null) //asset not found
                     {
                         log.Warn($"Asset by path {load.assetPath} (first: {firstPath}) in {settings.name} not found. Remove entry (auto)");
@@ -62,6 +64,14 @@ namespace CycladeUIEditor
                     Save(settings);
                 }
             }
+        }
+
+        private static BasePopup TryLoadAsset(PopupLoadEntry load)
+        {
+            var allAssetsAtPath = AssetDatabase.LoadAllAssetsAtPath(load.assetPath);
+            var assetGo = allAssetsAtPath.Length > 0 ? allAssetsAtPath[0] as GameObject : null;
+            assetGo.TryGetComponent(out BasePopup asset);
+            return asset;
         }
 
         private static void Save(PopupSystemSettings settings)

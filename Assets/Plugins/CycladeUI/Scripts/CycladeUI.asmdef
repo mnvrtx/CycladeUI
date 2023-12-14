@@ -2,7 +2,8 @@
     "name": "CycladeUI",
     "rootNamespace": "CycladeUI",
     "references": [
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "CycladeBase"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,0 +1,12 @@
+{
+    "name": "com.mnvrtx.cycladestorage",
+    "displayName": "CycladeStorage",
+    "author": { "name": "MnVrtx" },
+    "version": "0.0.1",
+    "unity": "2018.4",
+    "description": "Allows for efficient work with data that needs to be saved.",
+    "keywords": [ "storage" ],
+    "license": "MIT",
+    "category": "storage",
+    "dependencies": {}
+}

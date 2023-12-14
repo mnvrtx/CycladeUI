@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using CycladeBase.Utils.Logging;
+using CycladeBaseEditor.Editor;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
-using CycladeUI.Utils.Logging;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace CycladeUIEditor
     [CustomEditor(typeof(GlobalPopupSystemSettings))]
     public class PopupSystemGlobalSettingsEditor : Editor
     {
-        private static readonly UiLog log = new(nameof(PopupSystemGlobalSettingsEditor));
+        private static readonly Log log = new(nameof(PopupSystemGlobalSettingsEditor));
 
         private Vector2 _scrollPosition, _scrollPosition2, _scrollPosition3;
         [NonSerialized] private bool _scanned;
@@ -21,7 +22,7 @@ namespace CycladeUIEditor
 
         private readonly List<PopupEntryData> _foundEntryDataList = new();
 
-        private readonly EditorCommon _editorCommon = new();
+        private readonly ClUIEditorCommon _editorCommon = new();
 
         private bool _cycladeUIDebug;
 
@@ -88,8 +89,8 @@ namespace CycladeUIEditor
             if (newCycladeUIDebug != _cycladeUIDebug)
             {
                 _cycladeUIDebug = newCycladeUIDebug;
-                SessionState.SetBool(UiLog.DebugKey, _cycladeUIDebug);
-                UiLog.IsDebug.ResetCache();
+                SessionState.SetBool(Log.DebugKey, _cycladeUIDebug);
+                Log.IsDebug.ResetCache();
                 log.Info($"set DebugCycladeUI: {_cycladeUIDebug}");
             }
         }
@@ -101,7 +102,7 @@ namespace CycladeUIEditor
                 var sw = Stopwatch.StartNew();
                 PopupsScanner.Scan(settings, _foundEntryDataList, log);
                 log.Debug($"RescanPopups{(!_scanned ? "(auto)" : "(manual)")}. Found {settings.assemblies.Count} assemblies with {_foundEntryDataList.Count} popups. Elapsed: {sw.ElapsedMilliseconds}ms", _scanned);
-                _cycladeUIDebug = SessionState.GetBool(UiLog.DebugKey, false);
+                _cycladeUIDebug = SessionState.GetBool(Log.DebugKey, false);
                 _scanned = true;
             }
 

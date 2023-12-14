@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CycladeBase.Utils;
 using CycladeUI.Popups.PrefEditor.Elements;
-using CycladeUI.Utils;
 #if CYCLADEUI_TEXT_MESH_PRO
 using TMPro;
 #else

@@ -1,0 +1,13 @@
+﻿{
+  "Areas": {
+    "General": {
+      "testDescription": "Some kind of test description",
+      "subscriptionDescription": "Buy a subscription, please",
+      "subscriptionConfirm": "Shut Up and Take My Money"
+    },
+    "Meta": {
+      "search_game": "Play",
+      "cancel_search_game": "Cancel the search"
+    }
+  }
+}

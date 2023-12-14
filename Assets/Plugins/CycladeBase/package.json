@@ -1,0 +1,12 @@
+{
+    "name": "com.mnvrtx.cycladebase",
+    "displayName": "CycladeBase",
+    "author": { "name": "MnVrtx" },
+    "version": "0.0.1",
+    "unity": "2018.4",
+    "description": "Base for all cyclade libs.",
+    "keywords": [ ],
+    "license": "MIT",
+    "category": "ui",
+    "dependencies": {}
+}

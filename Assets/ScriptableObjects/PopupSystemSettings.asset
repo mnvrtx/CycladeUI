@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PopupSystemSettings
   m_EditorClassIdentifier: 
   selectedPopupsSerialized:
-  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ChangeTextPopup|Assets/Resources/ChangeText.prefab|OnDemand
-  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ConfirmationPopup|Assets/Resources/Confirmation.prefab|OnDemand
-  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.InfoPopup|Assets/Resources/Info.prefab|OnDemand
-  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.PrefEditor.PrefEditorPopup|Assets/Resources/PrefEditor.prefab|Preload
   - Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUIExample.Popups.ExampleShopPopup|Assets/Resources/ExampleShop.prefab|FastFollow
+  - Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUIExample.Popups.MusicSettingsPopup|Assets/Resources/MusicSettings.prefab|Preload
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.PrefEditor.PrefEditorPopup|Assets/Resources/PrefEditor.prefab|OnDemand
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.InfoPopup|Assets/Resources/Info.prefab|OnDemand
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ChangeTextPopup|Assets/Resources/ChangeText.prefab|OnDemand
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ConfirmationPopup|Assets/Resources/Confirm.prefab|OnDemand
   globalSettings: {fileID: 11400000, guid: ead6c0938e6e340d2a61caf9a9ca8cd6, type: 2}
   showExitDialogOnEscape: 1

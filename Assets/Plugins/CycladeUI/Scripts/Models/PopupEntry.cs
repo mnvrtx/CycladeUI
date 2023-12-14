@@ -1,5 +1,5 @@
 using System;
-using CycladeUI.Utils.Logging;
+using CycladeBase.Utils.Logging;
 using UnityEngine;
 
 namespace CycladeUI.Models
@@ -15,12 +15,12 @@ namespace CycladeUI.Models
             this.type = type;
         }
 
-        public void TryToFindAndSetAssetPathByType(UiLog log)
+        public void TryToFindAndSetAssetPathByType(Log log)
         {
             assetPath = TryToFindAndSetAssetPathByType(type.assemblyName, type.fullName, log);
         }
 
-        public static string TryToFindAndSetAssetPathByType(string assemblyName, string typeFullName, UiLog log)
+        public static string TryToFindAndSetAssetPathByType(string assemblyName, string typeFullName, Log log)
         {
 #if UNITY_EDITOR
             var foundType = PopupInfo.TryFind(assemblyName, typeFullName);

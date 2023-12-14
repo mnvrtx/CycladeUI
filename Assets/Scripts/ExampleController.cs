@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Text.RegularExpressions;
+using CycladeBase.Utils;
+using CycladeBase.Utils.Logging;
+using CycladeLocalization;
+using CycladeLocalization.Definition;
 using CycladeUI.Popups.PrefEditor;
 using CycladeUI.Popups.System;
-using CycladeUI.Utils;
-using CycladeUI.Utils.Logging;
 using CycladeUIExample.Popups;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -12,7 +14,7 @@ namespace CycladeUIExample
 {
     public class ExampleController : MonoBehaviour
     {
-        private static readonly UiLog log = new(nameof(ExampleController));
+        private static readonly Log log = new(nameof(ExampleController));
         
         [SerializeField] private PopupSystem popupSystem;
         [SerializeField] private GameObject interactionLocker;
@@ -29,6 +31,11 @@ namespace CycladeUIExample
             interactionLocker.SetActive(false);
         }
 
+        public void U_ShowMusicPopup()
+        {
+            popupSystem.ShowPopup<MusicSettingsPopup>();
+        }
+
         public void U_ShowNonClosablePopup()
         {
             var infoPopup = popupSystem.ShowInfo("You really won't be able to close this popup :) It might be useful, for example, for a window asking for an app update.")
@@ -38,7 +45,8 @@ namespace CycladeUIExample
 
         public void U_ShowNonClosableByClickOnBack()
         {
-            popupSystem.ShowInfo("This popup cannot be closed by clicking on the outside area. This might be useful, for example, for a popup offering to buy a subscription.")
+            popupSystem.ShowInfo("This popup cannot be closed by clicking on the outside area. This might be useful, for example, for a popup offering to buy a subscription." + 
+                                 $"{Localization.Get(Area.General, "subscriptionDescription")}", okText: Localization.Get(Area.General, "subscriptionConfirm"))
                 .SetNonClosableByClickOnBack();
         }
 

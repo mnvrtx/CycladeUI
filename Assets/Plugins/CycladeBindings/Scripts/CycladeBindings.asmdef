@@ -2,7 +2,8 @@
     "name": "CycladeBindings",
     "rootNamespace": "CycladeBindings",
     "references": [
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "CycladeBase"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CycladeBase.Utils;
+using CycladeBase.Utils.Logging;
+using CycladeBaseEditor.Editor;
 using CycladeUI.Models;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
-using CycladeUI.Utils;
-using CycladeUI.Utils.Logging;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,9 +15,9 @@ namespace CycladeUIEditor
     [CustomEditor(typeof(PopupSystemSettings))]
     public class PopupSystemSettingsEditor : Editor
     {
-        private static readonly UiLog log = new(nameof(PopupSystemSettingsEditor));
+        private static readonly Log log = new(nameof(PopupSystemSettingsEditor));
 
-        private readonly EditorCommon _editorCommon = new();
+        private readonly ClUIEditorCommon _editorCommon = new();
         private readonly Dictionary<string, PopupEntryData> _cachedAssets = new();
 
         [NonSerialized] private readonly List<PopupLoadEntry> _availablePopupsToAdd = new();
@@ -47,7 +48,7 @@ namespace CycladeUIEditor
             }
             else
             {
-                var globalSettings = EditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
+                var globalSettings = ClUIEditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
                 if (globalSettings != null)
                 {
                     serializedObject.FindProperty("globalSettings").objectReferenceValue = globalSettings;

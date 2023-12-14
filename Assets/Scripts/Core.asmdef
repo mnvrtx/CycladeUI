@@ -3,8 +3,11 @@
     "rootNamespace": "CycladeUIExample",
     "references": [
         "Unity.TextMeshPro",
+        "CycladeBase",
         "CycladeUI",
         "CycladeBindings",
+        "CycladeStorage",
+        "CycladeLocalization",
         "UniTask",
         "Demigiant"
     ],

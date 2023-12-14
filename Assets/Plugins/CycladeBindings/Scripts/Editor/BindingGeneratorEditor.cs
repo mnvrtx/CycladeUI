@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CycladeBase.Utils;
+using CycladeBase.Utils.Logging;
+using CycladeBaseEditor.Editor;
 using CycladeBindings;
 using CycladeBindings.ScriptableObjects;
-using CycladeBindings.Utils;
-using CycladeBindings.Utils.Logging;
-using CycladeBindingsEditor.Editor.Utils;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.UI;
 
 namespace CycladeBindingsEditor.Editor
@@ -16,7 +17,7 @@ namespace CycladeBindingsEditor.Editor
     [CustomEditor(typeof(BindingGenerator))]
     public class BindingGeneratorEditor : UnityEditor.Editor
     {
-        private static readonly BindLog log = new(nameof(BindingGeneratorEditor));
+        private static readonly Log log = new(nameof(BindingGeneratorEditor));
 
         [NonSerialized] private Type _bindingType;
         [NonSerialized] private GlobalCycladeBindingsSettings _globalSettings;
@@ -55,7 +56,7 @@ namespace CycladeBindingsEditor.Editor
                 _helpBoxStyle);
 
 
-            _globalSettings = EditorHelpers.TryFindGlobalSettings<GlobalCycladeBindingsSettings>();
+            _globalSettings = CycladeEditorHelpers.TryFindGlobalSettings<GlobalCycladeBindingsSettings>();
 
             var filePath = GetFullPath(settings, true);
             var haveFile = File.Exists(GetFullPath(settings, false));
@@ -343,7 +344,7 @@ namespace CycladeBindingsEditor.Editor
 
         private static bool TryFindType(BindingGenerator settings, out Type type)
         {
-            var types = EditorHelpers.FindTypesWith(t => t.Name == GetBindingName(settings) && t.IsSubclassOf(typeof(MonoBehaviour)));
+            var types = CycladeHelpers.FindTypesWith(t => t.Name == GetBindingName(settings) && t.IsSubclassOf(typeof(MonoBehaviour)));
             if (types.Count == 0)
             {
                 log.Warn($"Not found {GetBindingName(settings)}");

@@ -1,0 +1,13 @@
+﻿{
+  "Areas": {
+    "General": {
+      "testDescription": "Какое-то тестовое описание",
+      "subscriptionDescription": "Купи подписку, пожалуйста",
+      "subscriptionConfirm": "Shut up and take my money"
+    },
+    "Meta": {
+      "search_game": "Играть",
+      "cancel_search_game": "Отменить поиск"
+    }
+  }
+}

@@ -3,7 +3,9 @@
     "rootNamespace": "CycladeBindingsEditor",
     "references": [
         "Unity.TextMeshPro",
-        "CycladeBindings"
+        "CycladeBindings",
+        "CycladeBase",
+        "CycladeBaseEditor"
     ],
     "includePlatforms": [
         "Editor"

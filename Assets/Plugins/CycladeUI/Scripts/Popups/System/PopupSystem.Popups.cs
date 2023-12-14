@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using CycladeUI.Utils;
+using CycladeBase.Utils;
 using UnityEngine;
 
 namespace CycladeUI.Popups.System

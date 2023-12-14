@@ -1,0 +1,12 @@
+{
+    "name": "com.mnvrtx.cycladelocalization",
+    "displayName": "CycladeLocalization",
+    "author": { "name": "MnVrtx" },
+    "version": "0.0.1",
+    "unity": "2018.4",
+    "description": "Enhances UI interfaces management efficiency in Unity.",
+    "keywords": [ "ui", "ux", "interface", "localization" ],
+    "license": "MIT",
+    "category": "ui",
+    "dependencies": {}
+}

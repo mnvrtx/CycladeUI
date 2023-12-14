@@ -1,0 +1,25 @@
+{
+    "name": "CycladeBaseEditor",
+    "rootNamespace": "CycladeBaseEditor",
+    "references": [
+        "Unity.TextMeshPro",
+        "CycladeBase"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.textmeshpro",
+            "expression": "1.0.0",
+            "define": "CYCLADEUI_TEXT_MESH_PRO"
+        }
+    ],
+    "noEngineReferences": false
+}

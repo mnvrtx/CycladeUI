@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using CycladeBase.Utils;
+using CycladeBase.Utils.Logging;
 using CycladeUI.Models;
 using CycladeUI.ScriptableObjects;
-using CycladeUI.Utils;
-using CycladeUI.Utils.Logging;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +15,7 @@ namespace CycladeUI.Popups.System
 {
     public partial class PopupSystem : MonoBehaviour
     {
-        private UiLog log;
+        private Log log;
 
         public int OpenedPopupsCount => _stack.Count;
         public DebugSafeAreaSettings DebugSafeArea => settings.globalSettings.debugSafeAreaSettings;
@@ -36,7 +36,7 @@ namespace CycladeUI.Popups.System
 
         private void Awake()
         {
-            log = new UiLog($"{gameObject.name}");
+            log = new Log($"{gameObject.name}");
 
             if (settings == null)
             {

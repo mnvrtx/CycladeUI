@@ -1,5 +1,5 @@
 using System;
-using CycladeUI.Utils.Switchers;
+using CycladeBase.Utils.Switchers;
 
 namespace CycladeUI.Popups.PrefEditor.Elements
 {

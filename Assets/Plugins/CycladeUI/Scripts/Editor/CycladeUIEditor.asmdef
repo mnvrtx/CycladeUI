@@ -3,7 +3,9 @@
     "rootNamespace": "CycladeUIEditor",
     "references": [
         "Unity.TextMeshPro",
-        "CycladeUI"
+        "CycladeUI",
+        "CycladeBase",
+        "CycladeBaseEditor"
     ],
     "includePlatforms": [
         "Editor"

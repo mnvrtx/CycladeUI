@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using CycladeBase.Utils.Logging;
+using CycladeBaseEditor.Editor;
 using CycladeUI.ScriptableObjects;
-using CycladeUI.Utils.Logging;
 using UnityEditor;
 using UnityEditor.Callbacks;
 
@@ -10,7 +11,7 @@ namespace CycladeUIEditor
     [InitializeOnLoad]
     public static class EditorOnRecompile
     {
-        private static readonly UiLog log = new(nameof(EditorOnRecompile), true);
+        private static readonly Log log = new(nameof(EditorOnRecompile), true);
 
         static EditorOnRecompile() => 
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
@@ -37,7 +38,7 @@ namespace CycladeUIEditor
         {
             list = new List<PopupEntryData>();
 
-            var settings = EditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
+            var settings = ClUIEditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
             if (settings == null)
                 return false;
 
@@ -46,7 +47,7 @@ namespace CycladeUIEditor
             return true;
         }
 
-        [DidReloadScripts]
+        [DidReloadScripts(99999)]
         private static void OnScriptsReloaded()
         {
             //prevent first onReload
@@ -56,7 +57,7 @@ namespace CycladeUIEditor
                 return;
             }
 
-            var log = new UiLog(nameof(OnScriptsReloaded));
+            var log = new Log(nameof(OnScriptsReloaded));
             PopupsDetailAnalyzer.AnalyzeAll(log); 
         }
     }

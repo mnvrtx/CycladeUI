@@ -96,7 +96,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   targetIsSelf: 0
-  targetGO: {fileID: 838349556663971105}
+  targetGO: {fileID: 0}
   tweenTargetIsTargetGO: 1
   delay: 0
   duration: 0.15
@@ -135,7 +135,7 @@ MonoBehaviour:
   autoGenerate: 1
   isActive: 1
   isValid: 1
-  target: {fileID: 8556822208750023157}
+  target: {fileID: 0}
   animationType: 5
   targetType: 11
   forcedTargetType: 0
