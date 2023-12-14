@@ -110,7 +110,7 @@ namespace CycladeUI.Popups.System
             ThrowIfNotRegistered(type);
 
             if (_entries[type].type == PopupLoadType.FastFollow)
-                throw new Exception($"Use {nameof(ShowFastFollowPopup)} method for {type.Name}");
+                throw new Exception($"Use {nameof(ShowFastFollowPopup)} method for {type.Name}, because type is FastFollow");
 
             return ShowPopupInternal(onCreate, onClose);
         }
@@ -122,7 +122,7 @@ namespace CycladeUI.Popups.System
             ThrowIfNotRegistered(type);
 
             if (_entries[type].type != PopupLoadType.FastFollow)
-                throw new Exception($"Use {nameof(ShowPopup)} method for {type.Name}");
+                throw new Exception($"Use {nameof(ShowPopup)} method for {type.Name}, because type is not FastFollow");
 
             while (!_loadedPopups.ContainsKey(type))
                 yield return null;

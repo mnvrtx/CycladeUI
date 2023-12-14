@@ -18,7 +18,7 @@ MonoBehaviour:
   entries:
   - type:
       assemblyName: Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      fullName: CycladeUI.Test.Popups.ExampleShopPopup
+      fullName: CycladeUIExample.Popups.ExampleShopPopup
     assetPath: Assets/Resources/ExampleShop.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -26,7 +26,7 @@ MonoBehaviour:
     assetPath: Assets/Resources/ChangeText.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      fullName: CycladeUI.Popups.ConfirmPopup
+      fullName: CycladeUI.Popups.ConfirmationPopup
     assetPath: Assets/Resources/Confirmation.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

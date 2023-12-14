@@ -76,7 +76,7 @@ namespace CycladeUIExample
     public enum TypeOfAttack
     {
         Melee,
-        Range
+        Range,
     }
     
     [Serializable]
