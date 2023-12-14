@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedPopupsSerialized:
   - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ChangeTextPopup|Assets/Resources/ChangeText.prefab|OnDemand
-  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ConfirmPopup|Assets/Resources/Confirmation.prefab|OnDemand
+  - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ConfirmationPopup|Assets/Resources/Confirmation.prefab|OnDemand
   - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.InfoPopup|Assets/Resources/Info.prefab|OnDemand
   - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.PrefEditor.PrefEditorPopup|Assets/Resources/PrefEditor.prefab|Preload
   - Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Test.Popups.ExampleShopPopup|Assets/Resources/ExampleShop.prefab|FastFollow

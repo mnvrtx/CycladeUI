@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
@@ -60,8 +61,42 @@ namespace CycladeUI.Utils
         {
             comp.gameObject.SetActive(value);
         }
-        
+
         public static string Bold(this string text, bool isNeed = true) => !isNeed ? text : $"<b>{text}</b>";
         public static string ColorMark(this string text, bool isNeed = true, string color = "orange") => !isNeed ? text : $"<color={color}>{text}</color>";
+
+        public static void IterateOnMeAndChildren<T>(this Component o, Action<T> action) where T : Component
+            => IterateOnMeAndChildren(o.gameObject, action);
+
+        public static void IterateOnMeAndChildren<T>(this GameObject o, Action<T> applyAct) where T : Component
+        {
+            foreach (var child in o.GetComponentsInChildren<T>())
+                applyAct.Invoke(child);
+        }
+
+        public static string GetFullPath(this GameObject go, int max = -1, bool skipFirst = false)
+        {
+            var transform = go.transform;
+
+            string path = !skipFirst ? transform.name : "";
+            int i = 0;
+            while (transform.parent != null)
+            {
+                transform = transform.parent;
+                path = transform.name + "/" + path;
+                i++;
+
+                if (max != -1)
+                {
+                    if (i == max)
+                    {
+                        path = $".../{path}";
+                        break;
+                    }
+                }
+            }
+
+            return path;
+        }
     }
 }

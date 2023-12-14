@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using View.Utils;
 
-namespace UI
+namespace CycladeUI.Utils
 {
     [RequireComponent(typeof(Selectable))]
     public class ButtonAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHandler

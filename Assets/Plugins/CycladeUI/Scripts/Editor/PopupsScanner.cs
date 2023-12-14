@@ -6,6 +6,7 @@ using CycladeUI.Models;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
 using CycladeUI.Utils.Logging;
+using CycladeUIEditor.Utils;
 using UnityEngine;
 
 namespace CycladeUIEditor
@@ -26,10 +27,7 @@ namespace CycladeUIEditor
 
         private static void FindAvailableAssemblies(GlobalPopupSystemSettings settings)
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            settings.assemblies = assemblies
-                .Where(a => a.GetTypes().Any(t => t.IsSubclassOf(typeof(BasePopup))))
-                .ToArray()
+            settings.assemblies = EditorHelpers.FindAssembliesWith(t => t.IsSubclassOf(typeof(BasePopup)))
                 .Select(q => q.FullName)
                 .ToList();
         }

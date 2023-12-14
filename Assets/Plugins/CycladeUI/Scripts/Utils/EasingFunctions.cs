@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace View.Utils
+namespace CycladeUI.Utils
 {
     public static class EasingFunctions
     {

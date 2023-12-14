@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 897423189013487742}
   - component: {fileID: 6115145315924893971}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] PlatinumCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 4998822413658979167}
   - component: {fileID: 7658327664130264903}
   m_Layer: 5
-  m_Name: Text
+  m_Name: '[Bind] Diamonds:Txt'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -951,7 +951,7 @@ GameObject:
   - component: {fileID: 3288541359141962885}
   - component: {fileID: 4694233549211760506}
   m_Layer: 5
-  m_Name: Text
+  m_Name: '[Bind] CreditsTitle'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,7 +1017,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: COINS
+  m_Text: CREDITS
 --- !u!1 &1469466373429461288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,7 +1242,7 @@ GameObject:
   - component: {fileID: 8232807168274433464}
   - component: {fileID: 7739199319723294953}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] CreditsCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1353,7 +1353,7 @@ GameObject:
   - component: {fileID: 6849869321773637460}
   - component: {fileID: 2065076448352164585}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] PlatinumCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1611,7 +1611,7 @@ GameObject:
   - component: {fileID: 7201125468933005459}
   - component: {fileID: 6402975109831995042}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] ChestCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1871,7 +1871,7 @@ GameObject:
   - component: {fileID: 7438693697827479371}
   - component: {fileID: 1684558542616083097}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] PlatinumPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2041,7 +2041,7 @@ GameObject:
   - component: {fileID: 3311548895985587519}
   - component: {fileID: 2762488680414146382}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] PlatinumPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2286,7 +2286,7 @@ GameObject:
   - component: {fileID: 7039576230515643009}
   - component: {fileID: 6574888058258799147}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] ChestCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2396,7 +2396,7 @@ GameObject:
   - component: {fileID: 3532852717581068477}
   - component: {fileID: 5218395025552638839}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] CreditsPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2490,7 +2490,7 @@ GameObject:
   - component: {fileID: 5422530389688108822}
   - component: {fileID: 7503839401349283518}
   m_Layer: 5
-  m_Name: Text
+  m_Name: '[Bind] Credits:Txt'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2795,7 +2795,7 @@ GameObject:
   - component: {fileID: 5871097117598373832}
   - component: {fileID: 2997668848687432584}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] CreditsCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2981,7 +2981,7 @@ GameObject:
   - component: {fileID: 8258706589673947367}
   - component: {fileID: 4159376163178643773}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] CreditsCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3240,7 +3240,7 @@ GameObject:
   - component: {fileID: 1665541628914037880}
   - component: {fileID: 1221277636734102535}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] ChestPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3563,7 +3563,7 @@ GameObject:
   - component: {fileID: 7085077692792818399}
   - component: {fileID: 5991999685287699352}
   m_Layer: 5
-  m_Name: Text
+  m_Name: '[Bind] ChestTitle'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3643,7 +3643,7 @@ GameObject:
   - component: {fileID: 8963050712409390559}
   - component: {fileID: 4257870992479957056}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] PlatinumPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3888,7 +3888,7 @@ GameObject:
   - component: {fileID: 3466437265806966715}
   - component: {fileID: 3756777728215316890}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] ChestPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4283,7 +4283,7 @@ GameObject:
   - component: {fileID: 4697723524839191136}
   - component: {fileID: 2156785199623223196}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] PlatinumCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4432,7 +4432,7 @@ GameObject:
   - component: {fileID: 1856603855310155996}
   - component: {fileID: 5542448065169986506}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] CreditsPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4678,7 +4678,7 @@ GameObject:
   - component: {fileID: 7427904498081452135}
   - component: {fileID: 1636702461911266613}
   m_Layer: 5
-  m_Name: Credits
+  m_Name: '[Bind] Credits:Img'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5205,7 +5205,7 @@ GameObject:
   - component: {fileID: 749985782455159573}
   - component: {fileID: 6802902404860819487}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] PlatinumCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5390,7 +5390,7 @@ GameObject:
   - component: {fileID: 6513946227948744785}
   - component: {fileID: 4019701564551895293}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] CreditsPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6512,7 +6512,7 @@ GameObject:
   - component: {fileID: 1066691095426270658}
   - component: {fileID: 110257250351559859}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] CreditsCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6622,7 +6622,7 @@ GameObject:
   - component: {fileID: 1453135713905573507}
   - component: {fileID: 6859322480021962435}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] PlatinumPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6716,7 +6716,7 @@ GameObject:
   - component: {fileID: 9006434949157831909}
   - component: {fileID: 1029098714547987653}
   m_Layer: 5
-  m_Name: Header
+  m_Name: '[Bind] ScreenHeader'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6836,7 +6836,7 @@ GameObject:
   - component: {fileID: 4589949885749670283}
   - component: {fileID: 8333243355479063455}
   m_Layer: 5
-  m_Name: Text
+  m_Name: '[Bind] DiamondsTitle'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7447,7 +7447,7 @@ GameObject:
   - component: {fileID: 588144943444879949}
   - component: {fileID: 6397387415022472365}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] PlatinumPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7543,7 +7543,7 @@ GameObject:
   - component: {fileID: 3143567157191097959}
   - component: {fileID: 8611622387650583340}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] PlatinumCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7802,7 +7802,7 @@ GameObject:
   - component: {fileID: 8070455090696705515}
   - component: {fileID: 6653580613464776573}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] PlatinumPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7973,7 +7973,7 @@ GameObject:
   - component: {fileID: 2627934177188868245}
   - component: {fileID: 1873009670016846439}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: '[Bind] Diamonds:Img'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8120,7 +8120,7 @@ GameObject:
   - component: {fileID: 3923026724299759382}
   - component: {fileID: 2918599551260986560}
   m_Layer: 5
-  m_Name: Price
+  m_Name: '[BindArr] CreditsPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8212,6 +8212,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6108916154826599211}
   - component: {fileID: 8726439201883829284}
+  - component: {fileID: 9002990962055216436}
+  - component: {fileID: 183482821086712456}
   m_Layer: 5
   m_Name: ExampleShop
   m_TagString: Untagged
@@ -8257,6 +8259,72 @@ MonoBehaviour:
   needBackground: 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.7411765}
   needSafeArea: 0
+--- !u!114 &9002990962055216436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9182817380305457969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b6d3ea40ac8454d9456e6e05a874dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generatedPath: Scripts/GeneratedUiBindings
+  generatedName: TestBinding
+  bindTitle: '[Bind]'
+  bindArrTitle: '[BindArr]'
+--- !u!114 &183482821086712456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9182817380305457969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28081db603d614a20836eb19eb9ed024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScreenHeaderTxt: {fileID: 1029098714547987653}
+  CreditsImg: {fileID: 5932015342830870661}
+  CreditsTxt: {fileID: 7503839401349283518}
+  DiamondsImg: {fileID: 2410964695836917611}
+  DiamondsTxt: {fileID: 7658327664130264903}
+  ChestTitleTxt: {fileID: 5991999685287699352}
+  ChestCountTxt:
+  - {fileID: 2440736554120779693}
+  - {fileID: 2080768227695385062}
+  ChestPriceTxt:
+  - {fileID: 3466437265806966715}
+  - {fileID: 1665541628914037880}
+  DiamondsTitleTxt: {fileID: 8333243355479063455}
+  PlatinumCountTxt:
+  - {fileID: 1603649198532902897}
+  - {fileID: 7031986730482043667}
+  - {fileID: 5028687006322371071}
+  - {fileID: 6666127324114891051}
+  - {fileID: 5317822258471382765}
+  - {fileID: 1416300367536491278}
+  PlatinumPriceTxt:
+  - {fileID: 8963050712409390559}
+  - {fileID: 1453135713905573507}
+  - {fileID: 7438693697827479371}
+  - {fileID: 8070455090696705515}
+  - {fileID: 588144943444879949}
+  - {fileID: 3311548895985587519}
+  CreditsTitleTxt: {fileID: 4694233549211760506}
+  CreditsCountTxt:
+  - {fileID: 5094991220807761674}
+  - {fileID: 1130567186445939175}
+  - {fileID: 2811533419772102051}
+  - {fileID: 5602999699123607764}
+  CreditsPriceTxt:
+  - {fileID: 1856603855310155996}
+  - {fileID: 3923026724299759382}
+  - {fileID: 3532852717581068477}
+  - {fileID: 6513946227948744785}
 --- !u!1 &9195503693159325095
 GameObject:
   m_ObjectHideFlags: 0
@@ -8423,7 +8491,7 @@ GameObject:
   - component: {fileID: 710716846799799332}
   - component: {fileID: 4328769096172907767}
   m_Layer: 5
-  m_Name: Count
+  m_Name: '[BindArr] PlatinumCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

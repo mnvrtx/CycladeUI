@@ -2,6 +2,7 @@
     "name": "CycladeUIEditor",
     "rootNamespace": "CycladeUIEditor",
     "references": [
+        "Unity.TextMeshPro",
         "CycladeUI"
     ],
     "includePlatforms": [
