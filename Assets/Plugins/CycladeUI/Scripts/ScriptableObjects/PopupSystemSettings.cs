@@ -8,7 +8,7 @@ namespace CycladeUI.ScriptableObjects
     [CreateAssetMenu(fileName = "PopupSystemSettings", menuName = "CycladeUI/PopupSystemSettings", order = 1)]
     public class PopupSystemSettings : ScriptableObject
     {
-        private static readonly Log log = new(nameof(PopupSystemSettings));
+        private static readonly UiLog log = new(nameof(PopupSystemSettings));
         public string[] selectedPopupsSerialized;
         public GlobalPopupSystemSettings globalSettings;
         public bool showExitDialogOnEscape;

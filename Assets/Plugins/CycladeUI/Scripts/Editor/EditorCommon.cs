@@ -13,7 +13,7 @@ namespace CycladeUIEditor
 {
     public class EditorCommon
     {
-        private static readonly Log log = new(nameof(EditorCommon));
+        private static readonly UiLog log = new(nameof(EditorCommon));
 
         public readonly Cache<Texture> FolderIcon = new(() => EditorGUIUtility.IconContent("d_Folder Icon").image);
         public readonly Cache<Texture> ReloadIcon = new(() => EditorGUIUtility.IconContent("TreeEditor.Refresh").image);
@@ -86,7 +86,7 @@ namespace CycladeUIEditor
                 fontSize = 12,
             };
 
-            guiStyle.normal.textColor = Helpers.ParseHex("FF4251");
+            guiStyle.normal.textColor = CycladeHelpers.ParseHex("FF4251");
 
             return guiStyle;
         });

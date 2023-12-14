@@ -6,7 +6,7 @@ namespace CycladeUI.Utils
 {
     public static class UISafeAreaFitter
     {
-        private static readonly Log log = new(nameof(UISafeAreaFitter));
+        private static readonly UiLog log = new(nameof(UISafeAreaFitter));
 
         public static void FitInSafeArea(this RectTransform trans, DebugSafeAreaSettings testSafeArea)
         {

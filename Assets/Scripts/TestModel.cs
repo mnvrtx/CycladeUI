@@ -1,6 +1,6 @@
 using System;
 
-namespace CycladeUI.Test
+namespace CycladeUIExample
 {
     public enum LogType
     {

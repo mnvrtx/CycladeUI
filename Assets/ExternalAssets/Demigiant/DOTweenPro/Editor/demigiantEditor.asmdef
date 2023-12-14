@@ -1,0 +1,9 @@
+{
+  "name": "demigiantEditor",
+  "references": [
+    "Demigiant"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

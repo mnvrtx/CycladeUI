@@ -7,7 +7,7 @@ namespace CycladeBindings.Utils
 {
     public static class FileHelper
     {
-        private static readonly Log log = new(nameof(FileHelper));
+        private static readonly BindLog log = new(nameof(FileHelper));
 
         /// <param name="targetExtension">for example: ".json"</param>
         public static bool IsValidPath(string path, out string errorMessage, string targetExtension = "")

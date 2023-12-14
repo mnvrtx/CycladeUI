@@ -15,31 +15,17 @@ namespace CycladeUI.Popups.System
 {
     public partial class PopupSystem : MonoBehaviour
     {
-        private Log log;
+        private UiLog log;
 
         public int OpenedPopupsCount => _stack.Count;
-        public DebugSafeAreaSettings SafeArea
-        {
-            get
-            {
-                log.Info($"have settings: {settings != null}, have settings.globalSettings: {settings.globalSettings != null}, instanceID: {GetInstanceID()}");
-                if (settings == null)
-                {
-                    return new DebugSafeAreaSettings();
-                }
-                if (settings.globalSettings == null)
-                {
-                    return new DebugSafeAreaSettings();
-                }
-                
-                return settings.globalSettings.debugSafeAreaSettings;
-            }
-        }
+        public DebugSafeAreaSettings DebugSafeArea => settings.globalSettings.debugSafeAreaSettings;
+        public IReadOnlyList<BasePopup> Stack => _stack;
 
-        [SerializeField] private bool needToLogInfo = true;
+        [SerializeField] private bool isNeedToLogInfo = true;
         [SerializeField] private PopupSystemSettings settings;
         [SerializeField] private RectTransform backgroundTemplate;
         [SerializeField] private RectTransform active;
+        [SerializeField] private PopupSystemLogicBase optionalLogic;
 
         private Canvas _canvas;
 
@@ -48,11 +34,9 @@ namespace CycladeUI.Popups.System
 
         private readonly List<BasePopup> _stack = new();
 
-        [NonSerialized] private IPopupSystemLogic _logic;
-
         private void Awake()
         {
-            log = new Log($"{gameObject.name}");
+            log = new UiLog($"{gameObject.name}");
 
             if (settings == null)
             {
@@ -91,13 +75,13 @@ namespace CycladeUI.Popups.System
                 if (load.type == PopupLoadType.Preload)
                 {
                     _loadedPopups.Add(type, PopupLoader.Load(type, load.assetPath));
-                    log.Debug($"Loaded: {type.Name}", needToLogInfo);
+                    log.Debug($"Loaded: {type.Name}", isNeedToLogInfo);
                 }
             }
 
             StartCoroutine(LoadingFastFollow());
 
-            log.Debug($"Loading complete. Total elapsed: {stopWatch.ElapsedMilliseconds}ms", needToLogInfo);
+            log.Debug($"Loading complete. Total elapsed: {stopWatch.ElapsedMilliseconds}ms", isNeedToLogInfo);
         }
 
         public IEnumerator LoadingFastFollow()
@@ -115,16 +99,8 @@ namespace CycladeUI.Popups.System
                 while (!request.isDone)
                     yield return null;
                 _loadedPopups.Add(type, (BasePopup)request.asset);
-                log.Debug($"FastFollow. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", needToLogInfo);
+                log.Debug($"FastFollow. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", isNeedToLogInfo);
             }
-        }
-
-        /// <summary>
-        /// Popup system can works without logic
-        /// </summary>
-        public void SetupLogic(IPopupSystemLogic logic)
-        {
-            _logic = logic;
         }
 
         public T ShowPopup<T>(Action<T> onCreate = null, Action onClose = null) where T : BasePopup
@@ -160,19 +136,39 @@ namespace CycladeUI.Popups.System
                 return;
 
             if (popup.NonClosable)
+            {
+                log.Info($"{popup.name} is NonClosable");
                 return;
+            }
 
             _stack.Remove(popup);
             OnClosePopup(popup);
+            SetLastActive();
         }
 
-        public void CloseLastPopup()
+        public void CloseLast()
         {
-            if (_stack.Last().NonClosable)
+            if (_stack.Count == 0)
+            {
+                log.Warn($"Don't have any popups to close");
                 return;
+            }
+
+            if (_stack.Last().NonClosable)
+            {
+                log.Info($"{_stack.Last().name} is NonClosable");
+                return;
+            }
 
             var popup = _stack.Pop();
             OnClosePopup(popup);
+            SetLastActive();
+        }
+
+        private void SetLastActive()
+        {
+            if (_stack.Count > 0)
+                _stack.Last().SetActiveDelayed.Begin(0, true);
         }
 
         public void ClosePopupsOfType<T>() where T : BasePopup
@@ -197,7 +193,7 @@ namespace CycladeUI.Popups.System
             }
         }
 
-        public BasePopup FindOpenPopup<T>() where T : BasePopup
+        public BasePopup TryToFindOpenedPopup<T>() where T : BasePopup
         {
             var type = typeof(T);
             return _stack.FirstOrDefault(x => x.GetType() == type);
@@ -236,16 +232,28 @@ namespace CycladeUI.Popups.System
             if (popup.optionalCloseBtn != null)
                 AddClosingEvents(popup, popup.optionalCloseBtn, false);
 
-            if (popup.Animation != null)
-                popup.Animation.PlayForward();
+            float animationDelay = 0;
+            if (popup.optionalAnimation != null)
+                animationDelay = popup.optionalAnimation.PlayForward();
 
             if (onClose != null)
                 popup.OnClose.Subscribe(onClose);
 
+            popup.SetActiveDelayed = holder.gameObject.AddComponent<SetActiveDelayed>();
+
+            if (_stack.Count > 0)
+            {
+                if (popup.isFullScreenPopup)
+                {
+                    foreach (var p in _stack) 
+                        p.SetActiveDelayed.Begin(animationDelay, false);
+                }
+            }
+
             _stack.Add(popup);
 
             var typedWindow = (T)popup;
-            log.Debug($"Show popup {holder.name}", needToLogInfo);
+            log.Debug($"Show popup {holder.name}", isNeedToLogInfo);
             try
             {
                 onCreate?.Invoke(typedWindow);
@@ -264,20 +272,20 @@ namespace CycladeUI.Popups.System
 
         private void CheckEscape()
         {
-            var haveLocker = _logic?.IsLocked() ?? false;
+            var haveLocker = optionalLogic != null && optionalLogic.IsLocked();
 
             if (Input.GetKeyDown(KeyCode.Escape) && !haveLocker)
             {
                 if (_stack.Count > 0)
                 {
-                    CloseLastPopup();
+                    CloseLast();
                 }
                 else
                 {
                     if (settings.showExitDialogOnEscape)
                     {
-                        if (_logic != null)
-                            _logic.ShowExitDialogOnBack(this);
+                        if (optionalLogic != null)
+                            optionalLogic.ShowExitDialogOnBack(this);
                         else
                             log.Warn("Try to ShowExitDialogOnBack, but Logic is null.");
                     }
@@ -302,7 +310,7 @@ namespace CycladeUI.Popups.System
                     var sw = Stopwatch.StartNew();
                     prefab = PopupLoader.Load(type, load.assetPath);
                     _loadedPopups.Add(type, prefab);
-                    log.Debug($"OnDemand. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", needToLogInfo);
+                    log.Debug($"OnDemand. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", isNeedToLogInfo);
                 }
                 else
                 {
@@ -318,7 +326,7 @@ namespace CycladeUI.Popups.System
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() =>
             {
-                if (isBackground && !popup.CloseByClickOnBack)
+                if (isBackground && popup.NonClosableByClickOnBack)
                     return;
 
                 ClosePopup(popup);
@@ -327,18 +335,20 @@ namespace CycladeUI.Popups.System
 
         private void OnClosePopup(BasePopup popup)
         {
-            var holder = popup.transform.parent.gameObject;
-            log.Debug($"Close popup {holder.name}", needToLogInfo);
-            Destroy(holder);
+            var holder = popup.Holder.gameObject;
+            log.Debug($"Close popup {holder.name}", isNeedToLogInfo);
+            var destroyDelay = popup.optionalAnimation != null ? popup.optionalAnimation.PlayBackward() : 0;
 
-            try
+            if (destroyDelay > 0)
             {
-                popup.OnClose.InvokeAll();
+                if (popup.optionalCanvasGroup != null)
+                    popup.optionalCanvasGroup.interactable = false;
+                else
+                    log.Warn("The OptionalCanvasGroup is null. Please set it if you wish to disable buttons during animations.");
             }
-            catch (Exception e)
-            {
-                log.Exception(e);
-            }
+
+            Destroy(holder, destroyDelay);
+            popup.OnClose.InvokeAll();
         }
     }
 }

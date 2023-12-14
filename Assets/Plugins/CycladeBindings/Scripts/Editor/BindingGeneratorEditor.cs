@@ -16,7 +16,7 @@ namespace CycladeBindingsEditor.Editor
     [CustomEditor(typeof(BindingGenerator))]
     public class BindingGeneratorEditor : UnityEditor.Editor
     {
-        private static readonly Log log = new(nameof(BindingGeneratorEditor));
+        private static readonly BindLog log = new(nameof(BindingGeneratorEditor));
 
         [NonSerialized] private Type _bindingType;
         [NonSerialized] private GlobalCycladeBindingsSettings _globalSettings;
@@ -95,7 +95,7 @@ namespace CycladeBindingsEditor.Editor
 
             if (GUILayout.Button("2. Update bindings"))
             {
-                if (TryFindAndProcessComponent(settings, true, false))
+                if (TryToFindAndProcessComponent(settings, true, false))
                     SetBindings(settings);
             }
 
@@ -116,11 +116,11 @@ namespace CycladeBindingsEditor.Editor
                 var fullPath = GetFullPath(settings, false);
                 EditorGUILayout.LabelField($"PathToFileFull: {fullPath}");
 
-                if (GUILayout.Button("TryFindAndAddComponent"))
-                    TryFindAndProcessComponent(settings, true);
+                if (GUILayout.Button("TryToFindAndAddComponent"))
+                    TryToFindAndProcessComponent(settings, true);
 
-                if (GUILayout.Button("TryRemoveComponent"))
-                    TryFindAndProcessComponent(settings, false);
+                if (GUILayout.Button("TryToRemoveComponent"))
+                    TryToFindAndProcessComponent(settings, false);
             }
         }
 
@@ -308,7 +308,7 @@ namespace CycladeBindingsEditor.Editor
             fields.Add(new BindingFieldInfo(determinedType, determinedName));
         }
 
-        private bool TryFindAndProcessComponent(BindingGenerator settings, bool isAdd, bool warnIfAdded = true)
+        private bool TryToFindAndProcessComponent(BindingGenerator settings, bool isAdd, bool warnIfAdded = true)
         {
             if (!TryFindType(settings, out _bindingType))
                 return false;

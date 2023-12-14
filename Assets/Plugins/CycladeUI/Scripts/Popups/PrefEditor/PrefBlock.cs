@@ -21,7 +21,7 @@ namespace CycladeUI.Popups.PrefEditor
 #else
         public Text title;
 #endif
-        public ViewElements<PrefElement> prefElements;
+        public ViewInstances<PrefElement> prefElements;
 
         public GameObject ExpandImage;
         private bool _expanded;
@@ -55,13 +55,13 @@ namespace CycladeUI.Popups.PrefEditor
 
         public void ResetProps()
         {
-            foreach (var element in prefElements.Elements)
+            foreach (var element in prefElements.Instances)
                 element.type.GetSelected<PrefBaseChange>().ResetProperty();
         }
 
         private void UpdateExpanded()
         {
-            foreach (var element in prefElements.Elements)
+            foreach (var element in prefElements.Instances)
                 element.SetActive(_expanded);
             foreach (var prefBlock in _myInnerBlocks)
                 prefBlock.SetActive(_expanded);
@@ -93,7 +93,7 @@ namespace CycladeUI.Popups.PrefEditor
             {
                 case "Serializable":
                 {
-                    var block = prefPopup.prefBlocks.Get(transform);
+                    var block = prefPopup.prefBlocks.GetNew(transform);
                     block.Initialize(propName, val);
                     block.transform.SetSiblingIndex(1);
                     _myInnerBlocks.Add(block);
@@ -101,7 +101,7 @@ namespace CycladeUI.Popups.PrefEditor
                 }
                 case "Enum":
                 {
-                    var element = prefElements.Get();
+                    var element = prefElements.GetNew();
                     var pref = element.type.SelectAndGet<PrefEnumChange>(PrefElement.Enum);
                     
                     pref.Obj = obj;
@@ -168,7 +168,7 @@ namespace CycladeUI.Popups.PrefEditor
                 }
                 case "System.Boolean":
                 {
-                    var element = prefElements.Get();
+                    var element = prefElements.GetNew();
                     var pref = element.type.SelectAndGet<PrefBoolChange>(PrefElement.Bool);
                     pref.title.text = propName;
                     pref.SetFlag((bool)val);
@@ -188,7 +188,7 @@ namespace CycladeUI.Popups.PrefEditor
 #endif
             )
         {
-            var element = prefElements.Get();
+            var element = prefElements.GetNew();
             var pref = element.type.SelectAndGet<PrefValueChange>(PrefElement.Value);
             pref.title.text = propName;
             var strVal = val.ToString();

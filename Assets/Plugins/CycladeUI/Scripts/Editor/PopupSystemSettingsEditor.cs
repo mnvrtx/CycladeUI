@@ -14,7 +14,7 @@ namespace CycladeUIEditor
     [CustomEditor(typeof(PopupSystemSettings))]
     public class PopupSystemSettingsEditor : Editor
     {
-        private static readonly Log log = new(nameof(PopupSystemSettingsEditor));
+        private static readonly UiLog log = new(nameof(PopupSystemSettingsEditor));
 
         private readonly EditorCommon _editorCommon = new();
         private readonly Dictionary<string, PopupEntryData> _cachedAssets = new();

@@ -10,7 +10,7 @@ namespace CycladeBindingsEditor.Editor.Utils
 {
     public static class EditorHelpers
     {
-        private static readonly Log log = new(nameof(EditorHelpers));
+        private static readonly BindLog log = new(nameof(EditorHelpers));
 
         public static List<Type> FindTypesWith(Func<Type, bool> predicate)
         {

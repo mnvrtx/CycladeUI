@@ -15,12 +15,12 @@ namespace CycladeUI.Models
             this.type = type;
         }
 
-        public void TryToFindAndSetAssetPathByType(Log log)
+        public void TryToFindAndSetAssetPathByType(UiLog log)
         {
             assetPath = TryToFindAndSetAssetPathByType(type.assemblyName, type.fullName, log);
         }
 
-        public static string TryToFindAndSetAssetPathByType(string assemblyName, string typeFullName, Log log)
+        public static string TryToFindAndSetAssetPathByType(string assemblyName, string typeFullName, UiLog log)
         {
 #if UNITY_EDITOR
             var foundType = PopupInfo.TryFind(assemblyName, typeFullName);

@@ -1,19 +1,50 @@
+using System.Collections;
 using System.Text.RegularExpressions;
 using CycladeUI.Popups.PrefEditor;
 using CycladeUI.Popups.System;
-using CycladeUI.Test.Popups;
+using CycladeUI.Utils;
+using CycladeUI.Utils.Logging;
+using CycladeUIExample.Popups;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CycladeUI.Test
+namespace CycladeUIExample
 {
     public class ExampleController : MonoBehaviour
     {
+        private static readonly UiLog log = new(nameof(ExampleController));
+        
         [SerializeField] private PopupSystem popupSystem;
+        [SerializeField] private GameObject interactionLocker;
 
         private void Awake()
         {
             Application.targetFrameRate = 60;
+        }
+
+        private IEnumerator DebugRequestCoroutine()
+        {
+            interactionLocker.SetActive(true);
+            yield return new WaitForSeconds(5);
+            interactionLocker.SetActive(false);
+        }
+
+        public void U_ShowNonClosablePopup()
+        {
+            var infoPopup = popupSystem.ShowInfo("You really won't be able to close this popup :) It might be useful, for example, for a window asking for an app update.")
+                .SetNonClosable();
+            infoPopup.okBtn.SetActive(false);
+        }
+
+        public void U_ShowNonClosableByClickOnBack()
+        {
+            popupSystem.ShowInfo("This popup cannot be closed by clicking on the outside area. This might be useful, for example, for a popup offering to buy a subscription.")
+                .SetNonClosableByClickOnBack();
+        }
+
+        public void U_TestDebugRequest()
+        {
+            StartCoroutine(DebugRequestCoroutine());
         }
 
         public void U_ShowTestPopup()
@@ -21,6 +52,10 @@ namespace CycladeUI.Test
             popupSystem.ShowFastFollowPopup<ExampleShopPopup>(p =>
             {
                 p.Initialize(new object());
+                p.OnClose.Subscribe(() =>
+                {
+                    log.Info("ExampleShopPopup closed");
+                });
             }).ToUniTask(this).Forget();
         }
 

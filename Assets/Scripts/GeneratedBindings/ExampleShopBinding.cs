@@ -15,7 +15,8 @@ namespace GeneratedCycladeBindings
 {
     public class ExampleShopBinding : MonoBehaviour
     {
-        public CycladeUI.Test.Components.ExampleComponent Top;
+        public UnityEngine.RectTransform Bg;
+        public CycladeUIExample.Components.ExampleComponentForBind Top;
         public Text ScreenHeaderTxt;
         public Image CreditsImg;
         public Text CreditsTxt;

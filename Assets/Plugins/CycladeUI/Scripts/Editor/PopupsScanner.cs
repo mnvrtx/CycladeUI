@@ -13,7 +13,7 @@ namespace CycladeUIEditor
 {
     public static class PopupsScanner
     {
-        public static void Scan(GlobalPopupSystemSettings settings, List<PopupEntryData> foundEntryDataList, Log log)
+        public static void Scan(GlobalPopupSystemSettings settings, List<PopupEntryData> foundEntryDataList, UiLog log)
         {
             RescanPopups(settings, foundEntryDataList);
             FindAndFillByTypes(foundEntryDataList, log);
@@ -66,7 +66,7 @@ namespace CycladeUIEditor
                 entryData.Type = entryData.Entry.type.TryFind();
         }
 
-        private static void FindAndFillByTypes(List<PopupEntryData> foundEntryDataList, Log log)
+        private static void FindAndFillByTypes(List<PopupEntryData> foundEntryDataList, UiLog log)
         {
             foreach (var data in foundEntryDataList)
             {

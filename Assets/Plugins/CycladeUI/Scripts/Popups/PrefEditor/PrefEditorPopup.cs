@@ -12,14 +12,14 @@ namespace CycladeUI.Popups.PrefEditor
 {
     public class PrefEditorPopup : BasePopup
     {
-        private static readonly Log log = new(nameof(PrefEditorPopup));
+        private static readonly UiLog log = new(nameof(PrefEditorPopup));
         
 #if CYCLADEUI_TEXT_MESH_PRO
         public TMP_Text title;
 #else
         public Text title;
 #endif
-        public ViewElements<PrefBlock> prefBlocks;
+        public ViewInstances<PrefBlock> prefBlocks;
         
         private object[] _objs;
         private bool _initialExpanded = true;
@@ -59,12 +59,12 @@ namespace CycladeUI.Popups.PrefEditor
 
         private void Set(object obj, bool expanded)
         {
-            prefBlocks.Get().Initialize(obj.GetType().Name, obj, expanded);
+            prefBlocks.GetNew().Initialize(obj.GetType().Name, obj, expanded);
         }
 
         public void U_Reset()
         {
-            foreach (var prefBlock in prefBlocks.Elements)
+            foreach (var prefBlock in prefBlocks.Instances)
                 prefBlock.ResetProps();
         }
 

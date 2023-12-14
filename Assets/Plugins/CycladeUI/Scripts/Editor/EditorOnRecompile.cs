@@ -10,7 +10,7 @@ namespace CycladeUIEditor
     [InitializeOnLoad]
     public static class EditorOnRecompile
     {
-        private static readonly Log log = new(nameof(EditorOnRecompile), true);
+        private static readonly UiLog log = new(nameof(EditorOnRecompile), true);
 
         static EditorOnRecompile() => 
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
@@ -56,7 +56,7 @@ namespace CycladeUIEditor
                 return;
             }
 
-            var log = new Log(nameof(OnScriptsReloaded));
+            var log = new UiLog(nameof(OnScriptsReloaded));
             PopupsDetailAnalyzer.AnalyzeAll(log); 
         }
     }

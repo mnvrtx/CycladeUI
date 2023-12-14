@@ -6,7 +6,7 @@ namespace CycladeUI.Popups.System
 {
     public static class PopupLoader
     {
-        private static readonly Log log = new(nameof(PopupLoader));
+        private static readonly UiLog log = new(nameof(PopupLoader));
 
         public static BasePopup Load(Type type, string path)
         {

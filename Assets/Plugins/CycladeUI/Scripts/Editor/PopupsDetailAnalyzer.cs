@@ -9,7 +9,7 @@ namespace CycladeUIEditor
 {
     public static class PopupsDetailAnalyzer
     {
-        public static void AnalyzeAll(Log log)
+        public static void AnalyzeAll(UiLog log)
         {
             var popupSystems = EditorCommon.FindScriptableObjects<PopupSystemSettings>();
             log.PrintData(string.Join(", ", popupSystems.Select(q => q.name)), "PopupSystems");
@@ -18,7 +18,7 @@ namespace CycladeUIEditor
                 AnalyzeOne(popupSystem, log);
         }
 
-        public static void AnalyzeOne(PopupSystemSettings settings, Log log)
+        public static void AnalyzeOne(PopupSystemSettings settings, UiLog log)
         {
             settings.FillFromSerialized();
             for (var i = 0; i < settings.selectedPopups.Length; i++)
