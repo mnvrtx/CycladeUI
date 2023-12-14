@@ -44,7 +44,7 @@ There can be several popup systems within a single project. For example, there i
 2. Create a new prefab with the class you created attached to it.
 3. Click to the add button in the `PopupSystemSettings`
 4. Select the loading type:
-  - `On Demand` – loads only when you call `ShowPopup` from the code.
+  - `OnDemand` – loads only when you call `ShowPopup` from the code.
   - `Preload` – loads synchronously in MonoBehaviour's `Awake` method.
   - `FastFollow` – loads asynchronously in MonoBehaviour's `Awake` method.
 5. Add code to show the popup.
