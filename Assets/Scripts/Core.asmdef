@@ -3,6 +3,7 @@
     "rootNamespace": "",
     "references": [
         "CycladeUI",
+        "CycladeBindings",
         "UniTask"
     ],
     "includePlatforms": [],

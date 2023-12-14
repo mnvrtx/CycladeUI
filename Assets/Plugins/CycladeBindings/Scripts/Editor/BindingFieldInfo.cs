@@ -1,4 +1,4 @@
-namespace CycladeUIEditor.UIBindingSystem
+namespace CycladeBindingsEditor.Editor
 {
     public class BindingFieldInfo
     {

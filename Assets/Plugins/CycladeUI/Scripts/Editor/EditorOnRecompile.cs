@@ -37,17 +37,10 @@ namespace CycladeUIEditor
         {
             list = new List<PopupEntryData>();
 
-            var settingsArray = EditorCommon.FindScriptableObjects<GlobalPopupSystemSettings>();
-            if (settingsArray.Length == 0)
+            var settings = EditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
+            if (settings == null)
                 return false;
 
-            if (settingsArray.Length > 1)
-            {
-                log.Error("If the count of 'PopupSystemSettings' is greater than 1, auto-reload will be disabled. Please ensure that only one 'PopupSystemSettings' scriptable object is present in the project.");
-                return false;
-            }
-
-            var settings = settingsArray.Single();
             PopupsScanner.Scan(settings, list, log);
 
             return true;

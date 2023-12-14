@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CycladeUI.Utils;
+using CycladeUI.Utils.Logging;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace CycladeUIEditor
 {
     public class EditorCommon
     {
+        private static readonly Log log = new(nameof(EditorCommon));
+
         public readonly Cache<Texture> FolderIcon = new(() => EditorGUIUtility.IconContent("d_Folder Icon").image);
         public readonly Cache<Texture> ReloadIcon = new(() => EditorGUIUtility.IconContent("TreeEditor.Refresh").image);
         public readonly Cache<Texture> CreateAddNewIcon = new(() => EditorGUIUtility.IconContent("CreateAddNew").image);
@@ -194,6 +197,21 @@ namespace CycladeUIEditor
             }
 
             return assets;
+        }
+        
+        public static T TryFindGlobalSettings<T>() where T : ScriptableObject
+        {
+            var settingsArray = FindScriptableObjects<T>();
+            if (settingsArray.Length == 0)
+                return default;
+
+            if (settingsArray.Length > 1)
+            {
+                log.Error($"Please ensure that only one '{typeof(T).Name}' scriptable object is present in the project.");
+                return default;
+            }
+
+            return settingsArray.Single();
         }
 
         public static T[] FindScriptableObjects<T>() where T : ScriptableObject

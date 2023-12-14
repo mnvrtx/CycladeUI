@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1435660725174829609}
   - component: {fileID: 7940658265089536936}
   m_Layer: 5
-  m_Name: Platinum 6
+  m_Name: Diamonds 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 3946972093726260931}
   - component: {fileID: 7800837293497958327}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] CreditsIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 23213977203593025}
   - component: {fileID: 887082459157977343}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 897423189013487742}
   - component: {fileID: 6115145315924893971}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumCount'
+  m_Name: '[BindArr] DiamondCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 5803051480777152475}
   - component: {fileID: 7791200073558000979}
   m_Layer: 5
-  m_Name: Platinum 1
+  m_Name: Diamonds 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 4998822413658979167}
   - component: {fileID: 7658327664130264903}
   m_Layer: 5
-  m_Name: '[Bind] Diamonds:Txt'
+  m_Name: '[Bind] Diamonds'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -801,7 +801,7 @@ GameObject:
   - component: {fileID: 2351202754877089086}
   - component: {fileID: 6404132071852572402}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 2594297913388119516}
   - component: {fileID: 2049893499146812340}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1353,7 +1353,7 @@ GameObject:
   - component: {fileID: 6849869321773637460}
   - component: {fileID: 2065076448352164585}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumCount'
+  m_Name: '[BindArr] DiamondCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1464,7 +1464,7 @@ GameObject:
   - component: {fileID: 8572515923573453053}
   - component: {fileID: 2976202137603724242}
   m_Layer: 5
-  m_Name: Info
+  m_Name: '[Bind] Question:Image'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1720,7 +1720,7 @@ GameObject:
   - component: {fileID: 5296132623858342647}
   - component: {fileID: 3154922125007748323}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] CreditsIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1871,7 +1871,7 @@ GameObject:
   - component: {fileID: 7438693697827479371}
   - component: {fileID: 1684558542616083097}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumPrice'
+  m_Name: '[BindArr] DiamondPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1965,7 +1965,7 @@ GameObject:
   - component: {fileID: 3848573496829290478}
   - component: {fileID: 3075156045507140012}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] DiamondIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2041,7 +2041,7 @@ GameObject:
   - component: {fileID: 3311548895985587519}
   - component: {fileID: 2762488680414146382}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumPrice'
+  m_Name: '[BindArr] DiamondPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2137,7 +2137,7 @@ GameObject:
   - component: {fileID: 7439083812826255924}
   - component: {fileID: 8060814332873573163}
   m_Layer: 5
-  m_Name: Platinum 4
+  m_Name: Diamonds 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2490,7 +2490,7 @@ GameObject:
   - component: {fileID: 5422530389688108822}
   - component: {fileID: 7503839401349283518}
   m_Layer: 5
-  m_Name: '[Bind] Credits:Txt'
+  m_Name: '[Bind] Credits'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2569,7 +2569,7 @@ GameObject:
   - component: {fileID: 7642889911011493232}
   - component: {fileID: 5860134460679546428}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] DiamondIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2646,7 +2646,7 @@ GameObject:
   - component: {fileID: 3651910735344850584}
   - component: {fileID: 5848227677708846646}
   m_Layer: 5
-  m_Name: Platinum 5
+  m_Name: Diamonds 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2904,7 +2904,7 @@ GameObject:
   - component: {fileID: 6518378044263604877}
   - component: {fileID: 9114288144026888828}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] DiamondIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3488,7 +3488,7 @@ GameObject:
   - component: {fileID: 3609348768295519586}
   - component: {fileID: 8256172539240181317}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] DiamondIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3643,7 +3643,7 @@ GameObject:
   - component: {fileID: 8963050712409390559}
   - component: {fileID: 4257870992479957056}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumPrice'
+  m_Name: '[BindArr] DiamondPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3982,7 +3982,7 @@ GameObject:
   - component: {fileID: 6189458243193168313}
   - component: {fileID: 1857041650360603274}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] CreditsIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4206,7 +4206,7 @@ GameObject:
   - component: {fileID: 3936826570143017150}
   - component: {fileID: 1934342419603727018}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] DiamondIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4283,7 +4283,7 @@ GameObject:
   - component: {fileID: 4697723524839191136}
   - component: {fileID: 2156785199623223196}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumCount'
+  m_Name: '[BindArr] DiamondCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4526,7 +4526,7 @@ GameObject:
   - component: {fileID: 4959870495024340786}
   - component: {fileID: 9059215230850242381}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4601,7 +4601,7 @@ GameObject:
   - component: {fileID: 4514075055063159096}
   - component: {fileID: 3325609518514781829}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] ChestIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4678,7 +4678,7 @@ GameObject:
   - component: {fileID: 7427904498081452135}
   - component: {fileID: 1636702461911266613}
   m_Layer: 5
-  m_Name: '[Bind] Credits:Img'
+  m_Name: '[Bind] Credits:Image'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 1131630314502977817}
   - component: {fileID: 5083693977075794395}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5053,7 +5053,7 @@ GameObject:
   - component: {fileID: 2029484012437108789}
   - component: {fileID: 581612350449975392}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5205,7 +5205,7 @@ GameObject:
   - component: {fileID: 749985782455159573}
   - component: {fileID: 6802902404860819487}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumCount'
+  m_Name: '[BindArr] DiamondCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5314,7 +5314,7 @@ GameObject:
   - component: {fileID: 3421644814573853908}
   - component: {fileID: 6418022155713787226}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5484,7 +5484,7 @@ GameObject:
   - component: {fileID: 8289232898518342984}
   - component: {fileID: 5747091594396634557}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5561,7 +5561,7 @@ GameObject:
   - component: {fileID: 8025712255398229246}
   - component: {fileID: 2414484678192998139}
   m_Layer: 5
-  m_Name: Platinum 3
+  m_Name: Diamonds 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5709,7 +5709,7 @@ GameObject:
   - component: {fileID: 7226655190038041800}
   - component: {fileID: 5063297839624884571}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5784,7 +5784,7 @@ GameObject:
   - component: {fileID: 4698301696123739789}
   - component: {fileID: 5393232762593505331}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5932,7 +5932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3022059257511046402}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamonds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5976,7 +5976,7 @@ GameObject:
   - component: {fileID: 2365613273913633546}
   - component: {fileID: 6520431552658740196}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6356,7 +6356,7 @@ GameObject:
   - component: {fileID: 595485812984531102}
   - component: {fileID: 8586134126661594645}
   m_Layer: 5
-  m_Name: Platinum
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6622,7 +6622,7 @@ GameObject:
   - component: {fileID: 1453135713905573507}
   - component: {fileID: 6859322480021962435}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumPrice'
+  m_Name: '[BindArr] DiamondPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6792,8 +6792,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 122107752105638767}
+  - component: {fileID: 319176440246226866}
   m_Layer: 5
-  m_Name: Top
+  m_Name: '[Bind] Top:ExampleComponent'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6824,6 +6825,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 158}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &319176440246226866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219690260975078276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78948a870d24b5f94a7f91d40c877bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7413670662132411603
 GameObject:
   m_ObjectHideFlags: 0
@@ -6915,7 +6928,7 @@ GameObject:
   - component: {fileID: 6371731580605837252}
   - component: {fileID: 564421039535829179}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] ChestIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6990,7 +7003,7 @@ GameObject:
   - component: {fileID: 7562173421853387814}
   - component: {fileID: 701322159965238037}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] CreditsIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7184,7 +7197,7 @@ GameObject:
   - component: {fileID: 4138034063566512434}
   - component: {fileID: 3147593221387081459}
   m_Layer: 5
-  m_Name: Platinum 2
+  m_Name: Diamonds 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7331,7 +7344,7 @@ GameObject:
   - component: {fileID: 5284502684666953027}
   - component: {fileID: 5024252888992280888}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: '[BindArr] DiamondIcon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7447,7 +7460,7 @@ GameObject:
   - component: {fileID: 588144943444879949}
   - component: {fileID: 6397387415022472365}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumPrice'
+  m_Name: '[BindArr] DiamondPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7543,7 +7556,7 @@ GameObject:
   - component: {fileID: 3143567157191097959}
   - component: {fileID: 8611622387650583340}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumCount'
+  m_Name: '[BindArr] DiamondCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7802,7 +7815,7 @@ GameObject:
   - component: {fileID: 8070455090696705515}
   - component: {fileID: 6653580613464776573}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumPrice'
+  m_Name: '[BindArr] DiamondPrice'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7973,7 +7986,7 @@ GameObject:
   - component: {fileID: 2627934177188868245}
   - component: {fileID: 1873009670016846439}
   m_Layer: 5
-  m_Name: '[Bind] Diamonds:Img'
+  m_Name: '[Bind] Diamonds:Image'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8212,8 +8225,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6108916154826599211}
   - component: {fileID: 8726439201883829284}
-  - component: {fileID: 9002990962055216436}
-  - component: {fileID: 183482821086712456}
+  - component: {fileID: 7375238776580754517}
+  - component: {fileID: 2925157548096762296}
   m_Layer: 5
   m_Name: ExampleShop
   m_TagString: Untagged
@@ -8259,7 +8272,8 @@ MonoBehaviour:
   needBackground: 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.7411765}
   needSafeArea: 0
---- !u!114 &9002990962055216436
+  binding: {fileID: 2925157548096762296}
+--- !u!114 &7375238776580754517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8271,11 +8285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6d3ea40ac8454d9456e6e05a874dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generatedPath: Scripts/GeneratedUiBindings
-  generatedName: TestBinding
+  additionalFolderPath: 
+  bindPostfix: Binding
   bindTitle: '[Bind]'
   bindArrTitle: '[BindArr]'
---- !u!114 &183482821086712456
+--- !u!114 &2925157548096762296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8284,30 +8298,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 9182817380305457969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28081db603d614a20836eb19eb9ed024, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fd49b9dce7d149d496144887a427172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Top: {fileID: 319176440246226866}
   ScreenHeaderTxt: {fileID: 1029098714547987653}
   CreditsImg: {fileID: 5932015342830870661}
   CreditsTxt: {fileID: 7503839401349283518}
   DiamondsImg: {fileID: 2410964695836917611}
   DiamondsTxt: {fileID: 7658327664130264903}
+  QuestionImg: {fileID: 1054134493979762280}
   ChestTitleTxt: {fileID: 5991999685287699352}
-  ChestCountTxt:
+  ChestIconImgList:
+  - {fileID: 3325609518514781829}
+  - {fileID: 564421039535829179}
+  ChestCountTxtList:
   - {fileID: 2440736554120779693}
   - {fileID: 2080768227695385062}
-  ChestPriceTxt:
+  ChestPriceTxtList:
   - {fileID: 3466437265806966715}
   - {fileID: 1665541628914037880}
   DiamondsTitleTxt: {fileID: 8333243355479063455}
-  PlatinumCountTxt:
+  DiamondIconImgList:
+  - {fileID: 9114288144026888828}
+  - {fileID: 3075156045507140012}
+  - {fileID: 5860134460679546428}
+  - {fileID: 5024252888992280888}
+  - {fileID: 1934342419603727018}
+  - {fileID: 8256172539240181317}
+  DiamondCountTxtList:
   - {fileID: 1603649198532902897}
   - {fileID: 7031986730482043667}
   - {fileID: 5028687006322371071}
   - {fileID: 6666127324114891051}
   - {fileID: 5317822258471382765}
   - {fileID: 1416300367536491278}
-  PlatinumPriceTxt:
+  DiamondPriceTxtList:
   - {fileID: 8963050712409390559}
   - {fileID: 1453135713905573507}
   - {fileID: 7438693697827479371}
@@ -8315,12 +8341,17 @@ MonoBehaviour:
   - {fileID: 588144943444879949}
   - {fileID: 3311548895985587519}
   CreditsTitleTxt: {fileID: 4694233549211760506}
-  CreditsCountTxt:
+  CreditsIconImgList:
+  - {fileID: 1857041650360603274}
+  - {fileID: 7800837293497958327}
+  - {fileID: 3154922125007748323}
+  - {fileID: 701322159965238037}
+  CreditsCountTxtList:
   - {fileID: 5094991220807761674}
   - {fileID: 1130567186445939175}
   - {fileID: 2811533419772102051}
   - {fileID: 5602999699123607764}
-  CreditsPriceTxt:
+  CreditsPriceTxtList:
   - {fileID: 1856603855310155996}
   - {fileID: 3923026724299759382}
   - {fileID: 3532852717581068477}
@@ -8491,7 +8522,7 @@ GameObject:
   - component: {fileID: 710716846799799332}
   - component: {fileID: 4328769096172907767}
   m_Layer: 5
-  m_Name: '[BindArr] PlatinumCount'
+  m_Name: '[BindArr] DiamondCount'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

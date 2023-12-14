@@ -11,24 +11,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-namespace GeneratedUiBindings
+namespace GeneratedCycladeBindings
 {
-    public class TestBinding : MonoBehaviour
+    public class ExampleShopBinding : MonoBehaviour
     {
+        public CycladeUI.Test.Components.ExampleComponent Top;
         public Text ScreenHeaderTxt;
         public Image CreditsImg;
         public Text CreditsTxt;
         public Image DiamondsImg;
         public Text DiamondsTxt;
+        public Image QuestionImg;
         public Text ChestTitleTxt;
-        public List<Text> ChestCountTxt;
-        public List<Text> ChestPriceTxt;
+        public List<Image> ChestIconImgList;
+        public List<Text> ChestCountTxtList;
+        public List<Text> ChestPriceTxtList;
         public Text DiamondsTitleTxt;
-        public List<Text> PlatinumCountTxt;
-        public List<Text> PlatinumPriceTxt;
+        public List<Image> DiamondIconImgList;
+        public List<Text> DiamondCountTxtList;
+        public List<Text> DiamondPriceTxtList;
         public Text CreditsTitleTxt;
-        public List<Text> CreditsCountTxt;
-        public List<Text> CreditsPriceTxt;
+        public List<Image> CreditsIconImgList;
+        public List<Text> CreditsCountTxtList;
+        public List<Text> CreditsPriceTxtList;
     }
 }
 

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace CycladeUI.UIBindingSystem
+namespace CycladeBindings
 {
     public class BindingGenerator : MonoBehaviour
     {
-        public string generatedPath = $"Scripts/GeneratedUiBindings";
-        public string generatedName = $"TestBinding";
+        public string additionalFolderPath = $"";
+        public string bindPostfix = $"Binding";
         public string bindTitle = "[Bind]";
         public string bindArrTitle = "[BindArr]";
     }

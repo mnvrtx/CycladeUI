@@ -47,10 +47,10 @@ namespace CycladeUIEditor
             }
             else
             {
-                var globalSettings = EditorCommon.FindScriptableObjects<GlobalPopupSystemSettings>();
-                if (globalSettings.Length > 0)
+                var globalSettings = EditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
+                if (globalSettings != null)
                 {
-                    serializedObject.FindProperty("globalSettings").objectReferenceValue = globalSettings[0];
+                    serializedObject.FindProperty("globalSettings").objectReferenceValue = globalSettings;
                     ApplyModified(settings);
                 }
                 else
@@ -99,7 +99,6 @@ namespace CycladeUIEditor
                 foreach (var entry in _notFoundPopups) 
                     GUILayout.Label($"\"{PopupInfo.ToShortString(entry.typeFullName)}\" prefab not found. Please add it to the Resources folder.", _editorCommon.RichLabel);
             }
-
 
             if (e.commandName == "UndoRedoPerformed")
                 ScanAvailablePopups(settings);

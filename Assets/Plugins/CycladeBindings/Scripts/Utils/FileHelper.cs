@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Text;
-using CycladeUI.Utils.Logging;
+using CycladeBindings.Utils.Logging;
 
-namespace CycladeUI.Utils
+namespace CycladeBindings.Utils
 {
     public static class FileHelper
     {
