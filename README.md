@@ -1,4 +1,4 @@
-## CycladeUI (work in progress)
+## CycladeUI (not ready for use yet, work in progress)
 
 ![Example Image](imgTutorial/example.png)
 
