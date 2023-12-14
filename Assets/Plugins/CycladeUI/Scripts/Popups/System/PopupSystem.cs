@@ -314,7 +314,7 @@ namespace CycladeUI.Popups.System
                 }
                 else
                 {
-                    throw new Exception($"Popup {type.Name}({load.assetPath}) isn't loaded.");
+                    throw new Exception($"Popup {type.Name}({load.assetPath}) is not loaded.");
                 }
             }
 
