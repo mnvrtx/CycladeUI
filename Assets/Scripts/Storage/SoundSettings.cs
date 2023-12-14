@@ -1,6 +1,6 @@
 ﻿using CycladeStorage;
 
-namespace Solonity.UnityDef.Storage
+namespace CycladeUIExample.Storage
 {
     public class SoundSettings : IStorageSection
     {

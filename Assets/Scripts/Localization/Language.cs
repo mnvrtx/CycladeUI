@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 
-//should be this namespace
-namespace CycladeLocalization.Definition
+namespace CycladeLocalization.Definition //should be this namespace
 {
     public enum Language
     {
