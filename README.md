@@ -95,6 +95,8 @@ This library is intended for automatically setting references in MonoBehaviour. 
    ```csharp
    Localization.Get(Area.General, "subscriptionDescription")
    ```
+7. For updating texts, use `Cyclade/Localization/Update "localization.json" files from Google Sheet`.
+8. To test LocalizationSetters, use `Cyclade/Windows/LocalizationVisualizer`.
 
 ## **CycladeStorage**<br>
 #### **HOW TO USE**
