@@ -63,13 +63,17 @@ This library is intended for automatically setting references in MonoBehaviour. 
 ![Example Image](imgTutorial/howToUseBindingsSystem.png)
 
 ## **CycladeLocalization**<br>
-#### **HOW TO USE**
+#### **HOW TO SETUP**
 
 1. **Create a Service Account**: Follow the instructions provided at [Google Workspace Guide](https://developers.google.com/workspace/guides/create-credentials#service-account) to create a service account.
 2. **Download Credential JSON**: After creating the service account, download the credential JSON file. Replace the existing file at `Assets/Editor/CycladeSettings/google_sheets_credential.json` with the downloaded JSON file.
 3. **Set Up Your Own Google Sheet**: Create a Google Sheet similar to the example provided here: [Example Google Sheet](https://docs.google.com/spreadsheets/d/1nruYmakNshqGqtoV4K-Y1zpkEgewEUswqwcvvx8tDQA/edit?usp=sharing).
 4. **Update the Sheet ID**: Locate the `sheet_id` in `Assets/Editor/CycladeSettings/sheet_info.json` and replace it with the ID of your new sheet. For instance, the `sheet_id` for the example sheet is `1nruYmakNshqGqtoV4K-Y1zpkEgewEUswqwcvvx8tDQA`.
-5. **Ensure Enumerations for Area and Language Exist**:
+5. **Setup**: Look at [static entry point](https://github.com/mnvrtx/CycladeUI/blob/main/Assets/Scripts/StaticEntryPoint.cs). You need to add your own StaticEntryPoint and call Setup there.
+
+#### **HOW TO USE**
+
+1. **Ensure Enumerations for Area and Language Exist**:
 
 ```csharp
   // !Your code should contain the following enumerations in the specified namespace:
@@ -91,16 +95,17 @@ This library is intended for automatically setting references in MonoBehaviour. 
    }
 ```
 
-6. **Implement Localization**: Utilize localization as demonstrated in the methods `ExampleController.U_ShowNonClosableByClickOnBack` or the GameObject `LocalizationTest` in `ExampleScene`. For example:
+2. **Use Localization**: Utilize localization as demonstrated in the methods `ExampleController.U_ShowNonClosableByClickOnBack` or the GameObject `LocalizationTest` in `ExampleScene`. For example:
    ```csharp
    Localization.Get(Area.General, "subscriptionDescription")
    ```
-7. For updating texts, use `Cyclade/Localization/Update "localization.json" files from Google Sheet`.
-8. To test LocalizationSetters, use `Cyclade/Windows/LocalizationVisualizer`.
+3. **Change texts**: For updating texts, use `Cyclade/Localization/Update "localization.json" files from Google Sheet`.
+4. **Tests**: To test LocalizationSetters, use `Cyclade/Windows/LocalizationVisualizer`.
 
 ## **CycladeStorage**<br>
 #### **HOW TO USE**
-Use code similar to the following example:
+1. Look at [static entry point](https://github.com/mnvrtx/CycladeUI/blob/main/Assets/Scripts/StaticEntryPoint.cs). You can add a line with debugging to your StaticEntryPoint.
+2. Use code similar to the following example:
 ```csharp
 
     public class SoundSettings : IStorageSection
