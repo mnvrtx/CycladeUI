@@ -44,7 +44,7 @@ namespace CycladeLocalizationEditor.Editor
             if (allLocalizationSetters.Count == 0)
                 return;
 
-            GUILayout.Label($"{string.Join(",\n", allLocalizationSetters.Select(q => $"  {q.gameObject.GetFullPath(2)} – {q.area}({q.SelectedEditorLanguage})"))}", EditorStyles.label);
+            GUILayout.Label($"{string.Join(",\n", allLocalizationSetters.Select(q => $"  {q.gameObject.GetFullPath(2)} – {q.area}({q.SelectedEditorLanguage.Value})"))}", EditorStyles.label);
 
             EditorGUILayout.BeginHorizontal();
 
