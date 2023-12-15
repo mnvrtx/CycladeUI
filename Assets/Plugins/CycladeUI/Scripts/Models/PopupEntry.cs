@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using CycladeBase.Utils.Logging;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CycladeUI.Models
 {
@@ -30,10 +32,22 @@ namespace CycladeUI.Models
             var foundPrefabs = Resources.LoadAll("", foundType);
             if (foundPrefabs != null && foundPrefabs.Length > 0)
             {
-                var assetPath = UnityEditor.AssetDatabase.GetAssetPath(foundPrefabs[0]);
-
+                Object foundPrefab;
                 if (foundPrefabs.Length > 1)
-                    log.Warn($"More than one prefab of type {typeFullName} found. Pick the first one: {foundPrefabs[0].name}");
+                {
+                    foundPrefab = foundPrefabs.FirstOrDefault(q => q.name.StartsWith("[MAIN]"));
+                    if (foundPrefab == null)
+                    {
+                        log.Warn($"Multiple prefabs of type {typeFullName} have been found, and none start with the [MAIN] prefix. The first one, {foundPrefabs[0].name}, will be selected.");
+                        foundPrefab = foundPrefabs[0];
+                    }
+                }
+                else
+                {
+                    foundPrefab = foundPrefabs[0];
+                }
+                
+                var assetPath = UnityEditor.AssetDatabase.GetAssetPath(foundPrefab);
 
                 return assetPath;
             }

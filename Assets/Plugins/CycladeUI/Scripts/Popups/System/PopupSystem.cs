@@ -26,6 +26,7 @@ namespace CycladeUI.Popups.System
         [SerializeField] private RectTransform backgroundTemplate;
         [SerializeField] private RectTransform active;
         [SerializeField] private PopupSystemLogicBase optionalLogic;
+        [SerializeField] private BasePopupAnimation optionalDefaultAnimation;
 
         private Canvas _canvas;
 
@@ -215,6 +216,12 @@ namespace CycladeUI.Popups.System
             var popup = Instantiate(template, holder);
             popup.PopupSystem = this;
             popup.Holder = holder;
+
+            if (popup.optionalAnimation == null && optionalDefaultAnimation != null)
+            {
+                popup.optionalAnimation = Instantiate(optionalDefaultAnimation, popup.transform);
+                popup.optionalAnimation.SetupDefaultFromPopupSystem();
+            }
 
             if (popup.needSafeArea)
                 popup.GetComponent<RectTransform>().FitInSafeArea(settings.globalSettings.debugSafeAreaSettings);

@@ -70,6 +70,8 @@ namespace CycladeUIEditor
         {
             var allAssetsAtPath = AssetDatabase.LoadAllAssetsAtPath(load.assetPath);
             var assetGo = allAssetsAtPath.Length > 0 ? allAssetsAtPath[0] as GameObject : null;
+            if (assetGo == null)
+                return null;
             assetGo.TryGetComponent(out BasePopup asset);
             return asset;
         }
