@@ -13,7 +13,7 @@ namespace CycladeLocalizationEditor.Editor
     [CanEditMultipleObjects]
     public class LocalizationSetterEditor : UnityEditor.Editor
     {
-        private readonly ClUIEditorCommon _editorCommon = new();
+        private readonly CycladeEditorCommon _editorCommon = new();
 
         private Localization _localization;
         private string[] _keys;

@@ -13,7 +13,7 @@ namespace CycladeUIEditor
     {
         public static void AnalyzeAll(Log log)
         {
-            var popupSystems = ClUIEditorCommon.FindScriptableObjects<PopupSystemSettings>();
+            var popupSystems = CycladeEditorCommon.FindScriptableObjects<PopupSystemSettings>();
             log.PrintData(string.Join(", ", popupSystems.Select(q => q.name)), "PopupSystems");
 
             foreach (var popupSystem in popupSystems) 
@@ -66,15 +66,7 @@ namespace CycladeUIEditor
             }
         }
 
-        private static BasePopup TryLoadAsset(PopupLoadEntry load)
-        {
-            var allAssetsAtPath = AssetDatabase.LoadAllAssetsAtPath(load.assetPath);
-            var assetGo = allAssetsAtPath.Length > 0 ? allAssetsAtPath[0] as GameObject : null;
-            if (assetGo == null)
-                return null;
-            assetGo.TryGetComponent(out BasePopup asset);
-            return asset;
-        }
+        private static BasePopup TryLoadAsset(PopupLoadEntry load) => AssetDatabase.LoadAssetAtPath<BasePopup>(load.assetPath);
 
         private static void Save(PopupSystemSettings settings)
         {

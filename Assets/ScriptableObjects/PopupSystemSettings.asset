@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PopupSystemSettings
   m_EditorClassIdentifier: 
   selectedPopupsSerialized:
-  - Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUIExample.Popups.ExampleShopPopup|Assets/Resources/ExampleShop.prefab|FastFollow
   - Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUIExample.Popups.MusicSettingsPopup|Assets/Resources/MusicSettings.prefab|Preload
   - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.PrefEditor.PrefEditorPopup|Assets/Plugins/CycladeUI/Resources/PrefEditor.prefab|OnDemand
   - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ChangeTextPopup|Assets/Plugins/CycladeUI/Resources/ChangeText.prefab|OnDemand
   - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.ConfirmationPopup|Assets/Plugins/CycladeUI/Resources/Confirm.prefab|OnDemand
   - CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUI.Popups.InfoPopup|Assets/Resources/[Main]
     Info.prefab|Preload
+  - Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|CycladeUIExample.Popups.Shop.ShopPopup|Assets/Resources/Shop/ShopPopup.prefab|FastFollow
   globalSettings: {fileID: 11400000, guid: ead6c0938e6e340d2a61caf9a9ca8cd6, type: 2}
   showExitDialogOnEscape: 1

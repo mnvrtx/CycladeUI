@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using CycladeBindings.Models;
 using UnityEngine;
 
 namespace CycladeBindings
@@ -8,5 +10,8 @@ namespace CycladeBindings
         public string bindPostfix = $"Binding";
         public string bindTitle = "[Bind]";
         public string bindArrTitle = "[BindArr]";
+        public string bindViewInstanceTitle = "[BindViewInstance]";
+        public string lastGeneratedPath = "";
+        public List<StatesGroup> stateGroups;
     }
 }

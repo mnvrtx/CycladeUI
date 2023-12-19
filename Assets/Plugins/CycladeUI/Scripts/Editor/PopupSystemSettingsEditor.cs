@@ -17,7 +17,7 @@ namespace CycladeUIEditor
     {
         private static readonly Log log = new(nameof(PopupSystemSettingsEditor));
 
-        private readonly ClUIEditorCommon _editorCommon = new();
+        private readonly CycladeEditorCommon _editorCommon = new();
         private readonly Dictionary<string, PopupEntryData> _cachedAssets = new();
 
         [NonSerialized] private readonly List<PopupLoadEntry> _availablePopupsToAdd = new();
@@ -48,7 +48,7 @@ namespace CycladeUIEditor
             }
             else
             {
-                var globalSettings = ClUIEditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
+                var globalSettings = CycladeEditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
                 if (globalSettings != null)
                 {
                     serializedObject.FindProperty("globalSettings").objectReferenceValue = globalSettings;

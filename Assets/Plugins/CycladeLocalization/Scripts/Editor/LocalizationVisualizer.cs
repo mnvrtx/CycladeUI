@@ -17,7 +17,7 @@ namespace CycladeLocalizationEditor.Editor
         }
 
         private Enum[] _langs;
-        private readonly ClUIEditorCommon _editorCommon = new();
+        private readonly CycladeEditorCommon _editorCommon = new();
         private Type _areaType;
 
         private void OnEnable()
@@ -33,12 +33,12 @@ namespace CycladeLocalizationEditor.Editor
             if (_areaType == null) 
                 _areaType = EnumTypeHelper.FindArea();
 
-            var scene = ClUIEditorCommon.GetSceneState(out var prefabStage);
+            var scene = CycladeEditorCommon.GetSceneState(out var prefabStage);
 
             var scTypeName = prefabStage != null ? "prefab" : "scene";
             GUILayout.Label($"Selected {scTypeName} \"{scene.name}\".", EditorStyles.largeLabel);
 
-            var allLocalizationSetters = ClUIEditorCommon.FindAllFromScene<LocalizationSetter>(scene);
+            var allLocalizationSetters = CycladeEditorCommon.FindAllFromScene<LocalizationSetter>(scene);
             GUILayout.Label($"Localization setters count in {scTypeName}: {allLocalizationSetters.Count}", EditorStyles.boldLabel);
 
             if (allLocalizationSetters.Count == 0)
