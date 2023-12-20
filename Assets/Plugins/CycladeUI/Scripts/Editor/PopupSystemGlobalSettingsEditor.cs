@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using CycladeBase.Utils.Logging;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
 using UnityEditor;

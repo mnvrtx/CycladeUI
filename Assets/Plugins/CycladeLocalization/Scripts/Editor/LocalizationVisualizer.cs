@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
 using CycladeBase.Utils;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeLocalization;
 using UnityEditor;
 using UnityEngine;
 
-namespace CycladeLocalizationEditor.Editor
+namespace CycladeLocalizationEditor
 {
     public class LocalizationVisualizer : EditorWindow
     {

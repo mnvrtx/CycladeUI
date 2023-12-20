@@ -1,6 +1,6 @@
 using CycladeBindings.Models;
 
-namespace CycladeBindingsEditor.Editor
+namespace CycladeBindingsEditor
 {
     public class BindingFieldInfo
     {

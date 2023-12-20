@@ -1,13 +1,11 @@
 using System;
-using System.Linq;
-using CycladeBase.Utils;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeLocalization;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-namespace CycladeLocalizationEditor.Editor
+namespace CycladeLocalizationEditor
 {
     [CustomEditor(typeof(LocalizationSetter))]
     [CanEditMultipleObjects]

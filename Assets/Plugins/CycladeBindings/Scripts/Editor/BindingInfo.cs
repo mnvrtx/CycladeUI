@@ -1,6 +1,6 @@
 using System;
 
-namespace CycladeBindingsEditor.Editor
+namespace CycladeBindingsEditor
 {
     public class BindingInfo
     {

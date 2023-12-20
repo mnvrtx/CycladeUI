@@ -187,5 +187,32 @@ namespace CycladeBase.Utils
             toRt.localScale = referenceRt.localScale;
             toRt.sizeDelta = referenceRt.sizeDelta;
         }
+        
+        public static T GetPrivateOrOtherField<T>(this object obj, string name)
+        {
+            // Set the flags so that private and public fields from instances will be found
+            var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+            var field = obj.GetType().GetField(name, bindingFlags);
+            return (T)field?.GetValue(obj);
+        }
+        
+        public static T GetPrivateOrOtherProp<T>(this object obj, string name)
+        {
+            // Set the flags so that private and public fields from instances will be found
+            var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+            var prop = obj.GetType().GetProperty(name, bindingFlags);
+            return (T)prop?.GetValue(obj);
+        }
+        
+        public static void IterateOverMeAndChildren(GameObject obj, Action<GameObject> iterationAct, Func<GameObject, bool> needToGoDeepFunc)
+        {
+            iterationAct.Invoke(obj);
+
+            if (!needToGoDeepFunc.Invoke(obj))
+                return;
+
+            foreach (Transform child in obj.transform)
+                IterateOverMeAndChildren(child.gameObject, iterationAct, needToGoDeepFunc);
+        }
     }
 }

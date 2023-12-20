@@ -1,6 +1,6 @@
 using System;
 
-namespace CycladeUI.Models
+namespace CycladeBase.Models
 {
     [Serializable]
     public class DebugSafeAreaSettings

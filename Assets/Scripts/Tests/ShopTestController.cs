@@ -1,3 +1,4 @@
+using CycladeUI;
 using CycladeUIExample.Models;
 using CycladeUIExample.Popups.Shop;
 using UnityEngine;
@@ -6,12 +7,11 @@ namespace CycladeUIExample.Tests
 {
     public class ShopTestController : MonoBehaviour
     {
-        [SerializeField] private ShopPopup popup;
-
+        [SerializeField] private UITestController testController;
 
         private void Awake()
         {
-            popup.Initialize(ProductsData.GetMock());
+            testController.StartTest<ShopPopup>().Initialize(ProductsData.GetMock());
         }
     }
 }

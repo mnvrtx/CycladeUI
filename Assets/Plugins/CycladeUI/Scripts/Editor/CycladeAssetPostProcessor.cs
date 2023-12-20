@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using CycladeBase.Utils.Logging;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeUI.ScriptableObjects;
 using UnityEditor;
 

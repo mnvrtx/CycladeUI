@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CycladeBase.Utils;
 using CycladeBase.Utils.Logging;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeUI.Models;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;

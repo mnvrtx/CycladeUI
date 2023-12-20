@@ -20,6 +20,7 @@ namespace CycladeUI.Popups.System
         public bool needBackground = true;
         public Color backgroundColor = new(0f, 0f, 0f, 0.74f);
         public bool needSafeArea = true;
+        public RectTransform optionalOutsideSafeArea;
 
         public ClSubscriptionHandlers OnClose = new();
 

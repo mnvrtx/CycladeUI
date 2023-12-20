@@ -1,11 +1,11 @@
 using System.Linq;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeBindings;
 using CycladeBindings.UIStateSystem.Elements;
 using UnityEditor;
 using UnityEngine;
 
-namespace CycladeBindingsEditor.Editor.UIStateSystem
+namespace CycladeBindingsEditor.UIStateSystem
 {
     [CustomEditor(typeof(SelectableImage))]
     public class SelectableImageEditor : UnityEditor.Editor

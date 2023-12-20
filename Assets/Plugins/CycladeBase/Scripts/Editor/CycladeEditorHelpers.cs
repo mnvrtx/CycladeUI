@@ -3,7 +3,7 @@ using CycladeBase.Utils.Logging;
 using UnityEditor;
 using UnityEngine;
 
-namespace CycladeBaseEditor.Editor
+namespace CycladeBaseEditor
 {
     public static class CycladeEditorHelpers
     {

@@ -2,7 +2,7 @@ using CycladeBindings.UIStateSystem.Base;
 using CycladeBindings.UIStateSystem.Elements;
 using UnityEditor;
 
-namespace CycladeBindingsEditor.Editor.UIStateSystem
+namespace CycladeBindingsEditor.UIStateSystem
 {
     [CustomEditor(typeof(ActivatableGameObject))]
     public class ActivatableGameObjectEditor : BaseActivatableStateEditor

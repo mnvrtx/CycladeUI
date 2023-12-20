@@ -2,16 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CycladeBase.Utils;
+using CycladeBaseEditor;
 using CycladeBindings;
 using CycladeBindings.UIStateSystem.Base;
-using CycladeBindingsEditor.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-namespace CycladeBaseEditor.Editor
+namespace CycladeBindingsEditor
 {
     public class UIStateSystemWindowEditor : EditorWindow
     {
@@ -33,25 +31,83 @@ namespace CycladeBaseEditor.Editor
 
         private readonly CycladeEditorCommon _editorCommon = new();
         private Vector2 _scrollView = Vector2.zero;
+        
+        [NonSerialized] private Scene _sceneCache;
+        [NonSerialized] private object _bindComponent;
+        [NonSerialized] private Type _bindingType;
+        [NonSerialized] private readonly HashSet<BaseStatefulElement> _statefulElementsInBindings = new();
 
-        [SerializeField] private int selectedGroup;
         [SerializeField] private List<GroupIndexData> selectedGroupIndexes;
+        
+        private readonly List<BaseStatefulElement> _foundStatefulElements = new();
+        private readonly List<BaseStatefulElement> _statefulElementsCache = new();
 
         private void OnGUI()
         {
             var scene = CycladeEditorCommon.GetSceneState(out var prefabStage);
             if (prefabStage == null)
-                return; //todo: description
-            
-            _scrollView = GUILayout.BeginScrollView(_scrollView);
+            {
+                EditorGUILayout.HelpBox($"Testing states is only possible in an open prefab, and the prefab must not be a prefab variant.", MessageType.Info);
+                return;
+            }
             
             GUILayout.Label($"Selected prefab \"{prefabStage.scene.name}\".", EditorStyles.largeLabel);
 
-            var elementStates = CycladeEditorCommon.FindAllFromScene<BaseStatefulElement>(scene, true);
             var bindingSettings = prefabStage.prefabContentsRoot.GetComponent<BindingGenerator>();
-            
+
             if (bindingSettings == null)
-                return; //todo: description
+            {
+                EditorGUILayout.HelpBox($"Not found binding settings", MessageType.Warning);
+                return;
+            }
+
+            _foundStatefulElements.Clear();
+            CycladeHelpers.IterateOverMeAndChildren(bindingSettings.gameObject, go =>
+            {
+                go.GetComponents(_statefulElementsCache);
+                if (_statefulElementsCache.Count == 0)
+                    return;
+
+                _foundStatefulElements.AddRange(_statefulElementsCache);
+            }, o => !PrefabUtility.IsAnyPrefabInstanceRoot(o));
+            
+            if (_foundStatefulElements.Count == 0)
+            {
+                EditorGUILayout.HelpBox($"Not found stateful elements", MessageType.Info);
+                return;
+            }
+
+            if (_sceneCache != scene)
+            {
+                BindingGeneratorEditor.TryFindType(bindingSettings, out _bindingType);
+                _bindComponent = bindingSettings.GetComponent(_bindingType);
+                _sceneCache = scene;
+            }
+
+            {
+                var statefulElements = _bindComponent.GetPrivateOrOtherField<List<BaseStatefulElement>>("statefulElements");
+                if (statefulElements != null)
+                {
+                    _statefulElementsInBindings.Clear();
+                    foreach (var el in statefulElements)
+                    {
+                        if (el == null)
+                            continue;
+                        _statefulElementsInBindings.Add(el);
+                    }
+
+                    foreach (var statefulElement in _foundStatefulElements)
+                    {
+                        if (_statefulElementsInBindings.Contains(statefulElement))
+                            continue;
+
+                        GUILayout.Label($"<color=red>Not found {statefulElement.GetType().Name} statefulElement in binding.</color> Please, press \"Update bindings\".", _editorCommon.RichBoldLabel);
+                    }    
+                }
+            }
+
+            _scrollView = GUILayout.BeginScrollView(_scrollView);
+
 
             bool changed = false;
             
@@ -82,7 +138,7 @@ namespace CycladeBaseEditor.Editor
 
             if (GUILayout.Button("Force Re-apply state") || changed)
             {
-                foreach (var elementState in elementStates)
+                foreach (var elementState in _foundStatefulElements)
                 {
                     if (elementState is BaseActivatableState baseActivatableState)
                     {

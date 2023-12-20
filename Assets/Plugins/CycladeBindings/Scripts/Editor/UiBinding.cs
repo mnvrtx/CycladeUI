@@ -7,13 +7,12 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace CycladeBindingsEditor.Editor
+
+using System.Collections.Generic;
+using CycladeBindings.Models;
+
+namespace CycladeBindingsEditor
 {
-    using System.Collections.Generic;
-    using CycladeBindingsEditor.Editor;
-    using CycladeBindings.Models;
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>

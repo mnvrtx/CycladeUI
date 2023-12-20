@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
-namespace CycladeBaseEditor.Editor
+namespace CycladeBaseEditor
 {
     public class CycladeEditorCommon
     {

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using CycladeBase.Utils;
 using CycladeBase.Utils.Logging;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeBindings;
 using CycladeBindings.Models;
 using CycladeBindings.ScriptableObjects;
@@ -16,7 +16,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace CycladeBindingsEditor.Editor
+namespace CycladeBindingsEditor
 {
     [CustomEditor(typeof(BindingGenerator))]
     public class BindingGeneratorEditor : UnityEditor.Editor
@@ -256,7 +256,7 @@ namespace CycladeBindingsEditor.Editor
         {
             var namesHashSet = new HashSet<string>();
 
-            IterateOverMeAndChildren(settings.gameObject, go =>
+            CycladeHelpers.IterateOverMeAndChildren(settings.gameObject, go =>
             {
                 if (go.name.StartsWith(settings.bindTitle))
                     ProcessBind(settings, go, null, namesHashSet, BindMode.Simple, false);
@@ -287,7 +287,7 @@ namespace CycladeBindingsEditor.Editor
 
             var namesHashSet = new HashSet<string>();
 
-            IterateOverMeAndChildren(settings.gameObject, go =>
+            CycladeHelpers.IterateOverMeAndChildren(settings.gameObject, go =>
             {
                 if (go.name.StartsWith(settings.bindTitle))
                     ProcessBind(settings, go, fields, namesHashSet, BindMode.Simple, true);
@@ -330,17 +330,6 @@ namespace CycladeBindingsEditor.Editor
             var prefabRoot = prefabStage.prefabContentsRoot;
             PrefabUtility.SaveAsPrefabAsset(prefabRoot, prefabStage.assetPath);
             PrefabStageUtility.GetCurrentPrefabStage().ClearDirtiness();
-        }
-
-        private static void IterateOverMeAndChildren(GameObject obj, Action<GameObject> iterationAct, Func<GameObject, bool> needToGoDeepFunc)
-        {
-            iterationAct.Invoke(obj);
-
-            if (!needToGoDeepFunc.Invoke(obj))
-                return;
-
-            foreach (Transform child in obj.transform)
-                IterateOverMeAndChildren(child.gameObject, iterationAct, needToGoDeepFunc);
         }
 
         private string GetFullPath(BindingGenerator settings, bool skipStart)
@@ -493,7 +482,7 @@ namespace CycladeBindingsEditor.Editor
                 if (!_isClearMode)
                 {
                     var list = new List<BaseStatefulElement>();
-                    IterateOverMeAndChildren(settings.gameObject, go =>
+                    CycladeHelpers.IterateOverMeAndChildren(settings.gameObject, go =>
                     {
                         var components = go.GetComponents<BaseStatefulElement>();
                         foreach (var statefulElement in components)
@@ -627,7 +616,7 @@ namespace CycladeBindingsEditor.Editor
             }
         }
 
-        private static bool TryFindType(BindingGenerator settings, out Type type)
+        public static bool TryFindType(BindingGenerator settings, out Type type)
         {
             var types = CycladeHelpers.FindTypesWith(t => t.Name == GetBindingName(settings) && t.IsSubclassOf(typeof(MonoBehaviour)));
             if (types.Count == 0)

@@ -5,7 +5,7 @@ using CycladeBindings.UIStateSystem.Base;
 using UnityEditor;
 using UnityEngine;
 
-namespace CycladeBindingsEditor.Editor.UIStateSystem
+namespace CycladeBindingsEditor.UIStateSystem
 {
     public abstract class BaseActivatableStateEditor : UnityEditor.Editor
     {
