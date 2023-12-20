@@ -57,7 +57,7 @@ namespace CycladeUI.Popups.PrefEditor
         {
             foreach (var element in prefElements.Instances)
             {
-                // element.type.GetSelected<PrefBaseChange>().ResetProperty(); //TODO
+                element.type.GetSelected<PrefBaseChange>().ResetProperty();
             }
         }
 
@@ -104,8 +104,7 @@ namespace CycladeUI.Popups.PrefEditor
                 case "Enum":
                 {
                     var element = prefElements.GetNew();
-                    // var pref = element.type.SelectAndGet<PrefEnumChange>("enum");
-                    var pref = new PrefEnumChange(); //TODO
+                    var pref = element.type.SelectAndGet<PrefEnumChange>(PrefElement.Enum);
                     
                     pref.Obj = obj;
                     pref.FieldInfo = fieldInfo;
@@ -172,8 +171,7 @@ namespace CycladeUI.Popups.PrefEditor
                 case "System.Boolean":
                 {
                     var element = prefElements.GetNew();
-                    // var pref = element.type.SelectAndGet<PrefBoolChange>("bool"); //TODO
-                    var pref = new PrefBoolChange();
+                    var pref = element.type.SelectAndGet<PrefBoolChange>(PrefElement.Bool);
                     pref.title.text = propName;
                     pref.SetFlag((bool)val);
                     
@@ -193,8 +191,7 @@ namespace CycladeUI.Popups.PrefEditor
             )
         {
             var element = prefElements.GetNew();
-            // var pref = element.type.SelectAndGet<PrefValueChange>("value");
-            var pref = new PrefValueChange(); //TODO
+            var pref = element.type.SelectAndGet<PrefValueChange>(PrefElement.Value);
             pref.title.text = propName;
             var strVal = val.ToString();
             pref.input.text = strVal;
