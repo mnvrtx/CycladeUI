@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UtilsModule.View.UI.Switchers
+namespace CycladeUI.Popups.PrefEditor.Utils
 {
     public class SelectableImage : BaseSwitcher
     {

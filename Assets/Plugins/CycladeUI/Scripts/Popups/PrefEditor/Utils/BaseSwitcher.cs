@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UtilsModule.View.UI.Switchers
+namespace CycladeUI.Popups.PrefEditor.Utils
 {
     public abstract class BaseSwitcher : MonoBehaviour
     {

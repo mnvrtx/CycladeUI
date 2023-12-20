@@ -1,5 +1,5 @@
+using CycladeUI.Popups.PrefEditor.Utils;
 using UnityEngine;
-using UtilsModule.View.UI.Switchers;
 
 namespace CycladeUI.Popups.PrefEditor
 {
