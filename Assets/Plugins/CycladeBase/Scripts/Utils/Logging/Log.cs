@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CycladeBase.Utils.Logging
 {
@@ -38,6 +40,7 @@ namespace CycladeBase.Utils.Logging
             QueueMode = queueMode;
         }
 
+        [HideInCallstack]
         public void PrintData(string o, string name = "Data")
         {
             if (!IsDebug)
@@ -46,15 +49,17 @@ namespace CycladeBase.Utils.Logging
             LogInternal(LogType.Log, $"[D] {_tag} {name}: {o}");
         }
 
-        public void Trace(string s)
+        [HideInCallstack]
+        public void Trace(string s, Object optionalObjForPing = null)
         {
             if (!IsDebug)
                 return;
 
-            LogInternal(LogType.Log, $"[T] {_tag}{s}");
+            LogInternal(LogType.Log, $"[T] {_tag}{s}", optionalObjForPing);
         }
 
-        public void Debug(string s, bool force = false)
+        [HideInCallstack]
+        public void Debug(string s, bool force = false, Object optionalObjForPing = null)
         {
             if (!force)
             {
@@ -62,36 +67,42 @@ namespace CycladeBase.Utils.Logging
                     return;
             }
 
-            LogInternal(LogType.Log, $"[D] {_tag}{s}");
+            LogInternal(LogType.Log, $"[D] {_tag}{s}", optionalObjForPing);
         }
 
-        public void Info(string s) => LogInternal(LogType.Log, $"{_tag}{s}");
+        [HideInCallstack]
+        public void Info(string s, Object optionalObjForPing = null) => LogInternal(LogType.Log, $"{_tag}{s}", optionalObjForPing:optionalObjForPing);
 
-        public void Warn(string s) => LogInternal(LogType.Warn, $"{_tag}{s}");
+        [HideInCallstack]
+        public void Warn(string s, Object optionalObjForPing = null) => LogInternal(LogType.Warn, $"{_tag}{s}", optionalObjForPing:optionalObjForPing);
 
-        public void Error(string s) => LogInternal(LogType.Error, $"{_tag}{s}");
+        [HideInCallstack]
+        public void Error(string s, Object optionalObjForPing = null) => LogInternal(LogType.Error, $"{_tag}{s}", optionalObjForPing:optionalObjForPing);
+        
+        [HideInCallstack]
+        public void Fatal(string s, Object optionalObjForPing = null) => LogInternal(LogType.Error, $"[FATAL] {_tag}{s}", optionalObjForPing:optionalObjForPing);
 
-        public void Fatal(string s) => LogInternal(LogType.Error, $"[FATAL] {_tag}{s}");
+        [HideInCallstack]
+        public void Exception(Exception ex, Object optionalObjForPing = null) => LogInternal(LogType.Exception, ex, optionalObjForPing:optionalObjForPing);
 
-        public void Exception(Exception ex) => LogInternal(LogType.Exception, ex);
-
-        public void LogInternal(LogType type, object info, bool forceInstantPrint = false)
+        [HideInCallstack]
+        private void LogInternal(LogType type, object info, bool forceInstantPrint = false, Object optionalObjForPing = null)
         {
             if (!QueueMode || forceInstantPrint)
             {
                 switch (type)
                 {
                     case LogType.Log:
-                        UnityEngine.Debug.Log(info);
+                        UnityEngine.Debug.Log(info, optionalObjForPing);
                         break;
                     case LogType.Warn:
-                            UnityEngine.Debug.LogWarning(info);
+                        UnityEngine.Debug.LogWarning(info, optionalObjForPing);
                         break;
                     case LogType.Error:
-                        UnityEngine.Debug.LogError(info);
+                        UnityEngine.Debug.LogError(info, optionalObjForPing);
                         break;
                     case LogType.Exception:
-                        UnityEngine.Debug.LogException((Exception)info);
+                        UnityEngine.Debug.LogException((Exception)info, optionalObjForPing);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -124,6 +135,7 @@ namespace CycladeBase.Utils.Logging
 #endif
         }
 
+        [HideInCallstack]
         public void DequeueAllLogs(string deferredTitle = "Deferred")
         {
             var haveQueue = _queue.Count > 0;

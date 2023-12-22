@@ -1,5 +1,5 @@
+using CycladeBase.Models;
 using CycladeBase.Utils.Logging;
-using CycladeUI.Models;
 using UnityEngine;
 
 namespace CycladeBase.Utils

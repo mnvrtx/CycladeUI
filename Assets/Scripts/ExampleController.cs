@@ -6,7 +6,9 @@ using CycladeLocalization;
 using CycladeLocalization.Definition;
 using CycladeUI.Popups.PrefEditor;
 using CycladeUI.Popups.System;
+using CycladeUIExample.Models;
 using CycladeUIExample.Popups;
+using CycladeUIExample.Popups.Shop;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -57,9 +59,9 @@ namespace CycladeUIExample
 
         public void U_ShowTestPopup()
         {
-            popupSystem.ShowFastFollowPopup<ExampleShopPopup>(p =>
+            popupSystem.ShowFastFollowPopup<ShopPopup>(p =>
             {
-                p.Initialize(new object());
+                p.Initialize(ProductsData.GetMock());
                 p.OnClose.Subscribe(() =>
                 {
                     log.Info("ExampleShopPopup closed");

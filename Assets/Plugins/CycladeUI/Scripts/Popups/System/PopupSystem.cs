@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using CycladeBase.Models;
 using CycladeBase.Utils;
 using CycladeBase.Utils.Logging;
 using CycladeUI.Models;
@@ -41,7 +42,7 @@ namespace CycladeUI.Popups.System
 
             if (settings == null)
             {
-                log.Error($"Not initialized. Settings is not set");
+                log.Info($"Settings are null. Ensure that you are not in the test scene.");
                 return;
             }
 
@@ -205,8 +206,27 @@ namespace CycladeUI.Popups.System
             var type = typeof(T);
 
             var template = GetTemplate(type);
+            var popupName = type.Name;
 
-            var holder = new GameObject($"{type.Name}", typeof(RectTransform)).GetComponent<RectTransform>();
+            var popup = ShopPopupInternal(popupName, template, settings.globalSettings.debugSafeAreaSettings, onClose);
+            
+            var typedPopup = (T)popup;
+            log.Debug($"Show popup {popupName}", isNeedToLogInfo);
+            try
+            {
+                onCreate?.Invoke(typedPopup);
+            }
+            catch (Exception e)
+            {
+                log.Exception(e);
+            }
+            
+            return typedPopup;
+        }
+
+        internal BasePopup ShopPopupInternal(string popupName, BasePopup template, DebugSafeAreaSettings testSafeArea, Action onClose = null)
+        {
+            var holder = new GameObject(popupName, typeof(RectTransform)).GetComponent<RectTransform>();
             holder.SetParent(active, false);
             holder.anchorMin = Vector2.zero;
             holder.anchorMax = Vector2.one;
@@ -224,7 +244,15 @@ namespace CycladeUI.Popups.System
             }
 
             if (popup.needSafeArea)
-                popup.GetComponent<RectTransform>().FitInSafeArea(settings.globalSettings.debugSafeAreaSettings);
+                popup.GetComponent<RectTransform>().FitInSafeArea(testSafeArea);
+            
+            if (popup.optionalOutsideSafeArea)
+            {
+                popup.optionalOutsideSafeArea.SetParent(holder);
+                popup.optionalOutsideSafeArea.ToInitial();
+                popup.optionalOutsideSafeArea.SetParentImitate();
+                popup.optionalOutsideSafeArea.SetAsFirstSibling();
+            }
 
             if (popup.needBackground)
             {
@@ -256,20 +284,12 @@ namespace CycladeUI.Popups.System
                         p.SetActiveDelayed.Begin(animationDelay, false);
                 }
             }
+            
+            popup.SetActive(true);
 
             _stack.Add(popup);
-
-            var typedWindow = (T)popup;
-            log.Debug($"Show popup {holder.name}", isNeedToLogInfo);
-            try
-            {
-                onCreate?.Invoke(typedWindow);
-            }
-            catch (Exception e)
-            {
-                log.Exception(e);
-            }
-            return typedWindow;
+            
+            return popup;
         }
 
         private void Update()
@@ -302,6 +322,9 @@ namespace CycladeUI.Popups.System
 
         private void ThrowIfNotRegistered(Type type)
         {
+            if (settings == null)
+                throw new Exception($"Popups cannot be opened in test mode.");
+
             if (!_entries.ContainsKey(type))
                 throw new Exception($"Not found {type.Name}. Please add it in PopupSettings scriptable object");
         }

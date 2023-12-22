@@ -56,7 +56,9 @@ namespace CycladeUI.Popups.PrefEditor
         public void ResetProps()
         {
             foreach (var element in prefElements.Instances)
+            {
                 element.type.GetSelected<PrefBaseChange>().ResetProperty();
+            }
         }
 
         private void UpdateExpanded()

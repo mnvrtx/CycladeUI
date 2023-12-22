@@ -771,6 +771,7 @@ MonoBehaviour:
   needBackground: 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.74}
   needSafeArea: 1
+  optionalOutsideSafeArea: {fileID: 0}
   title: {fileID: 2028706014834819247}
   prefBlocks:
     template: {fileID: 6832555451476904641}
@@ -2092,7 +2093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: {fileID: 6832555452360532575}
-  enabledImage: {fileID: 4466976047670685699}
+  enabledImage: {fileID: 3535125047163184820}
 --- !u!114 &1526546838465872511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2137,8 +2138,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4466976047670685699}
-        m_TargetAssemblyTypeName: CycladeUI.Utils.Switchers.SelectableImage, CycladeUI
+      - m_Target: {fileID: 3535125047163184820}
+        m_TargetAssemblyTypeName: UtilsModule.View.UI.Switchers.SelectableImage,
+          CycladeUI
         m_MethodName: Flip
         m_Mode: 1
         m_Arguments:
@@ -3310,7 +3312,7 @@ GameObject:
   - component: {fileID: 6832555452282123421}
   - component: {fileID: 6832555452282123410}
   - component: {fileID: 6832555452282123411}
-  - component: {fileID: 4466976047670685699}
+  - component: {fileID: 3535125047163184820}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -3395,7 +3397,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &4466976047670685699
+--- !u!114 &3535125047163184820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3404,7 +3406,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6832555452282123414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1306f407cb848d089e89bef7e55f5c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 25496612f7de4262ac23745c5f3c9df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   name: 
@@ -5488,7 +5490,7 @@ GameObject:
   - component: {fileID: 6832555453259707822}
   - component: {fileID: 6832555453259707816}
   - component: {fileID: 6832555453259707817}
-  - component: {fileID: 7813519507004118925}
+  - component: {fileID: 4623827301451809136}
   m_Layer: 0
   m_Name: PrefElementTemplate
   m_TagString: Untagged
@@ -5530,7 +5532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d225f7107f4e538b225ad069d1765f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 7813519507004118925}
+  type: {fileID: 4623827301451809136}
 --- !u!114 &6832555453259707817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5551,7 +5553,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7813519507004118925
+--- !u!114 &4623827301451809136
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5560,7 +5562,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6832555453259707823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d3c9476acbb450fb36e8ff539e4ba10, type: 3}
+  m_Script: {fileID: 11500000, guid: 040ae5ada18a45058033ee38649be5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   name: 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using CycladeBase.Utils.Logging;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
 using UnityEditor;
@@ -22,7 +22,7 @@ namespace CycladeUIEditor
 
         private readonly List<PopupEntryData> _foundEntryDataList = new();
 
-        private readonly ClUIEditorCommon _editorCommon = new();
+        private readonly CycladeEditorCommon _editorCommon = new();
 
         private bool _cycladeUIDebug;
 
@@ -67,11 +67,8 @@ namespace CycladeUIEditor
             serializedObject.Update();
 
             var property = serializedObject.GetIterator();
-            bool enterChildren = true;
-            while (property.NextVisible(enterChildren))
+            while (property.NextVisible(true))
             {
-                enterChildren = false;
-
                 if (property.name != "debugSafeAreaSettings")
                     continue;
 

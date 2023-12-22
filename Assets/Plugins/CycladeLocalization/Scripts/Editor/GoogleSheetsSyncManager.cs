@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace CycladeLocalizationEditor.Editor
+namespace CycladeLocalizationEditor
 {
     public class GoogleSheetsSyncManager
     {

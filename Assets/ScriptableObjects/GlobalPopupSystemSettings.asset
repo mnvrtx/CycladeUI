@@ -18,24 +18,28 @@ MonoBehaviour:
   entries:
   - type:
       assemblyName: Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      fullName: CycladeUIExample.Popups.ExampleShopPopup
-    assetPath: Assets/Resources/ExampleShop.prefab
+      fullName: CycladeUIExample.Popups.MusicSettingsPopup
+    assetPath: Assets/Resources/MusicSettings.prefab
+  - type:
+      assemblyName: Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      fullName: CycladeUIExample.Popups.Shop.ShopPopup
+    assetPath: Assets/Resources/Shop/ShopPopup.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       fullName: CycladeUI.Popups.ChangeTextPopup
-    assetPath: Assets/Resources/ChangeText.prefab
+    assetPath: Assets/Plugins/CycladeUI/Resources/ChangeText.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       fullName: CycladeUI.Popups.ConfirmationPopup
-    assetPath: Assets/Resources/Confirmation.prefab
+    assetPath: Assets/Plugins/CycladeUI/Resources/Confirm.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       fullName: CycladeUI.Popups.InfoPopup
-    assetPath: Assets/Resources/Info.prefab
+    assetPath: Assets/Resources/[MAIN] Info.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       fullName: CycladeUI.Popups.PrefEditor.PrefEditorPopup
-    assetPath: Assets/Resources/PrefEditor.prefab
+    assetPath: Assets/Plugins/CycladeUI/Resources/PrefEditor.prefab
   debugSafeAreaSettings:
     enabled: 0
     top: 20

@@ -1,19 +1,17 @@
 using System;
-using System.Linq;
-using CycladeBase.Utils;
-using CycladeBaseEditor.Editor;
+using CycladeBaseEditor;
 using CycladeLocalization;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-namespace CycladeLocalizationEditor.Editor
+namespace CycladeLocalizationEditor
 {
     [CustomEditor(typeof(LocalizationSetter))]
     [CanEditMultipleObjects]
     public class LocalizationSetterEditor : UnityEditor.Editor
     {
-        private readonly ClUIEditorCommon _editorCommon = new();
+        private readonly CycladeEditorCommon _editorCommon = new();
 
         private Localization _localization;
         private string[] _keys;
