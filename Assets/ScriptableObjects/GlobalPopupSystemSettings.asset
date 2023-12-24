@@ -35,7 +35,7 @@ MonoBehaviour:
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       fullName: CycladeUI.Popups.InfoPopup
-    assetPath: Assets/Resources/[MAIN] Info.prefab
+    assetPath: Assets/Resources/[Main] Info.prefab
   - type:
       assemblyName: CycladeUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       fullName: CycladeUI.Popups.PrefEditor.PrefEditorPopup

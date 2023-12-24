@@ -71,7 +71,7 @@ namespace CycladeLocalization
         {
             if (_locJson == null)
             {
-                throw new Exception($"Isn't loaded. Please call \"{nameof(Localization)}.{nameof(I)}.{nameof(Setup)}()\"");
+                throw new Exception($"Data were not loaded. Please call \"{nameof(Localization)}.{nameof(I)}.{nameof(Setup)}()\"");
             }
 
             return Get((Enum)Enum.Parse(_areaEnumType, areaEnum), key, errOnNotFound, keyOnNotFound);
@@ -86,7 +86,7 @@ namespace CycladeLocalization
         {
             if (_locJson == null)
             {
-                log.Error($"Isn't loaded. Please call \"{nameof(Localization)}.{nameof(I)}.{nameof(Setup)}()\"");
+                log.Error($"Data were not loaded. Please call \"{nameof(Localization)}.{nameof(I)}.{nameof(Setup)}()\"");
                 return "";
             }
 

@@ -57,7 +57,7 @@ namespace CycladeBindingsEditor
 
             if (bindingSettings == null)
             {
-                EditorGUILayout.HelpBox($"Not found binding settings", MessageType.Warning);
+                EditorGUILayout.HelpBox($"Not found binding settings", MessageType.Info);
                 return;
             }
 

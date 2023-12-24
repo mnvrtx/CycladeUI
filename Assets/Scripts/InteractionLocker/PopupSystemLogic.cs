@@ -1,7 +1,7 @@
 using CycladeUI.Popups.System;
 using UnityEngine;
 
-namespace CycladeUIExample.InteractLocker
+namespace CycladeUIExample.InteractionLocker
 {
     public class PopupSystemLogic : PopupSystemLogicBase
     {

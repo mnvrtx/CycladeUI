@@ -26,8 +26,12 @@ namespace CycladeUI.Popups.System
         [SerializeField] private PopupSystemSettings settings;
         [SerializeField] private RectTransform backgroundTemplate;
         [SerializeField] private RectTransform active;
+
         [SerializeField] private PopupSystemLogicBase optionalLogic;
+        [CycladeHelpBox("The logic is needed so that the popup system does not operate while, for example, a request is being made to the server. You can inherit from PopupSystemLogicBase and add your own logic.")] public string stub;
+        
         [SerializeField] private BasePopupAnimation optionalDefaultAnimation;
+        [CycladeHelpBox("This animation will be used if the popup does not have its own animation.")] public string stub2;
 
         private Canvas _canvas;
 
@@ -40,16 +44,16 @@ namespace CycladeUI.Popups.System
         {
             log = new Log($"{gameObject.name}");
 
-            if (settings == null)
-            {
-                log.Info($"Settings are null. Ensure that you are not in the test scene.");
-                return;
-            }
-
             _canvas = transform.root.GetComponent<Canvas>();
             if (_canvas == null)
             {
                 log.Error($"Not initialized. Root is not canvas");
+                return;
+            }
+
+            if (settings == null)
+            {
+                log.Info($"Settings are null. This can only happen if you are in a test scene – make sure of it.");
                 return;
             }
 
