@@ -8,10 +8,8 @@ using UnityEngine.UI;
 
 namespace CycladeUI
 {
-    public class GeneralUITestController : MonoBehaviour //todo: make this inheritable
+    public class GeneralUITestController : MonoBehaviour
     {
-        private static readonly Log log = new(nameof(GeneralUITestController));
-
         public BasePopup testPopupTemplate;
         [CycladeHelpBox("Set up the testPopupTemplate and press play on your test scene. You can change \"debugSafeArea\" and \"disableMock\" in play mode.")] public string stub;
 
@@ -26,8 +24,10 @@ namespace CycladeUI
         private BasePopup _popupInstance;
 
         private bool IsNeedMock => optionalMock && !debugSafeArea.enabled && !disableMock;
+        
+        private DebugSafeAreaSettings _lastDebugSafeArea;
 
-        public T ShowPopup<T>() where T : BasePopup
+        public void ShowAndDebugPopup<T>(Action<T> onCreate) where T : BasePopup
         {
             if (!popupSystem)
                 throw new Exception($"Not found popupSystem. Please set.");
@@ -36,7 +36,7 @@ namespace CycladeUI
                 throw new Exception($"Not found testPopup. Please set.");
 
             testPopupTemplate.SetActive(false);
-            _popupInstance = popupSystem.ShopPopupInternal(testPopupTemplate.name, testPopupTemplate, debugSafeArea); 
+            _popupInstance = popupSystem.ShowAndDebugPopup((T)testPopupTemplate, debugSafeArea, onCreate); 
 
             if (optionalMock)
             {
@@ -47,8 +47,6 @@ namespace CycladeUI
                 optionalMock.sprite = mockSprite;
                 optionalMock.SetActive(false);    
             }
-
-            return (T)_popupInstance;
         }
 
         private void Update()
@@ -58,7 +56,13 @@ namespace CycladeUI
                 optionalMock.SetActive(isNeedMock);
 
             if (_popupInstance)
-                _popupInstance.GetComponent<RectTransform>().FitInSafeArea(debugSafeArea);
+            {
+                if (!debugSafeArea.Equals(_lastDebugSafeArea))
+                {
+                    _popupInstance.GetComponent<RectTransform>().FitInSafeArea(debugSafeArea);
+                    _lastDebugSafeArea = debugSafeArea;
+                }
+            }
         }
     }
 }

@@ -31,7 +31,7 @@ namespace CycladeBase.Utils
             anchorMax.y /= Screen.height;
             
 #if UNITY_IOS
-            anchorMin.y /= 3;
+            anchorMin.y /= 3; ///todo: check this
 #endif
             trans.anchorMin = anchorMin;
             trans.anchorMax = anchorMax;

@@ -11,7 +11,10 @@ namespace CycladeUIExample.Tests
 
         private void Awake()
         {
-            testController.ShowPopup<ShopPopup>().Initialize(ProductsData.GetMock());
+            testController.ShowAndDebugPopup<ShopPopup>(popup =>
+            {
+                popup.Initialize(ProductsData.GetMock());
+            });
         }
     }
 }

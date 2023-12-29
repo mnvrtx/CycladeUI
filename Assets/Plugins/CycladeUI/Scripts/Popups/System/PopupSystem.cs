@@ -122,7 +122,7 @@ namespace CycladeUI.Popups.System
             if (_entries[type].type == PopupLoadType.FastFollow)
                 throw new Exception($"Use {nameof(ShowFastFollowPopup)} method for {type.Name}, because type is FastFollow");
 
-            return ShowPopupInternal(onCreate, onClose);
+            return ShowPopupInternal(GetTemplate(type), settings.globalSettings.debugSafeAreaSettings, onCreate, onClose);
         }
 
         public IEnumerator<T> ShowFastFollowPopup<T>(Action<T> onCreate = null, Action onClose = null) where T : BasePopup
@@ -137,8 +137,11 @@ namespace CycladeUI.Popups.System
             while (!_loadedPopups.ContainsKey(type))
                 yield return null;
 
-            yield return ShowPopupInternal(onCreate, onClose);
+            yield return ShowPopupInternal(GetTemplate(type), settings.globalSettings.debugSafeAreaSettings, onCreate, onClose);
         }
+
+        public T ShowAndDebugPopup<T>(T template, DebugSafeAreaSettings safeArea, Action<T> onCreate = null, Action onClose = null) where T : BasePopup 
+            => ShowPopupInternal(template, safeArea, onCreate, onClose);
 
         public void ClosePopup(BasePopup popup)
         {
@@ -204,7 +207,7 @@ namespace CycladeUI.Popups.System
 
             _loadedPopups.Remove(type);
             Resources.UnloadUnusedAssets();
-            log.Debug($"Removed {type.Name} from loadedPoups and unloaded unused assets", isNeedToLogDebug);
+            log.Debug($"Removed {type.Name} from loadedPopups (if present) and unloaded unused assets.", isNeedToLogDebug);
         }
 
         public BasePopup TryGetOpenedPopup<T>() where T : BasePopup
@@ -221,14 +224,13 @@ namespace CycladeUI.Popups.System
                 _stack.Last().SetActiveDelayed.Begin(0, true);
         }
 
-        private T ShowPopupInternal<T>(Action<T> onCreate = null, Action onClose = null) where T : BasePopup
+        private T ShowPopupInternal<T>(BasePopup template, DebugSafeAreaSettings safeArea, Action<T> onCreate, Action onClose) where T : BasePopup
         {
             var type = typeof(T);
 
-            var template = GetTemplate(type);
             var popupName = type.Name;
 
-            var popup = ShopPopupInternal(popupName, template, settings.globalSettings.debugSafeAreaSettings, onClose);
+            var popup = ShopPopupInternal(popupName, template, safeArea, onClose);
 
             var typedPopup = (T)popup;
             log.Debug($"Show popup {popupName}", isNeedToLogDebug);
@@ -239,7 +241,7 @@ namespace CycladeUI.Popups.System
             return typedPopup;
         }
 
-        internal BasePopup ShopPopupInternal(string popupName, BasePopup template, DebugSafeAreaSettings testSafeArea, Action onClose = null)
+        private BasePopup ShopPopupInternal(string popupName, BasePopup template, DebugSafeAreaSettings safeArea, Action onClose)
         {
             var holder = new GameObject(popupName, typeof(RectTransform)).GetComponent<RectTransform>();
             holder.SetParent(active, false);
@@ -259,7 +261,7 @@ namespace CycladeUI.Popups.System
             }
 
             if (popup.needSafeArea)
-                popup.GetComponent<RectTransform>().FitInSafeArea(testSafeArea);
+                popup.GetComponent<RectTransform>().FitInSafeArea(safeArea);
 
             if (popup.optionalOutsideSafeArea)
             {
@@ -312,7 +314,7 @@ namespace CycladeUI.Popups.System
             if (popup.unloadAssetsAfterClose)
             {
                 var type = popup.GetType();
-                if (_entries[type].type == PopupLoadType.OnDemand)
+                if (_entries.Count == 0 || _entries[type].type == PopupLoadType.OnDemand)
                     popup.OnCloseAfterAnimation.Subscribe(() => UnloadUnusedAssetsAfterCloseOnDemandPopup(type));
                 else
                     log.Error($"UnloadUnusedAssetsAfterCloseOnDemandPopup. Popup type is not \"OnDemand\": {_entries[type].type}");
