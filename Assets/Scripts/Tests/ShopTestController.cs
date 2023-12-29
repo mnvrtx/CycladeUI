@@ -1,9 +1,7 @@
 using CycladeUI;
 using CycladeUIExample.Models;
-using CycladeUIExample.Performance;
 using CycladeUIExample.Popups.Shop;
 using UnityEngine;
-using static CycladeUIExample.Performance.ExampleMsTrackerValues;
 
 namespace CycladeUIExample.Tests
 {
@@ -14,13 +12,6 @@ namespace CycladeUIExample.Tests
         private void Awake()
         {
             testController.ShowPopup<ShopPopup>().Initialize(ProductsData.GetMock());
-        }
-
-        private void Update()
-        {
-            ExampleMsTracker.I.BeginTrack(Logic);
-            //some operations here
-            ExampleMsTracker.I.FinishTrack(Logic);
         }
     }
 }

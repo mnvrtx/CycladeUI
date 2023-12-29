@@ -7,17 +7,19 @@ using CycladeLocalization.Definition;
 using CycladeUI.Popups.PrefEditor;
 using CycladeUI.Popups.System;
 using CycladeUIExample.Models;
+using CycladeUIExample.Performance;
 using CycladeUIExample.Popups;
 using CycladeUIExample.Popups.Shop;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
+
+using static CycladeUIExample.Performance.ExampleValueTrackerValues;
 
 namespace CycladeUIExample
 {
     public class ExampleController : MonoBehaviour
     {
         private static readonly Log log = new(nameof(ExampleController));
-        
+
         [SerializeField] private PopupSystem popupSystem;
         [SerializeField] private GameObject interactionLocker;
 
@@ -59,14 +61,14 @@ namespace CycladeUIExample
 
         public void U_ShowTestPopup()
         {
-            popupSystem.ShowFastFollowPopup<ShopPopup>(p =>
+            popupSystem.ShowPopup<ShopPopup>(p =>
             {
                 p.Initialize(ProductsData.GetMock());
                 p.OnClose.Subscribe(() =>
                 {
                     log.Info("ExampleShopPopup closed");
                 });
-            }).ToUniTask(this).Forget();
+            });
         }
 
         public void U_ShowConfirmationDialog()
@@ -110,6 +112,16 @@ namespace CycladeUIExample
                         Debug.Log($"models changed. obj1.network.deep1.deep2.testUshort: {obj1.network.deep1.deep2.testUshort}");
                     }, obj1, obj2, obj3);
             });
+        }
+
+        public void U_ChangeValue(float value)
+        {
+            ExampleValueTracker.I.CommitTrack(Tracker, value * 50);
+        }
+
+        public void U_ShowHeavyPopup()
+        {
+            popupSystem.ShowPopup<HeavyPopup>();
         }
         
     }

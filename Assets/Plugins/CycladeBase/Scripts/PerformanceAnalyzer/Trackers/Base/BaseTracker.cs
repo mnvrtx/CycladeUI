@@ -8,7 +8,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
 
         private readonly Dictionary<int, AnalyzeData> _elapsedResults = new();
 
-        public AnalyzeData RegisterTrackMs(int metric, string name) => RegisterTrack(metric, name, new ValSuffix((float f) => $"{f:F2}MS"));
+        protected AnalyzeData RegisterTrackMs(int metric, string name) => RegisterTrack(metric, name, new ValSuffix((float f) => $"{f:F2}MS"));
 
         public AnalyzeData RegisterTrack(int metric, string name, ValSuffix valSuffix = null)
         {
@@ -19,17 +19,19 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
             return analyzeData;
         }
 
-        public void FinishTrackInternal(int idx, float value)
+        public void CommitTrack(int idx, float value)
         {
             var data = _elapsedResults[idx];
             data.ElapsedResult = value;
+            data.RefreshHideTimer();
             data.ValueGraph?.Update();
         }
 
-        public void FinishTrackInternalLong(int idx, long value)
+        public void CommitTrackLong(int idx, long value)
         {
             var data = _elapsedResults[idx];
             data.ElapsedResultLong = value;
+            data.RefreshHideTimer();
             data.ValueGraph?.Update();
         }
 

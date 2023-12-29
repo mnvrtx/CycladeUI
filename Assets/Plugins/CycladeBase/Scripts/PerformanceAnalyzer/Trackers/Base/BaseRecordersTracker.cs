@@ -4,17 +4,19 @@ using CycladeBase.Utils;
 
 namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
 {
-    public abstract class BaseRecordersTracker<T> : MonoBehaviourSingleton<T> where T : MonoBehaviourSingleton<T>
+    public abstract class BaseRecordersTracker<T> : MonoBehaviourSingleton<T>, ITrackerResultsProvider where T : MonoBehaviourSingleton<T>
     {
         private readonly List<BaseRecorder> _recorders = new();
 
-        public readonly BaseTracker Tracker = new();
+        public IReadOnlyDictionary<int, AnalyzeData> Results => _tracker.Results;
+
+        private readonly BaseTracker _tracker = new();
 
         protected abstract void Awake();
 
         public AnalyzeData RegisterRecorder(BaseRecorder recorder, ValSuffix valSuffix = null, string viewTitle = null)
         {
-            var analyzeData = Tracker.RegisterTrack(_recorders.Count, !string.IsNullOrEmpty(viewTitle) ? viewTitle : recorder.Name, valSuffix);
+            var analyzeData = _tracker.RegisterTrack(_recorders.Count, !string.IsNullOrEmpty(viewTitle) ? viewTitle : recorder.Name, valSuffix);
             _recorders.Add(recorder);
             return analyzeData;
         }
@@ -26,9 +28,9 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
                 var recorder = _recorders[i];
                 recorder.UpdateValue();
                 if (recorder.IsLongValue)
-                    Tracker.FinishTrackInternalLong(i, recorder.LongValue);
+                    _tracker.CommitTrackLong(i, recorder.LongValue);
                 else
-                    Tracker.FinishTrackInternal(i, recorder.FloatValue);
+                    _tracker.CommitTrack(i, recorder.FloatValue);
             }
         }
 
@@ -36,7 +38,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
         {
             foreach (var recorder in _recorders)
                 recorder.Dispose();
-            Tracker.Clear();
+            _tracker.Clear();
         }
     }
 }

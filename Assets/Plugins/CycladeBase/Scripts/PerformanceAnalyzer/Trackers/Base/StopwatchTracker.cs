@@ -24,7 +24,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
 
         public void FinishTrack(int metric)
         {
-            FinishTrackInternal(metric, _stopwatches[metric].ElapsedMilliseconds);
+            CommitTrack(metric, _stopwatches[metric].ElapsedMilliseconds);
         }
     }
 }

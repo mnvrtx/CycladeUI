@@ -46,7 +46,7 @@ namespace CycladeBase.Utils
             rectTransform.rotation = Quaternion.identity;
         }
 
-        public static void SetParentImitate(this RectTransform rect)
+        public static void StretchAcrossParent(this RectTransform rect)
         {
             rect.anchorMin = Vector2.zero;
             rect.anchorMax = Vector2.one;
@@ -230,5 +230,16 @@ namespace CycladeBase.Utils
             var num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return Math.Sign(byteCount) * num + sizeSuffixes[place];
         }
+        
+        public const float BEpsilon = 0.00001f * 8;
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Approximately(float a, float b) => Abs(b - a) < Max(1E-06f * Max(Abs(a), Abs(b)), BEpsilon);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Abs(float f) => Math.Abs(f);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Max(float a, float b) => (a <= b) ? b : a;
     }
 }

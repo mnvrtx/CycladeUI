@@ -1,4 +1,5 @@
 using CycladeBase.PerformanceAnalyzer.Trackers.Base;
+using Shared.Utils;
 
 namespace CycladeBase.PerformanceAnalyzer
 {
@@ -17,18 +18,33 @@ namespace CycladeBase.PerformanceAnalyzer
         public float LowValueThreshold = 5;
         public bool TopValueIsGood;
 
+        public Timer HideTimer;
+
         public AnalyzeData(int index, string name, ValSuffix valSuffix)
         {
             Index = index;
             Name = name;
             ValSuffix = valSuffix;
+            NeedHideTimer();
         }
 
-        public void SetCustomThresholds(float middleValueThreshold, float lowValueThreshold, bool topValueIsGood = false)
+        public AnalyzeData SetCustomThresholds(float middleValueThreshold, float lowValueThreshold, bool topValueIsGood = false)
         {
             MiddleValueThreshold = middleValueThreshold;
             LowValueThreshold = lowValueThreshold;
             TopValueIsGood = topValueIsGood;
+            return this;
+        }
+
+        public AnalyzeData NeedHideTimer(float secondsWithoutValueChange = 3f)
+        {
+            HideTimer = new Timer(secondsWithoutValueChange);
+            return this;
+        }
+
+        public void RefreshHideTimer()
+        {
+            HideTimer?.Restart();
         }
     }
 }

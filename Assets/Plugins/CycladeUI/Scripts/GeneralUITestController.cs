@@ -8,10 +8,11 @@ using UnityEngine.UI;
 
 namespace CycladeUI
 {
-    public class GeneralUITestController : MonoBehaviour
+    public class GeneralUITestController : MonoBehaviour //todo: make this inheritable
     {
         private static readonly Log log = new(nameof(GeneralUITestController));
 
+        public BasePopup testPopupTemplate;
         [CycladeHelpBox("Set up the testPopupTemplate and press play on your test scene. You can change \"debugSafeArea\" and \"disableMock\" in play mode.")] public string stub;
 
         [SerializeField] private bool disableMock;
@@ -20,7 +21,6 @@ namespace CycladeUI
 
         public DebugSafeAreaSettings debugSafeArea;
 
-        public BasePopup testPopupTemplate;
         public PopupSystem popupSystem;
 
         private BasePopup _popupInstance;
@@ -36,13 +36,13 @@ namespace CycladeUI
                 throw new Exception($"Not found testPopup. Please set.");
 
             testPopupTemplate.SetActive(false);
-            _popupInstance = popupSystem.ShopPopupInternal(testPopupTemplate.name, testPopupTemplate, debugSafeArea);
+            _popupInstance = popupSystem.ShopPopupInternal(testPopupTemplate.name, testPopupTemplate, debugSafeArea); 
 
             if (optionalMock)
             {
                 optionalMock.transform.SetParent(_popupInstance.transform);
                 optionalMock.rectTransform.ToInitial();
-                optionalMock.rectTransform.SetParentImitate();
+                optionalMock.rectTransform.StretchAcrossParent();
                 optionalMock.transform.SetAsLastSibling();
                 optionalMock.sprite = mockSprite;
                 optionalMock.SetActive(false);    

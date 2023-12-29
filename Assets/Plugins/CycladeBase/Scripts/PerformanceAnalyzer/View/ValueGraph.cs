@@ -1,7 +1,11 @@
 using System;
 using CycladeBase.PerformanceAnalyzer.Trackers.Base;
+using CycladeBase.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+#if CYCLADEUI_TEXT_MESH_PRO
+using TMPro;
+#endif
 
 namespace CycladeBase.PerformanceAnalyzer.View
 {
@@ -21,8 +25,7 @@ namespace CycladeBase.PerformanceAnalyzer.View
         public Color MiddleValueColor = new Color32(243, 232, 0, 255);
         public Color LowValueColor = new Color32(118, 212, 58, 255);
 
-        internal bool InternalActive;
-
+        
         private const int resolution = 128;
 
         private G_GraphShader m_shaderGraph;
@@ -32,7 +35,11 @@ namespace CycladeBase.PerformanceAnalyzer.View
         private float m_highestValueRaw;
         private float m_highestValue;
 
-        public Text text;
+#if CYCLADEUI_TEXT_MESH_PRO
+        public TMP_Text text;
+#else
+        public Text text;  
+#endif
 
         private string _valueTitle;
         private ValSuffix _valSuffix;
@@ -43,17 +50,19 @@ namespace CycladeBase.PerformanceAnalyzer.View
         
         private float _maxValueCanShow = -1;
 
-        public void Initialize(string valueTitle, ValSuffix valSuffix)
-        {
-            _valueTitle = valueTitle;
-            _valSuffix = valSuffix;
-        }
+        private AnalyzeData _data;
+        private DraggablePanel _draggablePanel;
 
-        void OnEnable()
+        public void Initialize(AnalyzeData data, DraggablePanel draggablePanel)
         {
+            _data = data;
+            _valueTitle = _data.Name;
+            _valSuffix = _data.ValSuffix;
+            _draggablePanel = draggablePanel;
+            
             m_shaderGraph = new G_GraphShader
             {
-                Image = m_imageGraph
+                Image = m_imageGraph,
             };
 
             //UpdateParameters
@@ -70,10 +79,8 @@ namespace CycladeBase.PerformanceAnalyzer.View
 
             m_valueArray = new float[resolution];
 
-            for (int i = 0; i < resolution; i++)
-            {
+            for (int i = 0; i < resolution; i++) 
                 m_shaderGraph.ShaderArrayValues[i] = 0;
-            }
 
             m_shaderGraph.GoodColor = TopValueIsGood ? LowValueColor : TopValueColor;
             m_shaderGraph.CautionColor = MiddleValueColor;
@@ -84,11 +91,19 @@ namespace CycladeBase.PerformanceAnalyzer.View
             m_shaderGraph.UpdateArray();
         }
 
-        // void Update()
-        // {
-        //     int fps = (int) (1 / Time.unscaledDeltaTime);
-        //     Process(fps);
-        // }
+        private void Update()
+        {
+            CheckHide();
+        }
+
+        private void CheckHide()
+        {
+            if (_data.HideTimer != null && _data.HideTimer.IsStartedAndIsEnd)
+            {
+                gameObject.SetActive(false);
+                _draggablePanel.OnUpdatedSize();
+            }
+        }
 
         public void Process(float value)
         {

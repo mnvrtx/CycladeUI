@@ -10,7 +10,8 @@ namespace CycladeUIExample.Performance
         
         private void Start()
         {
-            graphsView.Initialize(ExampleMsTracker.I, CycladeGeneralRecorders.I.Tracker);
+            // Initialize your trackers here
+            graphsView.Initialize(CycladeGeneralRecorders.I, ExampleRecordersTracker.I, ExampleMsTracker.I, ExampleValueTracker.I);
         }
     }
 }

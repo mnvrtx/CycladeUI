@@ -22,16 +22,20 @@ namespace CycladeUI.Popups.System
         public DebugSafeAreaSettings DebugSafeArea => settings.globalSettings.debugSafeAreaSettings;
         public IReadOnlyList<BasePopup> Stack => _stack;
 
-        [SerializeField] private bool isNeedToLogInfo = true;
+        [SerializeField] private bool isNeedToLogDebug = true;
         [SerializeField] private PopupSystemSettings settings;
         [SerializeField] private RectTransform backgroundTemplate;
         [SerializeField] private RectTransform active;
 
         [SerializeField] private PopupSystemLogicBase optionalLogic;
+
         [CycladeHelpBox("The logic is needed so that the popup system does not operate while, for example, a request is being made to the server. You can inherit from PopupSystemLogicBase and add your own logic.")] public string stub;
-        
+
         [SerializeField] private BasePopupAnimation optionalDefaultAnimation;
+
         [CycladeHelpBox("This animation will be used if the popup does not have its own animation.")] public string stub2;
+
+        private const float AnimationPostSafeDelay = 0.5f;
 
         private Canvas _canvas;
 
@@ -80,17 +84,17 @@ namespace CycladeUI.Popups.System
 
                 if (load.type == PopupLoadType.Preload)
                 {
-                    _loadedPopups.Add(type, PopupLoader.Load(type, load.assetPath));
-                    log.Debug($"Loaded: {type.Name}", isNeedToLogInfo);
+                    _loadedPopups.Add(type, PopupLoadManager.Load(type, load.assetPath));
+                    log.Debug($"Loaded: {type.Name}", isNeedToLogDebug);
                 }
             }
 
             StartCoroutine(LoadingFastFollow());
 
-            log.Debug($"Loading complete. Total elapsed: {stopWatch.ElapsedMilliseconds}ms", isNeedToLogInfo);
+            log.Debug($"Loading complete. Total elapsed: {stopWatch.ElapsedMilliseconds}ms", isNeedToLogDebug);
         }
 
-        public IEnumerator LoadingFastFollow()
+        private IEnumerator LoadingFastFollow()
         {
             foreach (var kvp in _entries)
             {
@@ -101,11 +105,11 @@ namespace CycladeUI.Popups.System
                     continue;
 
                 var sw = Stopwatch.StartNew();
-                var request = PopupLoader.LoadAsync(type, load.assetPath);
+                var request = PopupLoadManager.LoadAsync(type, load.assetPath);
                 while (!request.isDone)
                     yield return null;
                 _loadedPopups.Add(type, (BasePopup)request.asset);
-                log.Debug($"FastFollow. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", isNeedToLogInfo);
+                log.Debug($"FastFollow. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", isNeedToLogDebug);
             }
         }
 
@@ -171,12 +175,6 @@ namespace CycladeUI.Popups.System
             SetLastActive();
         }
 
-        private void SetLastActive()
-        {
-            if (_stack.Count > 0)
-                _stack.Last().SetActiveDelayed.Begin(0, true);
-        }
-
         public void ClosePopupsOfType<T>() where T : BasePopup
         {
             var type = typeof(T);
@@ -199,10 +197,28 @@ namespace CycladeUI.Popups.System
             }
         }
 
-        public BasePopup TryToFindOpenedPopup<T>() where T : BasePopup
+        private void UnloadUnusedAssetsAfterCloseOnDemandPopup(Type type)
+        {
+            if (TryGetOpenedPopup(type) != null)
+                return;
+
+            _loadedPopups.Remove(type);
+            Resources.UnloadUnusedAssets();
+            log.Debug($"Removed {type.Name} from loadedPoups and unloaded unused assets", isNeedToLogDebug);
+        }
+
+        public BasePopup TryGetOpenedPopup<T>() where T : BasePopup
         {
             var type = typeof(T);
-            return _stack.FirstOrDefault(x => x.GetType() == type);
+            return TryGetOpenedPopup(type);
+        }
+
+        private BasePopup TryGetOpenedPopup(Type type) => _stack.FirstOrDefault(x => x.GetType() == type);
+
+        private void SetLastActive()
+        {
+            if (_stack.Count > 0)
+                _stack.Last().SetActiveDelayed.Begin(0, true);
         }
 
         private T ShowPopupInternal<T>(Action<T> onCreate = null, Action onClose = null) where T : BasePopup
@@ -213,18 +229,13 @@ namespace CycladeUI.Popups.System
             var popupName = type.Name;
 
             var popup = ShopPopupInternal(popupName, template, settings.globalSettings.debugSafeAreaSettings, onClose);
-            
+
             var typedPopup = (T)popup;
-            log.Debug($"Show popup {popupName}", isNeedToLogInfo);
-            try
-            {
-                onCreate?.Invoke(typedPopup);
-            }
-            catch (Exception e)
-            {
-                log.Exception(e);
-            }
-            
+            log.Debug($"Show popup {popupName}", isNeedToLogDebug);
+            onCreate.SafeInvoke(typedPopup, log);
+
+            ProcessPopupAfterOnCreate(popup);
+
             return typedPopup;
         }
 
@@ -249,12 +260,12 @@ namespace CycladeUI.Popups.System
 
             if (popup.needSafeArea)
                 popup.GetComponent<RectTransform>().FitInSafeArea(testSafeArea);
-            
+
             if (popup.optionalOutsideSafeArea)
             {
                 popup.optionalOutsideSafeArea.SetParent(holder);
                 popup.optionalOutsideSafeArea.ToInitial();
-                popup.optionalOutsideSafeArea.SetParentImitate();
+                popup.optionalOutsideSafeArea.StretchAcrossParent();
                 popup.optionalOutsideSafeArea.SetAsFirstSibling();
             }
 
@@ -263,7 +274,7 @@ namespace CycladeUI.Popups.System
                 var bg = Instantiate(backgroundTemplate, holder);
                 AddClosingEvents(popup, bg.GetComponent<Button>(), true);
                 bg.SetAsFirstSibling();
-                if (bg.TryGetComponent(out Image image)) 
+                if (bg.TryGetComponent(out Image image))
                     image.color = popup.backgroundColor;
                 bg.gameObject.SetActive(true);
             }
@@ -284,16 +295,28 @@ namespace CycladeUI.Popups.System
             {
                 if (popup.isFullScreenPopup)
                 {
-                    foreach (var p in _stack) 
+                    foreach (var p in _stack)
                         p.SetActiveDelayed.Begin(animationDelay, false);
                 }
             }
-            
+
             popup.SetActive(true);
 
             _stack.Add(popup);
-            
+
             return popup;
+        }
+
+        private void ProcessPopupAfterOnCreate(BasePopup popup)
+        {
+            if (popup.unloadAssetsAfterClose)
+            {
+                var type = popup.GetType();
+                if (_entries[type].type == PopupLoadType.OnDemand)
+                    popup.OnCloseAfterAnimation.Subscribe(() => UnloadUnusedAssetsAfterCloseOnDemandPopup(type));
+                else
+                    log.Error($"UnloadUnusedAssetsAfterCloseOnDemandPopup. Popup type is not \"OnDemand\": {_entries[type].type}");
+            }
         }
 
         private void Update()
@@ -342,9 +365,9 @@ namespace CycladeUI.Popups.System
                 if (load.type == PopupLoadType.OnDemand)
                 {
                     var sw = Stopwatch.StartNew();
-                    prefab = PopupLoader.Load(type, load.assetPath);
+                    prefab = PopupLoadManager.Load(type, load.assetPath);
                     _loadedPopups.Add(type, prefab);
-                    log.Debug($"OnDemand. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", isNeedToLogInfo);
+                    log.Debug($"OnDemand. Loaded: {type.Name}. Elapsed: {sw.ElapsedMilliseconds}ms", isNeedToLogDebug);
                 }
                 else
                 {
@@ -370,7 +393,7 @@ namespace CycladeUI.Popups.System
         private void OnClosePopup(BasePopup popup)
         {
             var holder = popup.Holder.gameObject;
-            log.Debug($"Close popup {holder.name}", isNeedToLogInfo);
+            log.Debug($"Close popup {holder.name}", isNeedToLogDebug);
             var destroyDelay = popup.optionalAnimation != null ? popup.optionalAnimation.PlayBackward() : 0;
 
             if (destroyDelay > 0)
@@ -378,11 +401,22 @@ namespace CycladeUI.Popups.System
                 if (popup.optionalCanvasGroup != null)
                     popup.optionalCanvasGroup.interactable = false;
                 else
-                    log.Warn("The OptionalCanvasGroup is null. Please set it if you wish to disable buttons during animations.");
+                    log.Debug("The OptionalCanvasGroup is null. Please set it if you wish to disable buttons during animations.", isNeedToLogDebug);
             }
 
-            Destroy(holder, destroyDelay);
             popup.OnClose.InvokeAll();
+
+            StartCoroutine(DestroyAfterDelayAndInvokeOnEnd(popup, destroyDelay));
+        }
+
+        private static IEnumerator DestroyAfterDelayAndInvokeOnEnd(BasePopup popup, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            var holder = popup.Holder.gameObject;
+            Destroy(holder);
+            yield return new WaitForSeconds(AnimationPostSafeDelay);
+
+            popup.OnCloseAfterAnimation.InvokeAll();
         }
     }
 }

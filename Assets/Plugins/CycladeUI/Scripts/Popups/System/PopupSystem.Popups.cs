@@ -12,7 +12,7 @@ namespace CycladeUI.Popups.System
             return ShowPopup<ChangeTextPopup>(popup =>
             {
                 popup.title.text = title;
-                popup.errorText.gameObject.SetActive(false);
+                popup.errorText.SetActive(false);
 
                 popup.inputField.text = startText;
                 popup.inputField.onValueChanged.AddListener(value => 
@@ -22,11 +22,11 @@ namespace CycladeUI.Popups.System
                     if (isEmpty || regex != null && !regex.IsMatch(value))
                     {
                         popup.errorText.text = isEmpty ? inputText : errorText;
-                        popup.errorText.gameObject.SetActive(true);
+                        popup.errorText.SetActive(true);
                     }
                     else
                     {
-                        popup.errorText.gameObject.SetActive(false);
+                        popup.errorText.SetActive(false);
                     }
                 });
                 
@@ -40,7 +40,7 @@ namespace CycladeUI.Popups.System
                         return;
                     }
 
-                    popup.errorText.gameObject.SetActive(false);
+                    popup.errorText.SetActive(false);
                     onConfirm(value);
                     ClosePopup(popup);
                 });

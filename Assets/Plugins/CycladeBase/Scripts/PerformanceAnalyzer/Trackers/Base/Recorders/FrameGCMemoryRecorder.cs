@@ -1,5 +1,4 @@
 using Unity.Profiling;
-using UnityEngine;
 
 namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
 {

@@ -15,7 +15,7 @@ namespace CycladeBase.Utils
             }
         }
 
-        public static void InitializeStatic()
+        private static void InitializeStatic()
         {
             if (_instance != null) 
                 return;
@@ -25,12 +25,12 @@ namespace CycladeBase.Utils
             if (_instance != null)
                 return;
 
-            var go = new GameObject($"{typeof(T).Name}Singleton");
+            var go = new GameObject($"[SINGLETON] {typeof(T).Name}");
             _instance = go.AddComponent<T>();
             _instance.OnInitialize();
             DontDestroyOnLoad(go);
         }
 
-        public virtual void OnInitialize() { }
+        protected virtual void OnInitialize() { }
     }
 }

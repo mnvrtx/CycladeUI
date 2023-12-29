@@ -1,5 +1,6 @@
 using CycladeBase.PerformanceAnalyzer.Trackers.Base;
 using CycladeBase.Utils;
+using UnityEngine;
 
 namespace CycladeBase.PerformanceAnalyzer.View
 {
@@ -7,20 +8,24 @@ namespace CycladeBase.PerformanceAnalyzer.View
     {
         private readonly ValueGraph _valueGraph;
         private readonly AnalyzeData _data;
+        private readonly DraggablePanel _draggablePanel;
+        private readonly GameObject _gameObject;
 
-        public ValueGraphWrapper(ValueGraph valueGraph, AnalyzeData data)
+        public ValueGraphWrapper(ValueGraph valueGraph, AnalyzeData data, DraggablePanel draggablePanel)
         {
             _valueGraph = valueGraph;
+            _gameObject = _valueGraph.gameObject;
             _data = data;
+            _draggablePanel = draggablePanel;
         }
 
         public void Update()
         {
             // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (!_valueGraph.InternalActive && (_data.ElapsedResult != float.MinValue || _data.ElapsedResultLong != long.MinValue))
+            if (!_gameObject.activeSelf && (_data.ElapsedResult != float.MinValue || _data.ElapsedResultLong != long.MinValue))
             {
                 _valueGraph.SetActive(true);
-                _valueGraph.InternalActive = true;
+                _draggablePanel.OnUpdatedSize();
             }
 
             if (_data.ValSuffix.IsLong)

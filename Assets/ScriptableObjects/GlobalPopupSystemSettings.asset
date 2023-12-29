@@ -18,6 +18,10 @@ MonoBehaviour:
   entries:
   - type:
       assemblyName: Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      fullName: CycladeUIExample.Popups.HeavyPopup
+    assetPath: Assets/Resources/HeavyPopup.prefab
+  - type:
+      assemblyName: Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       fullName: CycladeUIExample.Popups.MusicSettingsPopup
     assetPath: Assets/Resources/MusicSettings.prefab
   - type:
@@ -41,6 +45,7 @@ MonoBehaviour:
       fullName: CycladeUI.Popups.PrefEditor.PrefEditorPopup
     assetPath: Assets/Plugins/CycladeUI/Resources/PrefEditor.prefab
   debugSafeAreaSettings:
+    stub2: 
     enabled: 0
     top: 20
     left: 20
