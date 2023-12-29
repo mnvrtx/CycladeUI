@@ -15,6 +15,7 @@ namespace CycladeStorage
         private static LocalStorage _instance;
 
         public static bool IsDebug;
+
         public static LocalStorage I => _instance ??= new LocalStorage();
 
         private readonly Dictionary<Type, IStorageSection> _sections = new();

@@ -38,7 +38,7 @@ namespace CycladeUI.Models
                     foundPrefab = foundPrefabs.FirstOrDefault(q => q.name.StartsWith("[MAIN]"));
                     if (foundPrefab == null)
                     {
-                        log.Warn($"Multiple prefabs of type {typeFullName} have been found, and none start with the [MAIN] prefix. The first one, {foundPrefabs[0].name}, will be selected.");
+                        log.Debug($"Multiple prefabs of type {typeFullName} have been found, and none start with the [MAIN] prefix. The first one, {foundPrefabs[0].name}, will be selected.", optionalObjForPing: foundPrefabs[0]);
                         foundPrefab = foundPrefabs[0];
                     }
                 }

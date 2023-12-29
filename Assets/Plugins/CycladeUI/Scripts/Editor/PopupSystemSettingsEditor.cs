@@ -156,7 +156,7 @@ namespace CycladeUIEditor
                 if (!_cachedAssets.ContainsKey(assetPath))
                 {
                     var type = load.TryFindType();
-                    var formatPath = PopupLoader.FormatPath(assetPath);
+                    var formatPath = PopupLoadManager.FormatPath(assetPath);
                     var popup = Resources.Load<BasePopup>(formatPath);
 
                     _cachedAssets[assetPath] = new PopupEntryData(null)

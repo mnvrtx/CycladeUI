@@ -1,9 +1,11 @@
 using System;
 using CycladeUI.Popups.System;
 using CycladeUIExample.Models;
+using CycladeUIExample.Performance;
 using Cysharp.Threading.Tasks;
 using GeneratedCycladeBindings;
 using static GeneratedCycladeBindings.CardBinding;
+using static CycladeUIExample.Performance.ExampleMsTrackerValues;
 
 namespace CycladeUIExample.Popups.Shop
 {
@@ -55,6 +57,14 @@ namespace CycladeUIExample.Popups.Shop
             cardType = !string.IsNullOrEmpty(product.AdditionalInfo) ? CardType.CardWithAdditionalInfo : CardType.Simple;
             cardBinding.AdditionalTextTxt.text = product.AdditionalInfo;
             cardBinding.CountTxt.text = product.Count.ToString();
+        }
+        
+        
+        private void Update()
+        {
+            ExampleMsTracker.I.BeginTrack(Logic);
+            // Thread.Sleep(20); //FOR tests
+            ExampleMsTracker.I.FinishTrack(Logic);
         }
 
         public void U_OpenAnotherShop()

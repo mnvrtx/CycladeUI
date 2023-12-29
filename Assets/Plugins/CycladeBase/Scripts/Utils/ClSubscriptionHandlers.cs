@@ -20,33 +20,15 @@ namespace CycladeBase.Utils
         {
             _handlers.Add(action);
             if (callOnSub)
-            {
-                try
-                {
-                    action.Invoke();
-                }
-                catch (Exception e)
-                {
-                    log.Exception(e);
-                }
-            }
+                action.SafeInvoke(log);
         }
 
         public void Unsubscribe(Action action) => _handlers.Remove(action);
 
         public void InvokeAll()
         {
-            foreach (var action in _handlers)
-            {
-                try
-                {
-                    action.Invoke();
-                }
-                catch (Exception e)
-                {
-                    log.Exception(e);
-                }
-            }
+            foreach (var action in _handlers) 
+                action.SafeInvoke(log);
         }
 
         public void Clear()

@@ -7,11 +7,11 @@ namespace CycladeUIExample.Tests
 {
     public class ShopTestController : MonoBehaviour
     {
-        [SerializeField] private UITestController testController;
+        [SerializeField] private GeneralUITestController testController;
 
         private void Awake()
         {
-            testController.StartTest<ShopPopup>().Initialize(ProductsData.GetMock());
+            testController.ShowPopup<ShopPopup>().Initialize(ProductsData.GetMock());
         }
     }
 }

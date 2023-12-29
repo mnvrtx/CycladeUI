@@ -10,19 +10,23 @@ namespace CycladeUI.Popups.System
     {
         public Button optionalCloseBtn;
         public BasePopupAnimation optionalAnimation;
+        public RectTransform optionalOutsideSafeArea;
 
-        [CycladeHelpBox("Using a canvas group is important for disabling UI buttons during animations")] public string stub;
         public CanvasGroup optionalCanvasGroup;
+        [CycladeHelpBox("Using a canvas group is important for disabling UI buttons during animations")] public string stub;
         
-        [CycladeHelpBox("If this flag is set to true, then this popup will become inactive when another full-screen popup is opened on top of it.")] public string stub2;
         public bool isFullScreenPopup;
+        [CycladeHelpBox("If \"isFullScreenPopup\" flag is set to true, then this popup will become inactive when another full-screen popup is opened on top of it.")] public string stub2;
 
         public bool needBackground = true;
         public Color backgroundColor = new(0f, 0f, 0f, 0.74f);
         public bool needSafeArea = true;
-        public RectTransform optionalOutsideSafeArea;
+        
+        public bool unloadAssetsAfterClose;
+        [CycladeHelpBox("Unload unused assets after close \"OnDemand\" popup")] public string stub3;
 
-        public ClSubscriptionHandlers OnClose = new();
+        public readonly ClSubscriptionHandlers OnClose = new();
+        public readonly ClSubscriptionHandlers OnCloseAfterAnimation = new();
 
         [NonSerialized] public RectTransform Holder;
         [NonSerialized] public bool NonClosable;

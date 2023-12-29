@@ -1,4 +1,7 @@
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using UnityEngine;
 
 namespace CycladeBase.Utils
@@ -6,12 +9,10 @@ namespace CycladeBase.Utils
     public class CycladeHelpBoxAttribute : PropertyAttribute
     {
         public string text;
-        public MessageType messageType;
 
-        public CycladeHelpBoxAttribute(string text, MessageType messageType = MessageType.Info)
+        public CycladeHelpBoxAttribute(string text)
         {
             this.text = text;
-            this.messageType = messageType;
         }
     }
 
@@ -25,11 +26,11 @@ namespace CycladeBase.Utils
 
             if (property.name == "noteBox")
             {
-                EditorGUI.HelpBox(position, property.stringValue, helpBoxAttribute.messageType);
+                EditorGUI.HelpBox(position, property.stringValue, MessageType.Info);
             }
             else
             {
-                EditorGUI.HelpBox(position, helpBoxAttribute.text, helpBoxAttribute.messageType);
+                EditorGUI.HelpBox(position, helpBoxAttribute.text, MessageType.Info);
                 if (!property.name.Contains("stub")) 
                     Debug.LogError($"property.name not contains \"helptext\"");    
             }

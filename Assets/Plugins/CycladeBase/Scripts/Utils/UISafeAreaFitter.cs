@@ -12,7 +12,7 @@ namespace CycladeBase.Utils
         {
             var rect = Screen.safeArea;
 
-            trans.SetParentImitate();
+            trans.StretchAcrossParent();
 
             if (testSafeArea.enabled)
             {
