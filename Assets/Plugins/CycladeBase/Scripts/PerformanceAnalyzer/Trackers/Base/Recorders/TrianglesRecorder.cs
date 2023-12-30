@@ -11,7 +11,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
             _recorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Triangles Count");
         }
 
-        public override void UpdateValue()
+        public override bool UpdateValue()
         {
             long count;
 #if UNITY_EDITOR
@@ -22,6 +22,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
 
             if (count > 0)
                 LongValue = count;
+            return true;
         }
 
         public override void Dispose()

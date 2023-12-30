@@ -1,7 +1,7 @@
 using CycladeBase.Utils.Logging;
 using UnityEngine;
 
-namespace View.UtilsModule
+namespace CycladeBase.Utils
 {
     public class TargetFps : MonoBehaviour
     {

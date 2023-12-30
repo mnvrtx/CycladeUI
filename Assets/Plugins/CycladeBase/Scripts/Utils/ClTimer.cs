@@ -1,8 +1,8 @@
 using System;
 
-namespace Shared.Utils
+namespace CycladeBase.Utils
 {
-    public class Timer
+    public class ClTimer
     {
         public long Time { get; private set; }
 
@@ -13,13 +13,13 @@ namespace Shared.Utils
         
         public bool IsStarted { get; private set; }
 
-        public Timer(float seconds, bool start = false)
+        public ClTimer(float seconds, bool start = false)
             : this(TimeSpan.FromSeconds(seconds), start) { }
 
-        public Timer(TimeSpan timeSpan, bool start = false)
+        public ClTimer(TimeSpan timeSpan, bool start = false)
             : this((long)timeSpan.TotalMilliseconds, start) { }
 
-        private Timer(long time, bool start = false) => 
+        private ClTimer(long time, bool start = false) => 
             Set(time, start);
 
         public void Set(long time, bool start = false)

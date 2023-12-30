@@ -15,8 +15,8 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
             IsLongValue = isLongValue;
         }
 
-        public abstract void UpdateValue();
+        public abstract bool UpdateValue();
 
-        public abstract void Dispose();
+        public virtual void Dispose() { }
     }
 }

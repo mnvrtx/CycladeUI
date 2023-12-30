@@ -12,7 +12,6 @@ namespace CycladeBase.Utils
         
         [SerializeField] private GameObject[] optionalDebugElements;
         [CycladeHelpBox("Add your debug elements")] public string stub2;
-        
 
         private void Awake()
         {

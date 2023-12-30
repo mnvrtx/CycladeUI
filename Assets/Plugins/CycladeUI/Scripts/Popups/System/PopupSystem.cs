@@ -28,14 +28,10 @@ namespace CycladeUI.Popups.System
         [SerializeField] private RectTransform active;
 
         [SerializeField] private PopupSystemLogicBase optionalLogic;
-
-        [CycladeHelpBox("The logic is needed so that the popup system does not operate while, for example, a request is being made to the server. You can inherit from PopupSystemLogicBase and add your own logic.")]
-        public string stub;
+        [CycladeHelpBox("The logic is needed so that the popup system does not operate while, for example, a request is being made to the server. You can inherit from PopupSystemLogicBase and add your own logic.")] public string stub;
 
         [SerializeField] private BasePopupAnimation optionalDefaultAnimation;
-
-        [CycladeHelpBox("This animation will be used if the popup does not have its own animation.")]
-        public string stub2;
+        [CycladeHelpBox("This animation will be used if the popup does not have its own animation.")] public string stub2;
 
         private const float AnimationPostSafeDelay = 0.5f;
 

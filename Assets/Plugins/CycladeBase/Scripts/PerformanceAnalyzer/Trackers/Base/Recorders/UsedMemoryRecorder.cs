@@ -18,10 +18,11 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
 #endif
         }
 
-        public override void UpdateValue()
+        public override bool UpdateValue()
         {
             var raw = _usedMemoryRecorder.LastValue;
             LongValue = raw / (1024 * 1024); //MB
+            return true;
         }
 
         public override void Dispose()

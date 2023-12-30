@@ -11,7 +11,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
             _recorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Batches Count");
         }
 
-        public override void UpdateValue()
+        public override bool UpdateValue()
         {
             long batchesCount;
 #if UNITY_EDITOR
@@ -22,6 +22,8 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
 
             if (batchesCount > 0)
                 LongValue = batchesCount;
+
+            return true;
         }
 
         public override void Dispose()

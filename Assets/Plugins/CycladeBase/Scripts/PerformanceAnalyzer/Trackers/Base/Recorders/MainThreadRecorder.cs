@@ -11,9 +11,10 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
             _recorder = ProfilerRecorder.StartNew(ProfilerCategory.Internal, "Main Thread", 15);
         }
 
-        public override void UpdateValue()
+        public override bool UpdateValue()
         {
             FloatValue = (float)(GetRecorderFrameAverage(_recorder) * 1e-6);
+            return true;
         }
         
         private static double GetRecorderFrameAverage(ProfilerRecorder recorder)

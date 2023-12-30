@@ -15,7 +15,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
         {
         }
 
-        public override void UpdateValue()
+        public override bool UpdateValue()
         {
             if (_fpsBuffer == null || _fpsBuffer.Length != FrameRange)
             {
@@ -49,6 +49,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
             }
 
             FloatValue = count > 0 ? (sum / (float)count) : 0;
+            return true;
         }
 
         public override void Dispose()

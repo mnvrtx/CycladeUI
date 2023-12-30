@@ -11,9 +11,10 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
             _recorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC Allocated In Frame");
         }
 
-        public override void UpdateValue()
+        public override bool UpdateValue()
         {
             FloatValue = _recorder.LastValue / 1024f;
+            return true;
         }
 
         public override void Dispose()

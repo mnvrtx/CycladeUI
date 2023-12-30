@@ -14,7 +14,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
 
         protected abstract void Awake();
 
-        public AnalyzeData RegisterRecorder(BaseRecorder recorder, ValSuffix valSuffix = null, string viewTitle = null)
+        protected AnalyzeData RegisterRecorder(BaseRecorder recorder, ValSuffix valSuffix = null, string viewTitle = null)
         {
             var analyzeData = _tracker.RegisterTrack(_recorders.Count, !string.IsNullOrEmpty(viewTitle) ? viewTitle : recorder.Name, valSuffix);
             _recorders.Add(recorder);
@@ -26,11 +26,14 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
             for (var i = 0; i < _recorders.Count; i++)
             {
                 var recorder = _recorders[i];
-                recorder.UpdateValue();
-                if (recorder.IsLongValue)
-                    _tracker.CommitTrackLong(i, recorder.LongValue);
-                else
-                    _tracker.CommitTrack(i, recorder.FloatValue);
+                if (recorder.UpdateValue())
+                {
+                    if (recorder.IsLongValue)
+                        _tracker.CommitTrackLong(i, recorder.LongValue);
+                    else
+                        _tracker.CommitTrack(i, recorder.FloatValue);    
+                }
+                
             }
         }
 

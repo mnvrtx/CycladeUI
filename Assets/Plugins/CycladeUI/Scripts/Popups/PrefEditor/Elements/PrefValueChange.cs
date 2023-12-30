@@ -1,4 +1,5 @@
 using System;
+using CycladeBase.Utils.Logging;
 #if CYCLADEUI_TEXT_MESH_PRO
 using TMPro;
 #else
@@ -10,6 +11,8 @@ namespace CycladeUI.Popups.PrefEditor.Elements
 {
     public class PrefValueChange : PrefBaseChange
     {
+        private static readonly Log log = new(nameof(PrefValueChange));
+        
 #if CYCLADEUI_TEXT_MESH_PRO
         public TMP_InputField input;
         public TMP_Text placeholder;
@@ -83,7 +86,7 @@ namespace CycladeUI.Popups.PrefEditor.Elements
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                log.Exception(e);
                 ResetProperty();
             }
         }

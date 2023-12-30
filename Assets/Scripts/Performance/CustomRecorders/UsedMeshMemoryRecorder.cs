@@ -12,10 +12,11 @@ namespace CycladeUIExample.Performance.CustomRecorders
             _memoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "Mesh Memory");
         }
 
-        public override void UpdateValue()
+        public override bool UpdateValue()
         {
             var raw = _memoryRecorder.LastValue;
             LongValue = raw / (1024 * 1024); //MB
+            return true;
         }
 
         public override void Dispose()
