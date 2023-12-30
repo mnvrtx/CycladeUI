@@ -13,7 +13,7 @@ namespace CycladeUIExample.Tests
         {
             testController.ShowAndDebugPopup<ShopPopup>(popup =>
             {
-                popup.Initialize(ProductsData.GetMock());
+                popup.Initialize(ProductsData.GetExampleMockDataFromServer());
             });
         }
     }

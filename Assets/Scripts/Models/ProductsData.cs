@@ -7,7 +7,7 @@ namespace CycladeUIExample.Models
         public List<IapProduct> IapProducts;
         public List<Product> InGameProducts;
 
-        public static ProductsData GetMock()
+        public static ProductsData GetExampleMockDataFromServer()
         {
             return new ProductsData()
             {

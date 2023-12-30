@@ -26,7 +26,8 @@ namespace CycladeUI.Popups.System
         [CycladeHelpBox("Unload unused assets after close \"OnDemand\" popup")] public string stub3;
 
         public readonly ClSubscriptionHandlers OnClose = new();
-        public readonly ClSubscriptionHandlers OnCloseAfterAnimation = new();
+        public readonly ClSubscriptionHandlers OnCloseAfterAnimation = new(); 
+        public readonly ClSubscriptionHandlers OnCloseAfterAnimationRobust = new();
 
         [NonSerialized] public RectTransform Holder;
         [NonSerialized] public bool NonClosable;

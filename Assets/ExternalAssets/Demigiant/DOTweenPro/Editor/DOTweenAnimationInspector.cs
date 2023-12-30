@@ -182,13 +182,13 @@ namespace DG.DOTweenEditor
             _src = target as DOTweenAnimation;
             _settings = DOTweenUtilityWindow.GetDOTweenSettings();
 
-            onStartProperty = base.serializedObject.FindProperty("onStart");
-            onPlayProperty = base.serializedObject.FindProperty("onPlay");
-            onUpdateProperty = base.serializedObject.FindProperty("onUpdate");
-            onStepCompleteProperty = base.serializedObject.FindProperty("onStepComplete");
-            onCompleteProperty = base.serializedObject.FindProperty("onComplete");
-            onRewindProperty = base.serializedObject.FindProperty("onRewind");
-            onTweenCreatedProperty = base.serializedObject.FindProperty("onTweenCreated");
+            onStartProperty = serializedObject.FindProperty("onStart");
+            onPlayProperty = serializedObject.FindProperty("onPlay");
+            onUpdateProperty = serializedObject.FindProperty("onUpdate");
+            onStepCompleteProperty = serializedObject.FindProperty("onStepComplete");
+            onCompleteProperty = serializedObject.FindProperty("onComplete");
+            onRewindProperty = serializedObject.FindProperty("onRewind");
+            onTweenCreatedProperty = serializedObject.FindProperty("onTweenCreated");
 
             // Convert _AnimationType to _animationTypeNoSlashes
             int len = _AnimationType.Length;

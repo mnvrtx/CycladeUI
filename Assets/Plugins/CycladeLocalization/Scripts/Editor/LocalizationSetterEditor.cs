@@ -9,7 +9,7 @@ namespace CycladeLocalizationEditor
 {
     [CustomEditor(typeof(LocalizationSetter))]
     [CanEditMultipleObjects]
-    public class LocalizationSetterEditor : UnityEditor.Editor
+    public class LocalizationSetterEditor : Editor
     {
         private readonly CycladeEditorCommon _editorCommon = new();
 

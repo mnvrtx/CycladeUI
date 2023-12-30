@@ -60,7 +60,7 @@ namespace CycladeUI
                 if (!debugSafeArea.Equals(_lastDebugSafeArea))
                 {
                     _popupInstance.GetComponent<RectTransform>().FitInSafeArea(debugSafeArea);
-                    _lastDebugSafeArea = debugSafeArea;
+                    _lastDebugSafeArea = new DebugSafeAreaSettings(debugSafeArea);
                 }
             }
         }

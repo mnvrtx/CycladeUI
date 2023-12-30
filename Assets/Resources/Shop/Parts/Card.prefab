@@ -46,8 +46,8 @@ GameObject:
   - component: {fileID: 4812849961928673420}
   - component: {fileID: 458033871566103334}
   - component: {fileID: 7427252731051883541}
-  - component: {fileID: 7922810733541623059}
-  - component: {fileID: 4435920660555097048}
+  - component: {fileID: 6300471646661635877}
+  - component: {fileID: 1228131050409880150}
   m_Layer: 5
   m_Name: '[Bind] Icon'
   m_TagString: Untagged
@@ -66,13 +66,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7480864148912889706}
   m_Father: {fileID: 401822575504703287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 4.0734863}
+  m_SizeDelta: {x: 0, y: -4.0735}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &458033871566103334
 CanvasRenderer:
@@ -102,7 +103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 90c6c1fea0ee5b24aa109ce5d69171c5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f3930bf4172caba4696bd1e2aed21d77, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -112,7 +113,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7922810733541623059
+--- !u!114 &6300471646661635877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,9 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 0
+  stub2: 
   isInverse: 0
   stateGroup: ProductType
-  specifiedAllStates: 1
   states:
   - state: Credits1
     image: {fileID: 21300000, guid: f3930bf4172caba4696bd1e2aed21d77, type: 3}
@@ -159,13 +160,13 @@ MonoBehaviour:
   - state: Diamond6
     image: {fileID: 21300000, guid: 16ede130ee87b49d695a5b294c175431, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
-  - state: ChestBig
-    image: {fileID: 21300000, guid: c35a88b65a19845d4a6982f9772c6beb, type: 3}
-    color: {r: 1, g: 1, b: 1, a: 1}
   - state: Chest
     image: {fileID: 21300000, guid: 4b1f4a02d7d904bb099b4e0a350525c4, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &4435920660555097048
+  - state: ChestBig
+    image: {fileID: 21300000, guid: c35a88b65a19845d4a6982f9772c6beb, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1228131050409880150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,21 +179,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 0
+  stub2: 
   isInverse: 0
   stateGroup: ProductType
   states:
+  - state: Credits1
+    rectTransform: {fileID: 802355334525340130}
+  - state: Diamond1
+    rectTransform: {fileID: 802355334525340130}
+  - state: Diamond3
+    rectTransform: {fileID: 802355334525340130}
+  - state: Diamond4
+    rectTransform: {fileID: 802355334525340130}
+  - state: Diamond5
+    rectTransform: {fileID: 802355334525340130}
   - state: Chest
     rectTransform: {fileID: 1558194790770007456}
   - state: ChestBig
     rectTransform: {fileID: 8499066783790628861}
-  - state: Diamond5
-    rectTransform: {fileID: 802355334525340130}
-  - state: Diamond4
-    rectTransform: {fileID: 802355334525340130}
-  - state: Diamond1
-    rectTransform: {fileID: 802355334525340130}
-  - state: Credits1
-    rectTransform: {fileID: 802355334525340130}
   - state: __AnyOtherState
     rectTransform: {fileID: 7692782020562704472}
 --- !u!1 &344183566680522019
@@ -351,6 +355,168 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &2040061867652710557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7141654999133464097}
+  - component: {fileID: 3048768588957942124}
+  - component: {fileID: 5879463929179482508}
+  - component: {fileID: 8746395857834528402}
+  m_Layer: 5
+  m_Name: DecorText2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7141654999133464097
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040061867652710557}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7480864148912889706}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 111.7, y: -21.1}
+  m_SizeDelta: {x: 199.1389, y: 27.032501}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3048768588957942124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040061867652710557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f2b1337ff64c049c988426bdbd835b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  order: 0
+  stub2: 
+  isInverse: 0
+  stateGroup: ProductType
+  states:
+  - state: Credits1
+    isActive: 1
+  - state: Credits2
+    isActive: 1
+  - state: Diamond1
+    isActive: 1
+  - state: Diamond2
+    isActive: 1
+  - state: __AnyOtherState
+    isActive: 0
+--- !u!222 &5879463929179482508
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040061867652710557}
+  m_CullTransparentMesh: 1
+--- !u!114 &8746395857834528402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040061867652710557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: SO SMALL
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4282236927
+  m_fontColor: {r: 1, g: 0.7484134, b: 0.24056602, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24.15
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 4
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2827158564827118653
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,16 +662,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd57eb88f2a4836911630271d9f21fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 0
+  order: -1
+  stub2: 
   isInverse: 0
   stateGroup: CurrencyType
-  specifiedAllStates: 0
   states:
   - state: Credits
     image: {fileID: 21300000, guid: b2ee06d17bb09764d9100e9f2707384f, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   - state: Diamonds
     image: {fileID: 21300000, guid: d2669d3377625514d8b056c11297b84e, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - state: __AnyOtherState
+    image: {fileID: 0}
     color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &5170910246339627566
 MonoBehaviour:
@@ -520,6 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 0
+  stub2: 
   isInverse: 1
   stateGroup: CurrencyType
   state: Real
@@ -574,20 +744,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9d46b82e3b44e179c49103afddb65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackBlockBtn: {fileID: 6116804074506397425}
+  CardHolderBtn: {fileID: 6116804074506397425}
   IconImg: {fileID: 7427252731051883541}
   CountTxt: {fileID: 8345757465031535030}
   AdditionalTextTxt: {fileID: 7619392701302417684}
   CurrencyIconImg: {fileID: 1374076762988795981}
   PriceTxt: {fileID: 6034230777257689793}
   statefulElements:
+  - {fileID: 3993092652596401897}
   - {fileID: 1712732301186506464}
   - {fileID: 5700629818007764557}
-  - {fileID: 6605731761093808972}
-  - {fileID: 7922810733541623059}
-  - {fileID: 4435920660555097048}
+  - {fileID: 6300471646661635877}
+  - {fileID: 1228131050409880150}
+  - {fileID: 3839584041253631950}
+  - {fileID: 8715835824676749609}
+  - {fileID: 3048768588957942124}
   - {fileID: 1289245159571914618}
-  - {fileID: 3993092652596401897}
   - {fileID: 5170910246339627566}
 --- !u!114 &1009101800532064066
 MonoBehaviour:
@@ -800,9 +972,136 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 0
+  stub2: 
   isInverse: 0
   stateGroup: CardType
   state: CardWithAdditionalInfo
+--- !u!1 &3735483808837014272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7480864148912889706}
+  - component: {fileID: 3839584041253631950}
+  - component: {fileID: 73929950540043800}
+  m_Layer: 5
+  m_Name: DecorTextHolder_otherState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7480864148912889706
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735483808837014272}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3995527770682944989}
+  - {fileID: 7141654999133464097}
+  m_Father: {fileID: 4812849961928673420}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3839584041253631950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735483808837014272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fabf8410c7d4da5a938cc0505d7cf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  order: 0
+  stub2: 
+  isInverse: 0
+  stateGroup: ProductType
+  states:
+  - state: Credits2
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 73929950540043800}
+          m_TargetAssemblyTypeName: CycladeUIExample.Popups.Shop.ShopCardHandler,
+            Core
+          m_MethodName: U_SomeStateCallback
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+        - m_Target: {fileID: 3735483808837014272}
+          m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_MethodName: set_name
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: DecorTextHolder_credits2
+            m_BoolArgument: 0
+          m_CallState: 1
+  - state: __AnyOtherState
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 73929950540043800}
+          m_TargetAssemblyTypeName: CycladeUIExample.Popups.Shop.ShopCardHandler,
+            Core
+          m_MethodName: U_OtherStateCallback
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+        - m_Target: {fileID: 3735483808837014272}
+          m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_MethodName: set_name
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: DecorTextHolder_otherState
+            m_BoolArgument: 0
+          m_CallState: 1
+--- !u!114 &73929950540043800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735483808837014272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b78726e0a1c47f787635a96be5b9787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4136107000973484877
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,7 +1117,7 @@ GameObject:
   - component: {fileID: 8912240566078320440}
   - component: {fileID: 1712732301186506464}
   m_Layer: 5
-  m_Name: '[Bind] BackBlock:Button'
+  m_Name: '[Bind] CardHolder:Button'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -969,9 +1268,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 0
+  stub2: 
   isInverse: 0
   stateGroup: CardType
-  specifiedAllStates: 1
   states:
   - state: Simple
     image: {fileID: 21300000, guid: 378549cd0016cff4cb521fabed22bb51, type: 3}
@@ -1284,6 +1583,166 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!1 &7773638531640779105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3995527770682944989}
+  - component: {fileID: 8715835824676749609}
+  - component: {fileID: 8277041724691817803}
+  - component: {fileID: 8016165102260098703}
+  m_Layer: 5
+  m_Name: DecorText1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &3995527770682944989
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773638531640779105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7480864148912889706}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 64.6364, y: -33.9215}
+  m_SizeDelta: {x: 118.1673, y: 55.2631}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8715835824676749609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773638531640779105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f2b1337ff64c049c988426bdbd835b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  order: 0
+  stub2: 
+  isInverse: 0
+  stateGroup: ProductType
+  states:
+  - state: Diamond6
+    isActive: 1
+  - state: Credits4
+    isActive: 1
+  - state: __AnyOtherState
+    isActive: 0
+--- !u!222 &8277041724691817803
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773638531640779105}
+  m_CullTransparentMesh: 1
+--- !u!114 &8016165102260098703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773638531640779105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'REALLY
+
+    BIG'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24.35
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8266352161477527477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,8 +1788,6 @@ GameObject:
   m_Component:
   - component: {fileID: 401822575504703287}
   - component: {fileID: 5700629818007764557}
-  - component: {fileID: 6605731761093808972}
-  - component: {fileID: 1662356292299787460}
   m_Layer: 5
   m_Name: IconHolder
   m_TagString: Untagged
@@ -1375,6 +1832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 0
+  stub2: 
   isInverse: 0
   stateGroup: CardType
   states:
@@ -1382,51 +1840,6 @@ MonoBehaviour:
     rectTransform: {fileID: 1228206048857546698}
   - state: CardWithAdditionalInfo
     rectTransform: {fileID: 2007166399803799416}
---- !u!114 &6605731761093808972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8861623139600990443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9be44eeb56164bb6b1849e6f35234c4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  order: 0
-  isInverse: 1
-  stateGroup: ProductType
-  state: Diamond1
-  stub: 
-  unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1662356292299787460}
-        m_TargetAssemblyTypeName: CycladeUIExample.Popups.Shop.CardIconStateHandler,
-          Core
-        m_MethodName: U_OnStateChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
---- !u!114 &1662356292299787460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8861623139600990443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2620a35afa4262aa81c4afc711540a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9078989604785364903
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,6 +1872,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 6.2155}
-  m_SizeDelta: {x: 0, y: -6.2155}
+  m_AnchoredPosition: {x: 0, y: 4.0735}
+  m_SizeDelta: {x: 0, y: -4.0735}
   m_Pivot: {x: 0.5, y: 0}

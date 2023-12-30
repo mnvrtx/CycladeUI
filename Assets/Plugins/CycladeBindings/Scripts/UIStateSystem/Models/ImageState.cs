@@ -4,9 +4,8 @@ using UnityEngine;
 namespace CycladeBindings.UIStateSystem.Models
 {
     [Serializable]
-    public class ImageState
+    public class ImageState : BaseUIElementState
     {
-        public string state;
         public Sprite image;
         public Color color = Color.white;
     }

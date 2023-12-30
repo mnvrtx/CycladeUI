@@ -63,7 +63,7 @@ namespace CycladeUIExample
         {
             popupSystem.ShowPopup<ShopPopup>(p =>
             {
-                p.Initialize(ProductsData.GetMock());
+                p.Initialize(ProductsData.GetExampleMockDataFromServer());
                 p.OnClose.Subscribe(() =>
                 {
                     log.Info("ExampleShopPopup closed");

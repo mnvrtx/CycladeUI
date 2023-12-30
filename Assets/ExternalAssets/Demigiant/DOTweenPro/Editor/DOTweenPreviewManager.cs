@@ -141,7 +141,7 @@ namespace DG.DOTweenEditor
 #if UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5
             UnityEditor.EditorApplication.playmodeStateChanged -= StopAllPreviews;
 #else
-            UnityEditor.EditorApplication.playModeStateChanged -= StopAllPreviews;
+            EditorApplication.playModeStateChanged -= StopAllPreviews;
 #endif
 //            EditorApplication.playmodeStateChanged -= StopAllPreviews;
 
@@ -158,7 +158,7 @@ namespace DG.DOTweenEditor
 #if UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5
             UnityEditor.EditorApplication.playmodeStateChanged += StopAllPreviews;
 #else
-            UnityEditor.EditorApplication.playModeStateChanged += StopAllPreviews;
+            EditorApplication.playModeStateChanged += StopAllPreviews;
 #endif
 //            EditorApplication.playmodeStateChanged += StopAllPreviews;
         }

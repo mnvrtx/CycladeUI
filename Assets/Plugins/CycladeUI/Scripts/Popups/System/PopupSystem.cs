@@ -29,11 +29,13 @@ namespace CycladeUI.Popups.System
 
         [SerializeField] private PopupSystemLogicBase optionalLogic;
 
-        [CycladeHelpBox("The logic is needed so that the popup system does not operate while, for example, a request is being made to the server. You can inherit from PopupSystemLogicBase and add your own logic.")] public string stub;
+        [CycladeHelpBox("The logic is needed so that the popup system does not operate while, for example, a request is being made to the server. You can inherit from PopupSystemLogicBase and add your own logic.")]
+        public string stub;
 
         [SerializeField] private BasePopupAnimation optionalDefaultAnimation;
 
-        [CycladeHelpBox("This animation will be used if the popup does not have its own animation.")] public string stub2;
+        [CycladeHelpBox("This animation will be used if the popup does not have its own animation.")]
+        public string stub2;
 
         private const float AnimationPostSafeDelay = 0.5f;
 
@@ -140,7 +142,7 @@ namespace CycladeUI.Popups.System
             yield return ShowPopupInternal(GetTemplate(type), settings.globalSettings.debugSafeAreaSettings, onCreate, onClose);
         }
 
-        public T ShowAndDebugPopup<T>(T template, DebugSafeAreaSettings safeArea, Action<T> onCreate = null, Action onClose = null) where T : BasePopup 
+        public T ShowAndDebugPopup<T>(T template, DebugSafeAreaSettings safeArea, Action<T> onCreate = null, Action onClose = null) where T : BasePopup
             => ShowPopupInternal(template, safeArea, onCreate, onClose);
 
         public void ClosePopup(BasePopup popup)
@@ -315,7 +317,7 @@ namespace CycladeUI.Popups.System
             {
                 var type = popup.GetType();
                 if (_entries.Count == 0 || _entries[type].type == PopupLoadType.OnDemand)
-                    popup.OnCloseAfterAnimation.Subscribe(() => UnloadUnusedAssetsAfterCloseOnDemandPopup(type));
+                    popup.OnCloseAfterAnimationRobust.Subscribe(() => UnloadUnusedAssetsAfterCloseOnDemandPopup(type));
                 else
                     log.Error($"UnloadUnusedAssetsAfterCloseOnDemandPopup. Popup type is not \"OnDemand\": {_entries[type].type}");
             }
@@ -416,9 +418,12 @@ namespace CycladeUI.Popups.System
             yield return new WaitForSeconds(delay);
             var holder = popup.Holder.gameObject;
             Destroy(holder);
-            yield return new WaitForSeconds(AnimationPostSafeDelay);
 
             popup.OnCloseAfterAnimation.InvokeAll();
+
+            yield return new WaitForSeconds(AnimationPostSafeDelay);
+
+            popup.OnCloseAfterAnimationRobust.InvokeAll();
         }
     }
 }

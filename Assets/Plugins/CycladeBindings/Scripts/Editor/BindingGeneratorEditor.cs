@@ -19,7 +19,7 @@ using Object = UnityEngine.Object;
 namespace CycladeBindingsEditor
 {
     [CustomEditor(typeof(BindingGenerator))]
-    public class BindingGeneratorEditor : UnityEditor.Editor
+    public class BindingGeneratorEditor : Editor
     {
         private static readonly Log log = new(nameof(BindingGeneratorEditor));
 

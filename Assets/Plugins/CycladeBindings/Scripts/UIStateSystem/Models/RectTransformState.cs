@@ -4,9 +4,8 @@ using UnityEngine;
 namespace CycladeBindings.UIStateSystem.Models
 {
     [Serializable]
-    public class RectTransformState
+    public class RectTransformState : BaseUIElementState
     {
-        public string state;
         public RectTransform rectTransform;
     }
 }

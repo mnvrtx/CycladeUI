@@ -5,9 +5,9 @@ using CycladeBindings.UIStateSystem.Base;
 using UnityEditor;
 using UnityEngine;
 
-namespace CycladeBindingsEditor.UIStateSystem
+namespace CycladeBindingsEditor.UIStateSystem.Base
 {
-    public abstract class BaseActivatableStateEditor : UnityEditor.Editor
+    public abstract class BaseActivatableStateEditor : Editor
     {
         protected abstract string GroupSelectorTitle { get; }
         protected abstract string StateSelectorTitle { get; }
@@ -78,10 +78,8 @@ namespace CycladeBindingsEditor.UIStateSystem
                 GUILayout.Label(StateSelectorTitle, GUILayout.Width(300));
                 _selectedStateIndex = EditorGUILayout.Popup(_selectedStateIndex, states);
                 EditorGUILayout.EndHorizontal();
-                if (!string.IsNullOrEmpty(SelectorPostTitle))
-                {
+                if (!string.IsNullOrEmpty(SelectorPostTitle)) 
                     GUILayout.Label(SelectorPostTitle, GUILayout.Width(300));
-                }
 
                 // Update state property
                 if(states.ValidIndex(_selectedStateIndex))

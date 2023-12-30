@@ -151,7 +151,7 @@ namespace CycladeBindingsEditor
                                 baseActivatableState.Select(statesGroup.states.TryGet(selectedInfo.index));
                         }
                     }
-                    else if (elementState is BaseSelectableState selectable)
+                    else if (elementState is BaseGroupableState selectable)
                     {
                         var stateGroup = selectable.stateGroup;
                         var selectedInfo = selectedGroupIndexes.FirstOrDefault(q => q.name == stateGroup);

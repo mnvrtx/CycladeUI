@@ -35,7 +35,7 @@ namespace IngameDebugConsole
 		// Check if two entries have the same origin
 		public bool Equals( DebugLogEntry other )
 		{
-			return this.logString == other.logString && this.stackTrace == other.stackTrace;
+			return logString == other.logString && stackTrace == other.stackTrace;
 		}
 
 		// Checks if logString or stackTrace contains the search term

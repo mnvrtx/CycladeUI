@@ -180,7 +180,7 @@ namespace DG.Tweening
         {
             if (!isValid) {
                 if (regenerateIfExists) { // Called manually: warn users
-                    Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation isn't valid and its tween won't be created", this.gameObject.name), this.gameObject);
+                    Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation isn't valid and its tween won't be created", gameObject.name), gameObject);
                 }
                 return;
             }
@@ -201,10 +201,10 @@ namespace DG.Tweening
             if (target == null || tweenGO == null) {
                 if (targetIsSelf && target == null) {
                     // Old error caused during upgrade from DOTween Pro 0.9.255
-                    Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target is NULL, because the animation was created with a DOTween Pro version older than 0.9.255. To fix this, exit Play mode then simply select this object, and it will update automatically", this.gameObject.name), this.gameObject);
+                    Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target is NULL, because the animation was created with a DOTween Pro version older than 0.9.255. To fix this, exit Play mode then simply select this object, and it will update automatically", gameObject.name), gameObject);
                 } else {
                     // Missing non-self target
-                    Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target/GameObject is unset: the tween will not be created.", this.gameObject.name), this.gameObject);
+                    Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target/GameObject is unset: the tween will not be created.", gameObject.name), gameObject);
                 }
                 return;
             }
@@ -222,19 +222,19 @@ namespace DG.Tweening
                 if (useTargetAsV3) {
                     isRelative = false;
                     if (endValueTransform == null) {
-                        Debug.LogWarning(string.Format("{0} :: This tween's TO target is NULL, a Vector3 of (0,0,0) will be used instead", this.gameObject.name), this.gameObject);
+                        Debug.LogWarning(string.Format("{0} :: This tween's TO target is NULL, a Vector3 of (0,0,0) will be used instead", gameObject.name), gameObject);
                         endValueV3 = Vector3.zero;
                     } else {
 #if true // UI_MARKER
                         if (targetType == TargetType.RectTransform) {
                             RectTransform endValueT = endValueTransform as RectTransform;
                             if (endValueT == null) {
-                                Debug.LogWarning(string.Format("{0} :: This tween's TO target should be a RectTransform, a Vector3 of (0,0,0) will be used instead", this.gameObject.name), this.gameObject);
+                                Debug.LogWarning(string.Format("{0} :: This tween's TO target should be a RectTransform, a Vector3 of (0,0,0) will be used instead", gameObject.name), gameObject);
                                 endValueV3 = Vector3.zero;
                             } else {
                                 RectTransform rTarget = target as RectTransform;
                                 if (rTarget == null) {
-                                    Debug.LogWarning(string.Format("{0} :: This tween's target and TO target are not of the same type. Please reassign the values", this.gameObject.name), this.gameObject);
+                                    Debug.LogWarning(string.Format("{0} :: This tween's target and TO target are not of the same type. Please reassign the values", gameObject.name), gameObject);
                                 } else {
                                     // Problem: doesn't work inside Awake (ararargh!)
                                     endValueV3 = DOTweenModuleUI.Utils.SwitchToRectTransform(endValueT, rTarget);
@@ -514,7 +514,7 @@ namespace DG.Tweening
         public List<Tween> GetTweens()
         {
             List<Tween> result = new List<Tween>();
-            DOTweenAnimation[] anims = this.GetComponents<DOTweenAnimation>();
+            DOTweenAnimation[] anims = GetComponents<DOTweenAnimation>();
             foreach (DOTweenAnimation anim in anims) {
                 if (anim.tween != null && anim.tween.active) result.Add(anim.tween);
             }
@@ -595,7 +595,7 @@ namespace DG.Tweening
         {
         	_playCount = -1;
             // Rewind using Components order (in case there are multiple animations on the same property)
-            DOTweenAnimation[] anims = this.gameObject.GetComponents<DOTweenAnimation>();
+            DOTweenAnimation[] anims = gameObject.GetComponents<DOTweenAnimation>();
             for (int i = anims.Length - 1; i > -1; --i) {
                 Tween t = anims[i].tween;
                 if (t != null && t.IsInitialized()) anims[i].tween.Rewind();
@@ -700,7 +700,7 @@ namespace DG.Tweening
         /// </summary>
         public void DOPlayNext()
         {
-            DOTweenAnimation[] anims = this.GetComponents<DOTweenAnimation>();
+            DOTweenAnimation[] anims = GetComponents<DOTweenAnimation>();
             while (_playCount < anims.Length - 1) {
                 _playCount++;
                 DOTweenAnimation anim = anims[_playCount];
@@ -811,7 +811,7 @@ namespace DG.Tweening
         /// <returns></returns>
         GameObject GetTweenGO()
         {
-            return targetIsSelf ? this.gameObject : targetGO;
+            return targetIsSelf ? gameObject : targetGO;
         }
 
         /// <summary>
@@ -819,7 +819,7 @@ namespace DG.Tweening
         /// </summary>
         GameObject GetTweenTarget()
         {
-            return targetIsSelf || !tweenTargetIsTargetGO ? this.gameObject : targetGO;
+            return targetIsSelf || !tweenTargetIsTargetGO ? gameObject : targetGO;
         }
 
         // Re-evaluate relative position of path
@@ -827,7 +827,7 @@ namespace DG.Tweening
         {
             GameObject tweenGO = GetTweenGO();
             if (tweenGO == null) {
-                Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target/GameObject is unset: the tween will not be created.", this.gameObject.name), this.gameObject);
+                Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target/GameObject is unset: the tween will not be created.", gameObject.name), gameObject);
                 return;
             }
             if (animationType == AnimationType.Move) {

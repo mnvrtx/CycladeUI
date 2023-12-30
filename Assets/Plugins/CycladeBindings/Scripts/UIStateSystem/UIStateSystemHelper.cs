@@ -11,7 +11,7 @@ namespace CycladeBindings.UIStateSystem
         {
             foreach (var element in statefulElements)
             {
-                if (element is BaseSelectableState baseSelectableState)
+                if (element is BaseGroupableState baseSelectableState)
                 {
                     var group = baseSelectableState.stateGroup;
                     var en = states.FirstOrDefault(q => q.GetType().Name == group);

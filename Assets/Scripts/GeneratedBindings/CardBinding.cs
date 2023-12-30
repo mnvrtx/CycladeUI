@@ -48,7 +48,7 @@ namespace GeneratedCycladeBindings
             CardWithAdditionalInfo,
         }
 
-        public Button BackBlockBtn;
+        public Button CardHolderBtn;
         public Image IconImg;
         public TMPro.TextMeshProUGUI CountTxt;
         public TMPro.TextMeshProUGUI AdditionalTextTxt;

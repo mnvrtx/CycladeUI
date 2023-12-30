@@ -35,7 +35,7 @@ namespace CycladeLocalizationEditor
                 SheetsService.Scope.SpreadsheetsReadonly,
             };
 
-            string json = File.ReadAllText(System.IO.Path.Combine(Application.dataPath, "Editor", "CycladeSettings", CredentialsFileName));
+            string json = File.ReadAllText(Path.Combine(Application.dataPath, "Editor", "CycladeSettings", CredentialsFileName));
             GoogleCredential credential = GoogleCredential.FromJson(json).CreateScoped(scopes);
 
             var service = new SheetsService(new BaseClientService.Initializer
@@ -56,7 +56,7 @@ namespace CycladeLocalizationEditor
                 }
             }
             
-            string infoJson = File.ReadAllText(System.IO.Path.Combine(Application.dataPath, "Editor", "CycladeSettings", InfoFileName));
+            string infoJson = File.ReadAllText(Path.Combine(Application.dataPath, "Editor", "CycladeSettings", InfoFileName));
             var rawInfo = JObject.Parse(infoJson);
             var sheetId = rawInfo.Property("sheet_id").Value.ToString();
 
@@ -137,7 +137,7 @@ namespace CycladeLocalizationEditor
             }
 
             foreach (var locJson in locJsons) {
-                var path = System.IO.Path.Combine(Application.dataPath, "Resources", Localization.ResultLocalizationJsonsPath, $"localization_{locJson.Key}.json");
+                var path = Path.Combine(Application.dataPath, "Resources", Localization.ResultLocalizationJsonsPath, $"localization_{locJson.Key}.json");
                 FileHelper.WriteTextUtf8(path, JsonConvert.SerializeObject(locJson.Value, Formatting.Indented));
                 Debug.Log($"{LogTag} Synchronization {locJson.Key} to {path}");
             }
