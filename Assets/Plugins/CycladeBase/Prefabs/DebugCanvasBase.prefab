@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 2204360528844862831}
   - component: {fileID: 3449911372120221787}
   - component: {fileID: 8416650374984051415}
+  - component: {fileID: 1964566770042734231}
   m_Layer: 5
   m_Name: DebugCanvasBase
   m_TagString: Untagged
@@ -289,6 +290,18 @@ MonoBehaviour:
   initialActive: 0
   optionalDebugElements: []
   stub2: 
+--- !u!114 &1964566770042734231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4671404857738633119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3502d94966544bc3a711312d46061fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9132174689916624359
 GameObject:
   m_ObjectHideFlags: 0
