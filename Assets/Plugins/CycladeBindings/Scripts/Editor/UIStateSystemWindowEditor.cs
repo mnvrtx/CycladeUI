@@ -27,7 +27,7 @@ namespace CycladeBindingsEditor
         }
 
         [MenuItem("Cyclade/Windows/" + nameof(UIStateSystemWindowEditor))]
-        public static void ShowWindow() => GetWindow<UIStateSystemWindowEditor>(nameof(UIStateSystemWindowEditor));
+        public static void ShowWindow() => GetWindow<UIStateSystemWindowEditor>("UIStateSystem");
 
         private readonly CycladeEditorCommon _editorCommon = new();
         private Vector2 _scrollView = Vector2.zero;
