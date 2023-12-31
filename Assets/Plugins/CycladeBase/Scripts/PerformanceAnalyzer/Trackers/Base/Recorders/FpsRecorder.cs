@@ -5,11 +5,9 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
     public class FpsRecorder : BaseRecorder
     {
         private const int FrameRange = 60;
-        private const int DontTrackDifference = 10;
 
         private int[] _fpsBuffer;
         private int _fpsBufferIndex;
-        private int _lastFPS;
         
         public FpsRecorder() : base("FPS", false)
         {
@@ -21,21 +19,12 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders
             {
                 _fpsBuffer = new int[FrameRange];
                 _fpsBufferIndex = 0;
-                _lastFPS = -1;
             }
 
             int currentFPS = (int)(1f / Time.unscaledDeltaTime);
 
-            if (DontTrackDifference != -1)
-            {
-                if (_lastFPS < 0 || Mathf.Abs(currentFPS - _lastFPS) <= DontTrackDifference)
-                {
-                    _fpsBuffer[_fpsBufferIndex++] = currentFPS;
-                    if (_fpsBufferIndex >= FrameRange) _fpsBufferIndex = 0;
-                }
-            }
-
-            _lastFPS = currentFPS;
+            _fpsBuffer[_fpsBufferIndex++] = currentFPS;
+            if (_fpsBufferIndex >= FrameRange) _fpsBufferIndex = 0;
 
             int sum = 0;
             int count = 0;

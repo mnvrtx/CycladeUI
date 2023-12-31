@@ -26,7 +26,7 @@ namespace CycladeBindingsEditor
             }
         }
 
-        [MenuItem("Cyclade/Windows/" + nameof(UIStateSystemWindowEditor))]
+        [MenuItem("Cyclade/Windows/UIStateSystem")]
         public static void ShowWindow() => GetWindow<UIStateSystemWindowEditor>("UIStateSystem");
 
         private readonly CycladeEditorCommon _editorCommon = new();

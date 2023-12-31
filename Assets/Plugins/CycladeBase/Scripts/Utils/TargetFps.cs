@@ -12,7 +12,8 @@ namespace CycladeBase.Utils
 
         private void Awake()
         {
-            QualitySettings.vSyncCount = targetVSyncCount;
+            if (targetVSyncCount != -1)
+                QualitySettings.vSyncCount = targetVSyncCount;
             U_Set(targetFramerate);
         }
 
