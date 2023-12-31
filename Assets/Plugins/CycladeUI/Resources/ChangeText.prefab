@@ -902,13 +902,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionalCloseBtn: {fileID: 6493016622544498743}
   optionalAnimation: {fileID: 0}
-  stub: 
+  optionalOutsideSafeArea: {fileID: 0}
   optionalCanvasGroup: {fileID: 8489896241124269005}
-  stub2: 
+  stub: 
   isFullScreenPopup: 0
+  stub2: 
   needBackground: 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.74}
   needSafeArea: 1
+  unloadAssetsAfterClose: 0
+  stub3: 
   title: {fileID: 3650357202708959386}
   errorText: {fileID: 1355480000022257793}
   inputField: {fileID: 775581745622911687}
