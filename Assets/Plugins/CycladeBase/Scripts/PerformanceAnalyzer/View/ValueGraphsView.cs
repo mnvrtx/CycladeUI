@@ -14,7 +14,7 @@ namespace CycladeBase.PerformanceAnalyzer.View
 
         public void Initialize(params ITrackerResultsProvider[] providers)
         {
-            valueGraphs.Clear();
+            valueGraphs.Initialize();
 
             foreach (var provider in providers)
             {
