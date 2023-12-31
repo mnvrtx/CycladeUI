@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 0, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3132936063689667620
 CanvasRenderer:
@@ -158,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 0, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3642823742005193707
 CanvasRenderer:
@@ -358,13 +358,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionalCloseBtn: {fileID: 8720003494040365668}
   optionalAnimation: {fileID: 0}
-  stub: 
+  optionalOutsideSafeArea: {fileID: 0}
   optionalCanvasGroup: {fileID: 8350500405751105851}
-  stub2: 
+  stub: 
   isFullScreenPopup: 0
+  stub2: 
   needBackground: 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.74}
   needSafeArea: 1
+  unloadAssetsAfterClose: 0
+  stub3: 
   description: {fileID: 5996275344076528640}
   yesText: {fileID: 3560428340581861831}
   noText: {fileID: 7888312328789185407}
@@ -629,7 +632,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 59.85
+  m_fontSize: 50.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -768,7 +771,7 @@ MonoBehaviour:
     m_Top: 140
     m_Bottom: 140
   m_ChildAlignment: 4
-  m_Spacing: 40
+  m_Spacing: 30
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -882,7 +885,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 59.85
+  m_fontSize: 50.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

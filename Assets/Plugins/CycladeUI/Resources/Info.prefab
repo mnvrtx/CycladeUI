@@ -94,7 +94,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 100
+  m_PreferredHeight: 90
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -194,13 +194,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionalCloseBtn: {fileID: 6467624201679054431}
   optionalAnimation: {fileID: 0}
-  stub: 
+  optionalOutsideSafeArea: {fileID: 0}
   optionalCanvasGroup: {fileID: 7350262694927669078}
-  stub2: 
+  stub: 
   isFullScreenPopup: 0
+  stub2: 
   needBackground: 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.7411765}
   needSafeArea: 1
+  unloadAssetsAfterClose: 0
+  stub3: 
   ok: {fileID: 7075265210467019159}
   description: {fileID: 5151486074020351877}
   okBtn: {fileID: 6467624201679054431}
@@ -463,7 +466,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 59.85
+  m_fontSize: 50.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
