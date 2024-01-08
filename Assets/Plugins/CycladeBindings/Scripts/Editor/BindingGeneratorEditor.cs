@@ -304,7 +304,7 @@ namespace CycladeBindingsEditor
             {
                 ClassName = GetBindingName(settings),
                 Fields = fields,
-                StateGroups = settings.stateGroups
+                StateGroups = settings.stateGroups,
             };
 
             var fullPath = GetFullPath(settings, false);

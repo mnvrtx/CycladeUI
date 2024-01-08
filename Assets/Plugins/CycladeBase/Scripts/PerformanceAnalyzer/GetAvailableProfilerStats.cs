@@ -33,7 +33,7 @@ namespace CycladeBase.PerformanceAnalyzer
                 {
                     Cat = statDesc.Category,
                     Name = statDesc.Name,
-                    Unit = statDesc.UnitType
+                    Unit = statDesc.UnitType,
                 };
                 availableStats.Add(statInfo);
             }

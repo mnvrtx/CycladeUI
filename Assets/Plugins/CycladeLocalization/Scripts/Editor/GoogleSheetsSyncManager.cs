@@ -51,7 +51,7 @@ namespace CycladeLocalizationEditor
                 foreach (var language in languages) {
                     locJsons.Add(language.ToString(), new LocJson
                     {
-                        Areas = new Dictionary<string, Dictionary<string, string>>()
+                        Areas = new Dictionary<string, Dictionary<string, string>>(),
                     });
                 }
             }
