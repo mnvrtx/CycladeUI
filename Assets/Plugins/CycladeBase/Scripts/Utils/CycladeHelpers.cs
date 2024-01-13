@@ -241,5 +241,23 @@ namespace CycladeBase.Utils
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Max(float a, float b) => (a <= b) ? b : a;
+        
+        public static Color WithAlpha(this Color color, float a) 
+            => new(color.r, color.g, color.b, a);
+
+        public static bool EqualsWithoutAlpha(this Color c, Color other) 
+            => c.r.Equals(other.r) && c.g.Equals(other.g) && c.b.Equals(other.b);
+
+        public static void FastRemoveAndDecrI<T>(this List<T> list, ref int i)
+        {
+            list.FastRemoveAt(i);
+            i--;
+        }
+        
+        public static void FastRemoveAt<T>(this List<T> list, int i)
+        {
+            list[i] = list[list.Count - 1];
+            list.RemoveAt(list.Count - 1);
+        }
     }
 }

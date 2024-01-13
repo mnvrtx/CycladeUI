@@ -14,24 +14,22 @@ namespace CycladeStorage
 
         private static LocalStorage _instance;
 
-        public static bool IsDebug;
+        public static bool IsDebug { get; set; }
 
         public static LocalStorage I => _instance ??= new LocalStorage();
 
         private readonly Dictionary<Type, IStorageSection> _sections = new();
 
-        private readonly Dictionary<string, Type> KeyToType;
-
-        private readonly Dictionary<Type, string> TypeToKey;
+        private readonly Dictionary<Type, string> _typeToKey;
 
         private LocalStorage()
         {
-            KeyToType = CycladeHelpers.FindTypesWith(t => typeof(IStorageSection).IsAssignableFrom(t) && t.IsClass)
+            var keyToType = CycladeHelpers.FindTypesWith(t => typeof(IStorageSection).IsAssignableFrom(t) && t.IsClass)
                 .ToDictionary(q2 => $"{q2.Name}Key", q => q);
             
-            TypeToKey = KeyToType.SwapKeysAndValues();
+            _typeToKey = keyToType.SwapKeysAndValues();
             
-            foreach (var keyTypeKvp in KeyToType)
+            foreach (var keyTypeKvp in keyToType)
             {
                 (Type key, IStorageSection data) loadedSection = LoadSection(keyTypeKvp.Value);
                 _sections.Add(loadedSection.key, loadedSection.data);
@@ -54,12 +52,20 @@ namespace CycladeStorage
             return section;
         }
 
+        public void ModifySection<T>(T data)
+            where T : IStorageSection
+        {
+            var type = typeof(T);
+            _sections[type] = data;
+            SaveSection(type);
+        }
+
         public void ResetAll()
         {
             log.Debug($"Started reset all", IsDebug);
 
             foreach (var section in _sections)
-                PlayerPrefs.DeleteKey(TypeToKey[section.Key]);
+                PlayerPrefs.DeleteKey(_typeToKey[section.Key]);
 
             log.Debug($"Removed all keys({_sections.Count}) from storage", IsDebug);
         }
@@ -75,7 +81,7 @@ namespace CycladeStorage
 
         private void SaveSection(Type type, bool needCommit = true)
         {
-            var key = TypeToKey[type];
+            var key = _typeToKey[type];
             var value = JsonConvert.SerializeObject(_sections[type]);
             PlayerPrefs.SetString(key, value);
             if (needCommit)
@@ -87,7 +93,7 @@ namespace CycladeStorage
 
         private (Type, IStorageSection) LoadSection(Type type)
         {
-            var key = TypeToKey[type];
+            var key = _typeToKey[type];
             var section = PlayerPrefs.HasKey(key) ? TryToLoadJsonFromPrefs(type, key) : Activator.CreateInstance(type);
 
             return (type, (IStorageSection)section);
