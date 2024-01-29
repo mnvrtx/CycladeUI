@@ -40,6 +40,7 @@ namespace GeneratedCycladeBindings
             Diamond6,
             Chest,
             ChestBig,
+            Test,
         }
 
         public enum CardType

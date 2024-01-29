@@ -19,7 +19,7 @@ namespace CycladeBase.Utils
         private void Awake()
         {
             _popupTransform = (RectTransform)transform;
-            _canvasTR = transform.root.GetComponent<RectTransform>();
+            _canvasTR = transform.GetComponentInParent<Canvas>().gameObject.GetComponent<RectTransform>();
 
             Vector2 pos = _popupTransform.anchoredPosition;
             if (pos.x != 0f || pos.y != 0f)

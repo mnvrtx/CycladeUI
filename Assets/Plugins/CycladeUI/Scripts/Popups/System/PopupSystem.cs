@@ -46,10 +46,10 @@ namespace CycladeUI.Popups.System
         {
             log = new Log($"{gameObject.name}");
 
-            _canvas = transform.root.GetComponent<Canvas>();
+            _canvas = transform.GetComponentInParent<Canvas>();
             if (_canvas == null)
             {
-                log.Error($"Not initialized. Root is not canvas");
+                log.Error($"Not initialized. Don't have canvas in the parents");
                 return;
             }
 

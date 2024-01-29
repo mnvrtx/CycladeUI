@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CycladeBase.Utils.Logging;
 using UnityEngine;
 
 namespace CycladeBase.Utils
@@ -7,6 +8,8 @@ namespace CycladeBase.Utils
     [DefaultExecutionOrder(-99999)]
     public class MonoDiscovery : MonoBehaviour
     {
+        private static readonly Log log = new(nameof(MonoDiscovery));
+
         private enum MonoDiscoveryAccessType
         {
             ByType,
@@ -21,9 +24,48 @@ namespace CycladeBase.Utils
         
         [SerializeField] private Component optionalComponent;
         [CycladeHelpBox("Leave null if you want the possibility of accessing all components.")] public string stub2;
+        
+        public static void TryToExecute<T>(Action<T> action, bool warnIfNotExecuted = true) where T : Component
+        {
+            var c = Get<T>();
+            if (c == null)
+            {
+                if (warnIfNotExecuted)
+                    log.Warn($"not found component with \"{typeof(T)}\" type");
+                return;
+            }
+            
+            action.Invoke(c);
+        }
+        
+        public static void TryToExecute<T>(string name, Action<T> action, bool warnIfNotExecuted = true) where T : Component
+        {
+            var c = Get<T>(name, false);
+            if (c == null)
+            {
+                if (warnIfNotExecuted)
+                    log.Warn($"not found component with \"{name}\" name");
+                return;
+            }
+            
+            action.Invoke(c);
+        }
 
-        public static T Get<T>() where T : Component => (T)behaviours.GetValueOrDefault(typeof(T), null);
-        public static T Get<T>(string name) where T : Component => (T)behavioursByName.GetValueOrDefault(name, null);
+        public static T Get<T>(bool errorIfNotFound = true) where T : Component
+        {
+            var found = behaviours.TryGetValue(typeof(T), out var value);
+            if (errorIfNotFound && !found)
+                log.Error($"not found component with \"{typeof(T)}\" type");
+            return (T)value;
+        }
+
+        public static T Get<T>(string name, bool errorIfNotFound = true) where T : Component
+        {
+            var found = behavioursByName.TryGetValue(name, out var value);
+            if (errorIfNotFound && !found)
+                log.Error($"not found component with \"{name}\" name");
+            return (T)value;
+        }
 
         private readonly List<(Component component, bool byName)> _trackedComponents = new();
 
@@ -39,9 +81,23 @@ namespace CycladeBase.Utils
 
                     var byName = component is Transform;
                     if (byName)
-                        behavioursByName.Add(name, component);
+                    {
+                        var isAdded = behavioursByName.TryAdd(name, component);
+                        if (!isAdded)
+                        {
+                            log.Error($"{GetId()}: component with name \"{name}\" already added", gameObject);
+                            continue;
+                        }
+                    }
                     else
-                        behaviours.Add(component.GetType(), component);
+                    {
+                        var isAdded = behaviours.TryAdd(component.GetType(), component);
+                        if (!isAdded)
+                        {
+                            log.Error($"{GetId()}: component with type \"{component.GetType()}\" already added", gameObject);
+                            continue;
+                        }
+                    }
 
                     _trackedComponents.Add((component, byName));
                 }
@@ -49,12 +105,21 @@ namespace CycladeBase.Utils
             else
             {
                 if (accessType == MonoDiscoveryAccessType.ByName)
-                    behavioursByName.Add(name, optionalComponent);    
+                {
+                    var isAdded = behavioursByName.TryAdd(name, optionalComponent);
+                    if (!isAdded)
+                        log.Error($"{GetId()}: component with name \"{name}\" already added", gameObject);
+                }
                 else
-                    behaviours.Add(optionalComponent.GetType(), optionalComponent);
+                {
+                    var isAdded = behaviours.TryAdd(optionalComponent.GetType(), optionalComponent);
+                    if (!isAdded)
+                        log.Error($"{GetId()}: component with type \"{optionalComponent.GetType()}\" already added", gameObject);
+                }
             }
-            
         }
+
+        private string GetId() => gameObject.GetFullPath();
 
         private void OnDestroy()
         {
