@@ -47,6 +47,7 @@ namespace CycladeBase.PerformanceAnalyzer.View
                 if (behaviour)
                     behaviour.SetActive(true);
             }
+            draggablePanel.OnUpdatedSize();
         }
         
         private void OnDisable()

@@ -44,6 +44,8 @@ namespace CycladeBase.Utils
 
         public void OnUpdatedSize()
         {
+            if (!gameObject.activeInHierarchy)
+                return;
             CheckCoroutine();
             StartCoroutine(OnUpdatedSizeCoroutine());
         }
