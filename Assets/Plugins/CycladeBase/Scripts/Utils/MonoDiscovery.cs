@@ -31,7 +31,7 @@ namespace CycladeBase.Utils
             if (c == null)
             {
                 if (warnIfNotExecuted)
-                    log.Warn($"not found component with \"{typeof(T)}\" type");
+                    log.Warn($"not found component with \"{typeof(T)}\" type. not executed action");
                 return;
             }
             
@@ -44,7 +44,7 @@ namespace CycladeBase.Utils
             if (c == null)
             {
                 if (warnIfNotExecuted)
-                    log.Warn($"not found component with \"{name}\" name");
+                    log.Warn($"not found component with \"{name}\" name. not executed action");
                 return;
             }
             
