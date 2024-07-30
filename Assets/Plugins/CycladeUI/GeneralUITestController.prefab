@@ -50,19 +50,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494ceef21e574ba7b6e86ccf81e26d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testPopupTemplate: {fileID: 0}
   stub: 
+  autoShow: 1
   disableMock: 0
   optionalMock: {fileID: 0}
   mockSprite: {fileID: 0}
   debugSafeArea:
-    stub2: 
     enabled: 0
     top: 0
     left: 0
     bot: 0
     right: 0
-  testPopupTemplate: {fileID: 0}
   popupSystem: {fileID: 6235207897459234995}
+  stub2: 
 --- !u!114 &1831226863702099716
 MonoBehaviour:
   m_ObjectHideFlags: 0

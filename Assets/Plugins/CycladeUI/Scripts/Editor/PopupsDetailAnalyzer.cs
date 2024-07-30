@@ -1,72 +1,69 @@
 using System.Linq;
-using CycladeBase.Utils.Logging;
 using CycladeBaseEditor;
 using CycladeUI.Models;
-using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
+using Shared.Utils.Logging;
 using UnityEditor;
-using UnityEngine;
 
 namespace CycladeUIEditor
 {
     public static class PopupsDetailAnalyzer
     {
-        public static void AnalyzeAll(Log log)
+        public static void AnalyzeAll(GlobalPopupSystemSettings globalSettings, Log log)
         {
             var popupSystems = CycladeEditorCommon.FindScriptableObjects<PopupSystemSettings>();
             log.PrintData(string.Join(", ", popupSystems.Select(q => q.name)), "PopupSystems");
 
             foreach (var popupSystem in popupSystems) 
-                AnalyzeOne(popupSystem, log);
+                AnalyzeOne(popupSystem, globalSettings, log);
         }
 
-        public static void AnalyzeOne(PopupSystemSettings settings, Log log)
+        public static void AnalyzeOne(PopupSystemSettings settings, GlobalPopupSystemSettings globalSettings, Log log)
         {
             settings.FillFromSerialized();
+            bool needToSave = false;
             for (var i = 0; i < settings.selectedPopups.Length; i++)
             {
-                var load = settings.selectedPopups[i];
+                var selectedEntry = settings.selectedPopups[i];
 
                 //validate asset and type
-                var asset = TryLoadAsset(load);
-                var type = load.TryFindType();
-
-                log.Trace($"{settings.name}. {i}. asset: {asset}. type: {type}");
-
-                if (asset == null && type != null) //check asset renamed or moved
+                var entry = globalSettings.entries.FirstOrDefault(q => q.assetPath == selectedEntry.assetPath
+                                                                       && q.type.assemblyName == selectedEntry.assemblyName
+                                                                       && q.type.fullName == selectedEntry.typeFullName);
+                if (entry == null)
                 {
-                    var firstPath = load.assetPath;
-                    load.assetPath = PopupEntry.TryToFindAndSetAssetPathByType(load.assemblyName, load.typeFullName, log);
-                    asset = TryLoadAsset(load);
-                    if (asset == null) //asset not found
+                    var entryByType = globalSettings.entries.FirstOrDefault(q => q.type.assemblyName == selectedEntry.assemblyName 
+                                                                                 && q.type.fullName == selectedEntry.typeFullName);
+
+                    if (entryByType != null)
                     {
-                        log.Warn($"Asset by path {load.assetPath} (first: {firstPath}) in {settings.name} not found. Remove entry (auto)");
-                        RemoveAndDecrI(ref settings.selectedPopups, ref i);
+                        log.Info($"Asset (type: {selectedEntry.typeFullName}) in {settings.name} updated. (assetPath: {selectedEntry.assetPath} -> {entryByType.assetPath})");
+                        selectedEntry.assetPath = entryByType.assetPath;
+                        needToSave = true;
                     }
                     else
                     {
-                        log.Info($"Asset by path {load.assetPath} in {settings.name} updated");
+                        var entryByAssetPath = globalSettings.entries.FirstOrDefault(q => q.assetPath == selectedEntry.assetPath);
+                        if (entryByAssetPath != null)
+                        {
+                            log.Info($"Asset (assetPath: {selectedEntry.assetPath}) in {settings.name} updated. (new type: {entryByAssetPath.type.fullName})");
+                            selectedEntry.typeFullName = entryByAssetPath.type.fullName;
+                            selectedEntry.assemblyName = entryByAssetPath.type.assemblyName;
+                            needToSave = true;
+                        }
+                        else
+                        {
+                            log.Warn($"Not found type ({selectedEntry.typeFullName}) and asset ({selectedEntry.assetPath}) in {settings.name}. Remove entry (auto)");
+                            RemoveAndDecrI(ref settings.selectedPopups, ref i);
+                            needToSave = true;
+                        }
                     }
-                    Save(settings);
-                }
-                else if (type == null && asset != null) //check type renamed or moved
-                {
-                    var assetType = asset.GetType();
-                    load.assemblyName = assetType.Assembly.FullName;
-                    load.typeFullName = assetType.FullName;
-                    Save(settings);
-                    log.Info($"Asset with type {assetType.FullName} in {settings.name} updated");
-                }
-                else if (type == null && asset == null) //if all is null
-                {
-                    log.Warn($"Not found type ({load.typeFullName}) and asset ({load.assetPath}) in {settings.name}. Remove entry (auto)");
-                    RemoveAndDecrI(ref settings.selectedPopups, ref i);
-                    Save(settings);
                 }
             }
+            
+            if (needToSave)
+                Save(settings);
         }
-
-        private static BasePopup TryLoadAsset(PopupLoadEntry load) => AssetDatabase.LoadAssetAtPath<BasePopup>(load.assetPath);
 
         private static void Save(PopupSystemSettings settings)
         {

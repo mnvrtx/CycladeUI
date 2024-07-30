@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Shared.Utils;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -27,8 +28,8 @@ namespace CycladeBase.Utils
             _cur = Mathf.Clamp(_cur, 0f, time);
 
             var value = _down
-                            ? ClEasingFunctions.EaseOutQuint(0f, 1f, _cur / time)
-                            : ClEasingFunctions.EaseInQuint(0f, 1f, _cur / time);
+                            ? EasingFunctions.EaseOutQuint(0f, 1f, _cur / time)
+                            : EasingFunctions.EaseInQuint(0f, 1f, _cur / time);
 
             transform.localScale = Vector3.Lerp(_min, _max, value);
         }

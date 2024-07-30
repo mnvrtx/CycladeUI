@@ -12,6 +12,9 @@ namespace CycladeBindings
         public string bindArrTitle = "[BindArr]";
         public string bindViewInstanceTitle = "[BindViewInstance]";
         public string lastGeneratedPath = "";
-        public List<StatesGroup> stateGroups;
+        public bool haveRootRectTransform;
+        public string[] rootAdditionalComponents = {};
+        public string ignoreButtonHandlerType = "Touching";
+        public List<StatesGroup> stateGroups = new();
     }
 }

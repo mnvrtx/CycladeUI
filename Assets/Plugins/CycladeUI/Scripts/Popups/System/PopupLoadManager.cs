@@ -1,12 +1,12 @@
 using System;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using UnityEngine;
 
 namespace CycladeUI.Popups.System
 {
     public static class PopupLoadManager
     {
-        private static readonly Log log = new(nameof(PopupLoadManager));
+        private static readonly Log log = new(nameof(PopupLoadManager), CycladeDebugInfo.I);
 
         public static BasePopup Load(Type type, string path)
         {

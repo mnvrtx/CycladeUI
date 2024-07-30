@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using BaseShared;
 using CycladeBase.Models;
 using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using CycladeUI.Models;
 using CycladeUI.ScriptableObjects;
+using Shared.Utils;
+using Solonity.View.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -140,6 +143,9 @@ namespace CycladeUI.Popups.System
 
         public T ShowAndDebugPopup<T>(T template, DebugSafeAreaSettings safeArea, Action<T> onCreate = null, Action onClose = null) where T : BasePopup
             => ShowPopupInternal(template, safeArea, onCreate, onClose);
+        
+        public BasePopup ShowAndDebugPopupNonGeneric(BasePopup template, Type type, DebugSafeAreaSettings safeArea, Action<BasePopup> onCreate = null, Action onClose = null)
+            => ShowPopupInternalNonGeneric(template, type, safeArea, onCreate, onClose);
 
         public void ClosePopup(BasePopup popup)
         {
@@ -208,10 +214,10 @@ namespace CycladeUI.Popups.System
             log.Debug($"Removed {type.Name} from loadedPopups (if present) and unloaded unused assets.", isNeedToLogDebug);
         }
 
-        public BasePopup TryGetOpenedPopup<T>() where T : BasePopup
+        public T TryGetOpenedPopup<T>() where T : BasePopup
         {
             var type = typeof(T);
-            return TryGetOpenedPopup(type);
+            return (T)TryGetOpenedPopup(type);
         }
 
         private BasePopup TryGetOpenedPopup(Type type) => _stack.FirstOrDefault(x => x.GetType() == type);
@@ -232,27 +238,38 @@ namespace CycladeUI.Popups.System
 
             var typedPopup = (T)popup;
             log.Debug($"Show popup {popupName}", isNeedToLogDebug);
-            onCreate.SafeInvoke(typedPopup, log);
+            onCreate.TryCatch(typedPopup, log);
 
             ProcessPopupAfterOnCreate(popup);
 
             return typedPopup;
+        }
+        
+        private BasePopup ShowPopupInternalNonGeneric(BasePopup template, Type type, DebugSafeAreaSettings safeArea, Action<BasePopup> onCreate, Action onClose)
+        {
+            var popupName = type.Name;
+
+            var popup = ShopPopupInternal(popupName, template, safeArea, onClose);
+
+            log.Debug($"Show popup {popupName}", isNeedToLogDebug);
+            onCreate.TryCatch(popup, log);
+
+            ProcessPopupAfterOnCreate(popup);
+
+            return popup;
         }
 
         private BasePopup ShopPopupInternal(string popupName, BasePopup template, DebugSafeAreaSettings safeArea, Action onClose)
         {
             var holder = new GameObject(popupName, typeof(RectTransform)).GetComponent<RectTransform>();
             holder.SetParent(active, false);
-            holder.anchorMin = Vector2.zero;
-            holder.anchorMax = Vector2.one;
-            holder.offsetMin = Vector2.zero;
-            holder.offsetMax = Vector2.zero;
+            holder.StretchAcrossParent();
 
             var popup = Instantiate(template, holder);
             popup.PopupSystem = this;
             popup.Holder = holder;
 
-            if (popup.optionalAnimation == null && optionalDefaultAnimation != null)
+            if (popup.optionalAnimation == null && optionalDefaultAnimation != null && popup.needAnimation)
             {
                 popup.optionalAnimation = Instantiate(optionalDefaultAnimation, popup.transform);
                 popup.optionalAnimation.SetupDefaultFromPopupSystem();
@@ -264,7 +281,7 @@ namespace CycladeUI.Popups.System
             if (popup.optionalOutsideSafeArea)
             {
                 popup.optionalOutsideSafeArea.SetParent(holder);
-                popup.optionalOutsideSafeArea.ToInitial();
+                popup.optionalOutsideSafeArea.SetToInitial();
                 popup.optionalOutsideSafeArea.StretchAcrossParent();
                 popup.optionalOutsideSafeArea.SetAsFirstSibling();
             }

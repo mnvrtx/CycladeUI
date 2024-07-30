@@ -9,7 +9,9 @@
         "CycladeStorage",
         "CycladeLocalization",
         "UniTask",
-        "Demigiant"
+        "Demigiant",
+        "GameLogger",
+        "BaseShared"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

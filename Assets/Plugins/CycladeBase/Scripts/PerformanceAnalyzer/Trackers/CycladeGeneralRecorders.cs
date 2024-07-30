@@ -1,6 +1,7 @@
 using CycladeBase.PerformanceAnalyzer.Trackers.Base;
 using CycladeBase.PerformanceAnalyzer.Trackers.Base.Recorders;
 using CycladeBase.Utils;
+using Shared.Utils;
 
 namespace CycladeBase.PerformanceAnalyzer.Trackers
 {

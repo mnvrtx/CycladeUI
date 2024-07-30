@@ -72,8 +72,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 4.0734863}
+  m_SizeDelta: {x: 0, y: -4.0735}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &458033871566103334
 CanvasRenderer:
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 502dc77f3d77b3c49b2a00de764c7507, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f3930bf4172caba4696bd1e2aed21d77, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -572,7 +572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1616984239975335851
 RectTransform:
   m_ObjectHideFlags: 0
@@ -587,10 +587,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8662054878339712543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.02225, y: -29.555}
-  m_SizeDelta: {x: 44.88, y: 38.28}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3061744230187536434
 CanvasRenderer:
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b2ee06d17bb09764d9100e9f2707384f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -674,7 +674,7 @@ MonoBehaviour:
     image: {fileID: 21300000, guid: d2669d3377625514d8b056c11297b84e, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   - state: __AnyOtherState
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: 2d19ef6de43e7fb4998de970610f4bcb, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &5170910246339627566
 MonoBehaviour:
@@ -692,7 +692,8 @@ MonoBehaviour:
   stub2: 
   isInverse: 1
   stateGroup: CurrencyType
-  state: Real
+  states:
+  - true
 --- !u!1 &3467865849458608318
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,6 +780,9 @@ MonoBehaviour:
   bindArrTitle: '[BindArr]'
   bindViewInstanceTitle: '[BindViewInstance]'
   lastGeneratedPath: /Users/olegkarlovskii/projects/CycladeUI/Assets/Scripts/GeneratedBindings/CardBinding.cs
+  haveRootRectTransform: 0
+  rootAdditionalComponents: []
+  ignoreButtonHandlerType: Touching
   stateGroups:
   - name: CurrencyType
     states:
@@ -976,7 +980,8 @@ MonoBehaviour:
   stub2: 
   isInverse: 0
   stateGroup: CardType
-  state: CardWithAdditionalInfo
+  states:
+  - true
 --- !u!1 &3735483808837014272
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,7 +994,7 @@ GameObject:
   - component: {fileID: 3839584041253631950}
   - component: {fileID: 73929950540043800}
   m_Layer: 5
-  m_Name: DecorTextHolder_credits2
+  m_Name: DecorTextHolder_otherState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

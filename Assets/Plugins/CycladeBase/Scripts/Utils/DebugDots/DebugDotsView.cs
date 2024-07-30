@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Shared.Utils;
+using Solonity.View.Utils;
 using UnityEngine;
 
 namespace CycladeBase.Utils.DebugDots
 {
     public class DebugDotsView : MonoBehaviourSingleton<DebugDotsView>
     {
-        public float defaultDotSize = 0.1f;
+        public float defaultDotRadius = 0.1f;
         public int defaultMs = 500;
 
         private readonly Queue<DotData> _debugColoredDots = new();
@@ -15,16 +17,16 @@ namespace CycladeBase.Utils.DebugDots
         private long _currentStepIdx;
 
         [Conditional("UNITY_EDITOR")]
-        public void DisplayDot(Vector3 vec, Vector3 direction = default, float size = 0, Color c = default, TimeSpan time = default)
+        public void DisplayDot(Vector3 vec, Vector3 direction = default, float radius = 0, Color c = default, TimeSpan time = default)
         {
             if (c == default)
                 c = Color.blue;
 
             var ms = time != default ? time.TotalMilliseconds : defaultMs;
             var ticks = (int)(ms / 1000f / Time.fixedDeltaTime);
-            var dotSize = size == 0 ? defaultDotSize : size;
+            var dotRadius = radius == 0 ? defaultDotRadius : radius;
 
-            _debugColoredDots.Enqueue(new DotData(vec, direction, c, _currentStepIdx, dotSize, ticks));
+            _debugColoredDots.Enqueue(new DotData(vec, direction, c, _currentStepIdx, dotRadius, ticks));
         }
 
 #if UNITY_EDITOR
@@ -64,7 +66,7 @@ namespace CycladeBase.Utils.DebugDots
             foreach (var dot in _dots)
             {
                 Gizmos.color = dot.Color;
-                Gizmos.DrawSphere(dot.Position, dot.Color.EqualsWithoutAlpha(Color.red) ? defaultDotSize * 1.3f : defaultDotSize);
+                Gizmos.DrawSphere(dot.Position, dot.Radius);
                 if (dot.Direction != Vector3.zero)
                     Gizmos.DrawLine(dot.Position, dot.Position + dot.Direction);
             }

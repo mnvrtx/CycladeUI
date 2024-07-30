@@ -5,7 +5,11 @@
         "Unity.TextMeshPro",
         "CycladeBindings",
         "CycladeBase",
-        "CycladeBaseEditor"
+        "CycladeBaseEditor",
+        "BaseShared",
+        "GameLogger",
+        "demigiantEditor",
+        "Demigiant"
     ],
     "includePlatforms": [
         "Editor"

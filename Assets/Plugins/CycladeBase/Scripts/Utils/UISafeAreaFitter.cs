@@ -1,12 +1,13 @@
 using CycladeBase.Models;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
+using Solonity.View.Utils;
 using UnityEngine;
 
 namespace CycladeBase.Utils
 {
     public static class UISafeAreaFitter
     {
-        private static readonly Log log = new(nameof(UISafeAreaFitter));
+        private static readonly Log log = new(nameof(UISafeAreaFitter), CycladeDebugInfo.I);
 
         public static void FitInSafeArea(this RectTransform trans, DebugSafeAreaSettings testSafeArea)
         {

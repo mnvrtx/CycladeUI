@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
+using Shared.Utils;
+using Shared.Utils.Logging;
+using Solonity.View.Utils;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -13,7 +15,7 @@ namespace CycladeBaseEditor
 {
     public class CycladeEditorCommon
     {
-        private static readonly Log log = new(nameof(CycladeEditorCommon));
+        private static readonly Log log = new(nameof(CycladeEditorCommon), CycladeDebugInfo.I);
 
         public readonly Cache<Texture> FolderIcon = new(() => EditorGUIUtility.IconContent("d_Folder Icon").image);
         public readonly Cache<Texture> ReloadIcon = new(() => EditorGUIUtility.IconContent("TreeEditor.Refresh").image);
@@ -94,7 +96,7 @@ namespace CycladeBaseEditor
                 fontSize = 12,
             };
 
-            guiStyle.normal.textColor = CycladeHelpers.ParseHex("FF4251");
+            guiStyle.normal.textColor = ViewUtils.ParseHex("FF4251");
 
             return guiStyle;
         });
@@ -178,6 +180,7 @@ namespace CycladeBaseEditor
             var cache = f();
             if (EditorGUI.EndChangeCheck())
             {
+                EditorUtility.SetDirty(target);
                 Undo.RecordObject(target, str);
             }
 

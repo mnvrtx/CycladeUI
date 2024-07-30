@@ -980,7 +980,8 @@ MonoBehaviour:
   stub2: 
   needBackground: 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.74}
-  needSafeArea: 1
+  needSafeArea: 0
+  needAnimation: 1
   unloadAssetsAfterClose: 0
   stub3: 
   title: {fileID: 2028706014834819247}

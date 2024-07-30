@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18018535, g: 0.22559482, b: 0.30677685, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -719,8 +719,12 @@ PrefabInstance:
         type: 3}
       propertyPath: mockSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 246fc7b3dda0d4f7199b5f87b3a0a5ba,
+      objectReference: {fileID: 0}
+    - target: {fileID: 758813062210570994, guid: 2796b3e298d2a435fb1f47b08616b3c0,
         type: 3}
+      propertyPath: disableMock
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 758813062210570994, guid: 2796b3e298d2a435fb1f47b08616b3c0,
         type: 3}
       propertyPath: testPopupTemplate
@@ -1001,6 +1005,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 752083082889962297, guid: d2af9fae6fa8645089f5e2dd54b4191a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.1000977
+      objectReference: {fileID: 0}
     - target: {fileID: 5490546587886559584, guid: d2af9fae6fa8645089f5e2dd54b4191a,
         type: 3}
       propertyPath: m_Pivot.x

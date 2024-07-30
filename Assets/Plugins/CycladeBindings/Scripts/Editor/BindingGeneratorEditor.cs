@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using CycladeBaseEditor;
 using CycladeBindings;
 using CycladeBindings.Models;
 using CycladeBindings.ScriptableObjects;
 using CycladeBindings.UIStateSystem.Base;
+using Shared.Utils;
+using Solonity.View.Utils;
 using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -21,15 +23,16 @@ namespace CycladeBindingsEditor
     [CustomEditor(typeof(BindingGenerator))]
     public class BindingGeneratorEditor : Editor
     {
-        private static readonly Log log = new(nameof(BindingGeneratorEditor));
+        private static readonly Log log = new(nameof(BindingGeneratorEditor), CycladeDebugInfo.I);
 
         [NonSerialized] private Type _bindingType;
         [NonSerialized] private GlobalCycladeBindingsSettings _globalSettings;
 
         [SerializeField] private bool showInstruction;
         [SerializeField] private bool showDebug;
+        [SerializeField] private bool showAdditional;
 
-        private readonly BindingInfo[] _defaultTypes =
+        private static readonly BindingInfo[] _defaultTypes =
         {
 #if CYCLADEUI_TEXT_MESH_PRO
             new(typeof(TextMeshProUGUI), "Txt", true),
@@ -39,13 +42,29 @@ namespace CycladeBindingsEditor
             new(typeof(Button), "Btn"),
         };
 
-        private readonly CycladeEditorCommon _editorCommon = new();
+        private string _helpText;
+        [NonSerialized] private BindingGenerator _targetCache;
 
-        private bool _isClearMode;
+        private readonly CycladeEditorCommon _editorCommon = new();
 
         public override void OnInspectorGUI()
         {
             var settings = (BindingGenerator)target;
+
+            if (_targetCache != settings)
+            {
+                _helpText = $"Instructions:\n" +
+                           $"1. You can use the <b>\"{settings.bindTitle}\"</b> prefix. For example, <b>\"{settings.bindTitle} Title\"</b> will result in: <b>\"public Text TitleTxt;\"</b>\n" +
+                           $"2. You can use the <b>\"{settings.bindArrTitle}\"</b> prefix. For example, <b>\"{settings.bindArrTitle} Title\"</b> will result in: <b>\"public List<Text> TitleTxtList;\"</b>\n" +
+                           $"3. You can use the <b>\"{settings.bindViewInstanceTitle}\"</b> prefix. For example, <b>\"{settings.bindViewInstanceTitle} Title\"</b> will result in: <b>\"public ViewInstances<Text> TitleTxtInstances;\"</b>\n" +
+                           $"4. You can specify the required component name following the colon \":\". For example, <b>\"{settings.bindTitle} Title:Text\"</b>.\n" +
+                           $"If you don't, the system will use one or many of the following types: <b>{string.Join(", ", _defaultTypes.Select(q => q.Type.Name))}, Binding, GameObject</b>\n" +
+                           $"5. You can specify short names. For example: {string.Join(", ", _defaultTypes.Where(q => !string.IsNullOrEmpty(q.OptionalBindingShortName)).Select(q => q.OptionalBindingShortName).Distinct())}\n" +
+                           $"6. You can also specify a custom component name following the colon \":\". For example: [Bind] TurnRight:TouchingButton\n" +
+                           $"7. You can also specify multiple component names following the \",\". For example: [Bind] TurnRight:RectTransform,TouchingButton";
+
+                _targetCache = settings;
+            }
 
             var currentPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
 
@@ -64,8 +83,8 @@ namespace CycladeBindingsEditor
 
             _globalSettings = CycladeEditorHelpers.TryFindGlobalSettings<GlobalCycladeBindingsSettings>();
 
-            var fileAssetPath = GetFullPath(settings, true);
-            var fullPath = GetFullPath(settings, false);
+            var fileAssetPath = GetFullPath(_globalSettings, settings, true);
+            var fullPath = GetFullPath(_globalSettings, settings, false);
 
             var haveFile = File.Exists(fullPath);
             EditorGUILayout.LabelField($"PathToFile: {fileAssetPath} ({(haveFile ? "file exists" : "file not exists")})", EditorStyles.whiteLargeLabel);
@@ -107,7 +126,7 @@ namespace CycladeBindingsEditor
             }
 
             if (GUILayout.Button($"1. {(haveFile ? "Update" : "Generate")} script"))
-                Generate(settings, haveFile, deleteExistsBinding);
+                Generate(settings, _bindingType, _globalSettings, haveFile, deleteExistsBinding, true);
 
             EditorGUI.BeginDisabledGroup(!haveFile);
             if (GUILayout.Button("2. Update bindings"))
@@ -116,6 +135,7 @@ namespace CycladeBindingsEditor
 
             DrawStatesEditor(settings);
             DrawInstruction(settings);
+            DrawAdditional(settings);
             DrawDebug(fullPath, settings);
         }
 
@@ -168,7 +188,7 @@ namespace CycladeBindingsEditor
                         EditorGUILayout.EndHorizontal();
                         break;
                     }
-                    
+
                     if (GUILayout.Button("Add below", GUILayout.Width(100)))
                     {
                         Undo.RecordObject(generator, "Add below");
@@ -201,6 +221,40 @@ namespace CycladeBindingsEditor
             }
         }
 
+        private void DrawAdditional(BindingGenerator settings)
+        {
+            showAdditional = EditorGUILayout.Foldout(showAdditional, "Additional");
+            if (showAdditional)
+            {
+                EditorGUILayout.TextArea("Handlers will not be created for buttons that contain this part of the name", _editorCommon.RichHelp2);
+                GUILayout.BeginHorizontal();
+
+                EditorGUILayout.LabelField($"IgnoreButtonHandlerTypeName");
+
+                settings.ignoreButtonHandlerType = _editorCommon.Property(() => EditorGUILayout.TextField(settings.ignoreButtonHandlerType),
+                    this, $"Changed ignoreButtonHandlerName");
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+
+                EditorGUILayout.LabelField("HaveRootRectTransform");
+                settings.haveRootRectTransform = _editorCommon.Property(() => EditorGUILayout.Toggle(settings.haveRootRectTransform),
+                    settings, $"Changed HaveRootRectTransform");
+                
+                GUILayout.EndHorizontal();
+
+                // Editor for string[] rootAdditionalComponents
+                SerializedProperty rootAdditionalComponents = serializedObject.FindProperty("rootAdditionalComponents");
+                
+                EditorGUILayout.PropertyField(rootAdditionalComponents, new GUIContent("RootAdditionalComponents"), true);
+                
+                serializedObject.ApplyModifiedProperties();
+                
+                
+                // GUILayout.EndHorizontal();
+            }
+        }
+
         private void DrawDebug(string fullPath, BindingGenerator settings)
         {
             showDebug = EditorGUILayout.Foldout(showDebug, "Debug");
@@ -225,14 +279,7 @@ namespace CycladeBindingsEditor
 
             if (showInstruction)
             {
-                EditorGUILayout.TextArea($"Instructions:\n" +
-                                         $"1. You can use the <b>\"{settings.bindTitle}\"</b> prefix. For example, <b>\"{settings.bindTitle} Title\"</b> will result in: <b>\"public Text TitleTxt;\"</b>\n" +
-                                         $"2. You can use the <b>\"{settings.bindArrTitle}\"</b> prefix. For example, <b>\"{settings.bindArrTitle} Title\"</b> will result in: <b>\"public List<Text> TitleTxtList;\"</b>\n" +
-                                         $"3. You can use the <b>\"{settings.bindViewInstanceTitle}\"</b> prefix. For example, <b>\"{settings.bindViewInstanceTitle} Title\"</b> will result in: <b>\"public List<Text> TitleTxtInstances;\"</b>\n" +
-                                         $"4. You can specify the required component name following the colon \":\". For example, <b>\"{settings.bindTitle} Title:Text\"</b>.\n" +
-                                         $"If you don't, the system will use one or many of the following types: <b>{string.Join(", ", _defaultTypes.Select(q => q.Type.Name))}, Binding, GameObject</b>\n" +
-                                         $"5. You can also specify a custom component name following the colon \":\".",
-                    _editorCommon.RichHelp2);
+                EditorGUILayout.TextArea(_helpText, _editorCommon.RichHelp2);
 
                 if (_globalSettings == null)
                     EditorGUILayout.HelpBox($"Not found {nameof(GlobalCycladeBindingsSettings)}. " +
@@ -248,37 +295,43 @@ namespace CycladeBindingsEditor
             if (!TryToFindAndProcessComponent(settings, true, false))
                 return;
 
-            _isClearMode = isClearMode;
-            SetBindings(settings);
+            SetBindings(settings, isClearMode);
         }
 
-        private void SetBindings(BindingGenerator settings)
+        private void SetBindings(BindingGenerator settings, bool isClearMode)
         {
             var namesHashSet = new HashSet<string>();
 
-            CycladeHelpers.IterateOverMeAndChildren(settings.gameObject, go =>
+            ViewUtils.IterateOverMeAndChildren(settings.gameObject, go =>
             {
+                if (settings.haveRootRectTransform && go == settings.gameObject)
+                    ProcessBind(settings, _bindingType, go, null, namesHashSet, BindMode.Simple, false, isClearMode, GetRootRectTransformName());
+                
+                if (settings.rootAdditionalComponents.Length > 0 && go == settings.gameObject)
+                    ProcessBind(settings, _bindingType, go, null, namesHashSet, BindMode.Simple, false, isClearMode, GetRootAdditionalComponentsName(settings));
+
                 if (go.name.StartsWith(settings.bindTitle))
-                    ProcessBind(settings, go, null, namesHashSet, BindMode.Simple, false);
+                    ProcessBind(settings, _bindingType, go, null, namesHashSet, BindMode.Simple, false, isClearMode);
 
                 if (go.name.StartsWith(settings.bindArrTitle))
-                    ProcessBind(settings, go, null, namesHashSet, BindMode.Array, false);
-                
-                if (go.name.StartsWith(settings.bindViewInstanceTitle))
-                    ProcessBind(settings, go, null, namesHashSet, BindMode.ViewInstance, false);
-                
-            }, o => !PrefabUtility.IsAnyPrefabInstanceRoot(o));
+                    ProcessBind(settings, _bindingType, go, null, namesHashSet, BindMode.Array, false, isClearMode);
 
-            BindStatefulElements(settings);
+                if (go.name.StartsWith(settings.bindViewInstanceTitle))
+                    ProcessBind(settings, _bindingType, go, null, namesHashSet, BindMode.ViewInstance, false, isClearMode);
+            }, NeedToGoDeepFunc);
+
+            BindStatefulElements(settings, isClearMode);
 
             log.Info("Bindings updated");
         }
 
-        private void Generate(BindingGenerator settings, bool isUpdate, bool deleteExistsBinding)
+        private static bool NeedToGoDeepFunc(GameObject o) => !PrefabUtility.IsAnyPrefabInstanceRoot(o) || o.GetComponent<BindingGenerator>() == null;
+
+        public static void Generate(BindingGenerator settings, Type bindingType, GlobalCycladeBindingsSettings globalSettings, bool isUpdate, bool deleteExistsBinding, bool needToSave)
         {
             if (deleteExistsBinding)
             {
-                var assetPath = CycladeHelpers.ConvertToAssetPath(settings.lastGeneratedPath);
+                var assetPath = ViewUtils.ConvertToAssetPath(settings.lastGeneratedPath);
                 AssetDatabase.DeleteAsset(assetPath);
                 DestroyAllBindings(settings);
             }
@@ -287,41 +340,75 @@ namespace CycladeBindingsEditor
 
             var namesHashSet = new HashSet<string>();
 
-            CycladeHelpers.IterateOverMeAndChildren(settings.gameObject, go =>
+            ViewUtils.IterateOverMeAndChildren(settings.gameObject, go =>
             {
+                if (settings.haveRootRectTransform && go == settings.gameObject)
+                    ProcessBind(settings, bindingType, go, fields, namesHashSet, BindMode.Simple, true, false, GetRootRectTransformName());
+                
+                if (settings.rootAdditionalComponents.Length > 0 && go == settings.gameObject)
+                    ProcessBind(settings, bindingType, go, fields, namesHashSet, BindMode.Simple, true, false, GetRootAdditionalComponentsName(settings));
+
                 if (go.name.StartsWith(settings.bindTitle))
-                    ProcessBind(settings, go, fields, namesHashSet, BindMode.Simple, true);
+                    ProcessBind(settings, bindingType, go, fields, namesHashSet, BindMode.Simple, true, false);
 
                 if (go.name.StartsWith(settings.bindArrTitle))
-                    ProcessBind(settings, go, fields, namesHashSet, BindMode.Array, true);
-                
+                    ProcessBind(settings, bindingType, go, fields, namesHashSet, BindMode.Array, true, false);
+
                 if (go.name.StartsWith(settings.bindViewInstanceTitle))
-                    ProcessBind(settings, go, fields, namesHashSet, BindMode.ViewInstance, true);
+                    ProcessBind(settings, bindingType, go, fields, namesHashSet, BindMode.ViewInstance, true, false);
+            }, NeedToGoDeepFunc);
 
-            }, o => !PrefabUtility.IsAnyPrefabInstanceRoot(o));
+            var btnsMethodInfos = new List<ButtonMethodInfo>();
 
-            var generator = new UiBinding
+            foreach (var field in fields)
             {
-                ClassName = GetBindingName(settings),
-                Fields = fields,
-                StateGroups = settings.stateGroups,
-            };
+                if (!field.IsButton || field.Type.Contains(settings.ignoreButtonHandlerType) || field.BindMode == BindMode.ViewInstance)
+                    continue;
 
-            var fullPath = GetFullPath(settings, false);
+                btnsMethodInfos.Add(new ButtonMethodInfo(field.Name, field.BindMode == BindMode.Array));
+            }
+
+            var fullPath = GetFullPath(globalSettings, settings,false);
             if (!FileHelper.IsValidPath(fullPath, out var errorMessage))
             {
                 log.Error(errorMessage);
                 return;
             }
 
-            FileHelper.WriteTextUtf8(fullPath, generator.TransformText());
+            var uiBindingGenerator = new UiBinding
+            {
+                ClassName = GetBindingName(settings),
+                Fields = fields,
+                StateGroups = settings.stateGroups,
+                ButtonMethodInfos = btnsMethodInfos,
+            };
+            FileHelper.WriteTextUtf8(fullPath, uiBindingGenerator.TransformText());
 
             settings.lastGeneratedPath = fullPath;
-            EditorUtility.SetDirty(settings);
-            SavePrefab();
+
+            if (needToSave)
+            {
+                EditorUtility.SetDirty(settings);
+                SavePrefab();    
+            }
 
             AssetDatabase.Refresh();
-            log.Info($"The script has been {(isUpdate ? "updated" : "generated")}. Path: {GetFullPath(settings, true)}");
+            log.Info($"The script has been {(isUpdate ? "updated" : "generated")}. Path: {GetFullPath(globalSettings, settings, true)}");
+        }
+
+        private static string GetRootRectTransformName()
+        {
+            return "RootRectTransform:RectTransform";
+        }
+
+        private static string GetRootAdditionalComponentsName(BindingGenerator settings)
+        {
+            if (settings.rootAdditionalComponents.Length == 1)
+            {
+                var singleComponent = settings.rootAdditionalComponents[0];
+                return $"Root{singleComponent}:{singleComponent}";
+            }
+            return $"Root:{string.Join(",", settings.rootAdditionalComponents)}";
         }
 
         private static void SavePrefab()
@@ -332,16 +419,16 @@ namespace CycladeBindingsEditor
             PrefabStageUtility.GetCurrentPrefabStage().ClearDirtiness();
         }
 
-        private string GetFullPath(BindingGenerator settings, bool skipStart)
+        private static string GetFullPath(GlobalCycladeBindingsSettings globalSettings, BindingGenerator settings, bool skipStart)
         {
-            var baseBindingsPath = _globalSettings != null ? _globalSettings.baseBindingsPath : GlobalCycladeBindingsSettings.DefaultPath;
+            var baseBindingsPath = globalSettings != null ? globalSettings.baseBindingsPath : GlobalCycladeBindingsSettings.DefaultPath;
             var dataPath = !skipStart ? Path.GetFullPath(Application.dataPath) : "";
             return Path.Combine(dataPath, baseBindingsPath, settings.additionalFolderPath, $"{GetBindingName(settings)}.cs");
         }
 
         private static string GetBindingName(BindingGenerator settings) => $"{settings.name}{settings.bindPostfix}";
 
-        private void ProcessBind(BindingGenerator settings, GameObject go, List<BindingFieldInfo> fields, HashSet<string> namesHashSet, BindMode bindMode, bool isRegister)
+        private static void ProcessBind(BindingGenerator settings, Type bindingType, GameObject go, List<BindingFieldInfo> fields, HashSet<string> namesHashSet, BindMode bindMode, bool isRegister, bool isClearMode, string customName = null)
         {
             string title = "";
             if (bindMode == BindMode.Simple)
@@ -350,8 +437,8 @@ namespace CycladeBindingsEditor
                 title = settings.bindArrTitle;
             else if (bindMode == BindMode.ViewInstance)
                 title = settings.bindViewInstanceTitle;
-            
-            string determinedName = go.name
+
+            string determinedName = (string.IsNullOrEmpty(customName) ? go.name : customName)
                 .Replace(title, "")
                 .Replace(" ", "");
 
@@ -359,7 +446,12 @@ namespace CycladeBindingsEditor
 
             List<BindingInfo> bindingInfos;
 
-            var bindingComponent = CycladeHelpers.FindComponent(go, c => c.GetType().Namespace == BindingConstants.GeneratedNameSpace, out _);
+            Component bindingComponent = null;
+            var isSpecifiedBinding = determinedName.Contains(':');
+
+            if (!isSpecifiedBinding)
+                bindingComponent = ViewUtils.FindComponent(go, c => c.GetType().Namespace == BindingConstants.GeneratedNameSpace, out _);
+
             if (bindingComponent != null)
             {
                 bindingInfos = new List<BindingInfo>()
@@ -367,30 +459,22 @@ namespace CycladeBindingsEditor
                     new(bindingComponent.GetType(), "Bind"),
                 };
 
-                var isSpecifiedBinding = determinedName.Contains(':');
-                if (isSpecifiedBinding)
-                {
-                    var split = determinedName.Split(':');
-                    determinedName = split[0];
-                    log.Warn($"Don't need \":\" in binding {go.name}. Removed(auto).", go);
-                }
-
                 fullName = true;
             }
             else
             {
-                var isSpecifiedBinding = determinedName.Contains(':');
-                string specifiedType = string.Empty;
+                string[] specifiedTypes = Array.Empty<string>();
+                string firstSpecifiedType = string.Empty;
                 if (isSpecifiedBinding)
                 {
                     var split = determinedName.Split(':');
                     determinedName = split[0];
-                    specifiedType = split[1];
+                    specifiedTypes = split[1].Split(',');
+                    firstSpecifiedType = specifiedTypes[0];
                 }
 
                 //only contains transform, we are dealing with a GameObject binding
-
-                if (go.GetComponents<Component>().Length == 1 || (isSpecifiedBinding && specifiedType == "GameObject"))
+                if ((go.GetComponents<Component>().Length == 1 && go.GetComponent<RectTransform>() == null) || (isSpecifiedBinding && firstSpecifiedType == "GameObject" && specifiedTypes.Length == 1))
                 {
                     bindingInfos = new List<BindingInfo>()
                     {
@@ -403,28 +487,55 @@ namespace CycladeBindingsEditor
 
                     if (isSpecifiedBinding)
                     {
-                        //verify whether the default types include 'onlyInclude'.
-                        if (bindingInfos.Any(q => q.Type.Name == specifiedType))
+                        for (var i = 0; i < specifiedTypes.Length; i++)
                         {
-                            bindingInfos.RemoveAll(q => q.Type.Name != specifiedType);
-                        }
-                        else //if not, we are dealing with a non-default type for binding
-                        {
-                            fullName = true;
-                            bindingInfos.Clear();
-                            var foundComponent = FindComponent(go, specifiedType, out var foundComponents);
-                            if (foundComponent != null)
-                                bindingInfos.Add(new BindingInfo(foundComponent.GetType(), ""));
-                            else
-                                log.Warn($"Not found component with name {specifiedType}. Found components: {FormatFoundComponents(foundComponents)}. skip: {go.name}", go);
+                            var specifiedType = specifiedTypes[i];
+
+                            //verify whether the default types include 'onlyInclude'.
+                            if (bindingInfos.Any(q => q.Type.Name == specifiedType || q.OptionalBindingShortName == specifiedType))
+                            {
+                                bindingInfos.RemoveAll(q => q.Type.Name != specifiedType && q.OptionalBindingShortName != specifiedType);
+                            }
+                            else //if not, we are dealing with a non-default type for binding
+                            {
+                                if (i == 0)
+                                    bindingInfos.Clear();
+
+                                if (specifiedType == "GameObject")
+                                {
+                                    bindingInfos.Add(new BindingInfo(typeof(GameObject), "Go"));
+                                }
+                                else
+                                {
+                                    fullName = true;
+                                    var foundComponent = FindComponent(go, specifiedType, out var foundComponents);
+                                    if (foundComponent != null)
+                                    {
+                                        var type = foundComponent.GetType();
+                                        if (string.IsNullOrEmpty(type.Namespace))
+                                        {
+                                            log.Error($"namespace in {type} is null. skip");
+                                            continue;
+                                        }
+
+                                        bindingInfos.Add(new BindingInfo(type, specifiedTypes.Length == 1 ? "" : $"{type.Name}"));
+                                    }
+                                    else
+                                    {
+                                        log.Warn($"Not found component with name {specifiedType}. Found components: {FormatFoundComponents(foundComponents)}. skip: {go.name}", go);
+                                    }    
+                                }
+                                
+                                
+                            }
                         }
                     }
 
-                    bindingInfos.RemoveAll(q => !go.TryGetComponent(q.Type, out _));
+                    bindingInfos.RemoveAll(q => q.Type != typeof(GameObject) && !go.TryGetComponent(q.Type, out _));
 
                     if (bindingInfos.Count == 0)
                     {
-                        log.Warn($"Empty bind {determinedName}. skip: {go.name}", go);
+                        log.Warn($"Empty bind {determinedName}. skip: {go.name}. prefabName: {settings.name}", go);
                         return;
                     }
                 }
@@ -433,7 +544,7 @@ namespace CycladeBindingsEditor
             SerializedObject serializedObject = default;
             if (!isRegister)
             {
-                var component = settings.GetComponent(_bindingType);
+                var component = settings.GetComponent(bindingType);
                 // log.Debug($"component: {component.GetType().Name}", true);
                 serializedObject = new SerializedObject(component);
             }
@@ -447,6 +558,8 @@ namespace CycladeBindingsEditor
                     finalName += "Instances";
 
                 var determinedType = fullName || bInfo.NeedToFullName ? bInfo.Type.FullName : bInfo.Type.Name;
+                var isButton = typeof(Button).IsAssignableFrom(bInfo.Type);
+
                 string finalType = "";
                 if (bindMode == BindMode.Simple)
                     finalType = determinedType;
@@ -456,9 +569,9 @@ namespace CycladeBindingsEditor
                     finalType = $"ViewInstances<{determinedType}>";
 
                 if (isRegister)
-                    TryRegisterBindingField(go, fields, namesHashSet, finalName, finalType, bindMode);
+                    TryRegisterBindingField(go, fields, namesHashSet, finalName, finalType, bindMode, isButton);
                 else
-                    TryBindField(go, namesHashSet, serializedObject, finalName, determinedType, bindMode);
+                    TryBindField(go, namesHashSet, serializedObject, finalName, bInfo.Type, bindMode, isClearMode);
             }
 
             if (!isRegister)
@@ -469,7 +582,7 @@ namespace CycladeBindingsEditor
             }
         }
 
-        public void BindStatefulElements(BindingGenerator settings)
+        public void BindStatefulElements(BindingGenerator settings, bool isClearMode)
         {
             var component = settings.GetComponent(_bindingType);
             var serializedObject = new SerializedObject(component);
@@ -479,15 +592,15 @@ namespace CycladeBindingsEditor
             {
                 statefulElementsProp.ClearArray();
 
-                if (!_isClearMode)
+                if (!isClearMode)
                 {
                     var list = new List<BaseStatefulElement>();
-                    CycladeHelpers.IterateOverMeAndChildren(settings.gameObject, go =>
+                    ViewUtils.IterateOverMeAndChildren(settings.gameObject, go =>
                     {
                         var components = go.GetComponents<BaseStatefulElement>();
                         foreach (var statefulElement in components)
                             list.Add(statefulElement);
-                    }, o => !PrefabUtility.IsAnyPrefabInstanceRoot(o));
+                    }, NeedToGoDeepFunc);
 
                     list = list.OrderBy(q => q.order).ToList();
 
@@ -504,7 +617,7 @@ namespace CycladeBindingsEditor
             serializedObject.Dispose();
         }
 
-        private void TryBindField(GameObject go, HashSet<string> namesHashSet, SerializedObject serializedObject, string finalName, string determinedType, BindMode bindMode)
+        private static void TryBindField(GameObject go, HashSet<string> namesHashSet, SerializedObject serializedObject, string finalName, Type type, BindMode bindMode, bool isClearMode)
         {
             var prop = serializedObject.FindProperty(finalName);
             if (prop == null)
@@ -514,17 +627,17 @@ namespace CycladeBindingsEditor
             }
 
             Object foundValue = null;
-            if (!_isClearMode)
+            if (!isClearMode)
             {
-                if (determinedType == "GameObject")
+                if (typeof(GameObject).IsAssignableFrom(type))
                 {
                     foundValue = go;
                 }
                 else
                 {
-                    foundValue = FindComponent(go, determinedType, out var foundComponents);
+                    foundValue = FindComponentByType(go, type, out var foundComponents);
                     if (foundValue == null)
-                        log.Warn($"Component with name {determinedType} not found in {go.name}. Found components: {FormatFoundComponents(foundComponents)}", go);
+                        log.Warn($"Component with name {type.FullName} not found in {go.name}. Found components: {FormatFoundComponents(foundComponents)}", go);
                 }
             }
 
@@ -546,27 +659,29 @@ namespace CycladeBindingsEditor
                 }
                 else
                 {
-                    prop.objectReferenceValue = foundValue;    
+                    prop.objectReferenceValue = foundValue;
                 }
-                
             }
         }
 
         private static string FormatFoundComponents(Component[] foundComponents) => string.Join(", ", foundComponents.Select(q => q.GetType().Name));
 
         private static Component FindComponent(GameObject go, string determinedType, out Component[] foundComponents)
-            => CycladeHelpers.FindComponent(go, c => c.GetType().Name == determinedType || c.GetType().FullName == determinedType, out foundComponents);
+            => ViewUtils.FindComponent(go, c => c.GetType().Name == determinedType || c.GetType().FullName == determinedType, out foundComponents);
 
-        private static void TryRegisterBindingField(GameObject go, List<BindingFieldInfo> fields, HashSet<string> namesHashSet, string determinedName, string determinedType, BindMode bindMode)
+        private static Component FindComponentByType(GameObject go, Type type, out Component[] foundComponents)
+            => ViewUtils.FindComponent(go, type.IsInstanceOfType, out foundComponents);
+
+        private static void TryRegisterBindingField(GameObject go, List<BindingFieldInfo> fields, HashSet<string> namesHashSet, string determinedName, string determinedType, BindMode bindMode, bool isButton)
         {
             if (!namesHashSet.Add(determinedName))
             {
-                if (bindMode == BindMode.Array)
+                if (bindMode != BindMode.Array)
                     log.Error($"We already have bind for {determinedName}. skip: {go.name}. Change name and re-generate.", go);
                 return;
             }
 
-            fields.Add(new BindingFieldInfo(determinedType, determinedName, bindMode));
+            fields.Add(new BindingFieldInfo(determinedType, determinedName, bindMode, isButton));
         }
 
         private bool TryToFindAndProcessComponent(BindingGenerator settings, bool isAdd, bool warnIfAdded = true)
@@ -618,7 +733,7 @@ namespace CycladeBindingsEditor
 
         public static bool TryFindType(BindingGenerator settings, out Type type)
         {
-            var types = CycladeHelpers.FindTypesWith(t => t.Name == GetBindingName(settings) && t.IsSubclassOf(typeof(MonoBehaviour)));
+            var types = CodeHelpers.FindTypesWith(t => t.Name == GetBindingName(settings) && t.IsSubclassOf(typeof(MonoBehaviour)));
             if (types.Count == 0)
             {
                 log.Warn($"Not found {GetBindingName(settings)}");

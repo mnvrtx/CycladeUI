@@ -1,80 +1,103 @@
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using CycladeUI.Models;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
+using Shared.Utils;
+using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CycladeUIEditor
 {
     public static class PopupsScanner
     {
-        public static void Scan(GlobalPopupSystemSettings settings, List<PopupEntryData> foundEntryDataList, Log log)
+        public static void ScanAndSaveToSettings(GlobalPopupSystemSettings settings, List<PopupEntryData> foundEntryDataList, Log log)
         {
-            RescanPopups(settings, foundEntryDataList);
-            FindAndFillByTypes(foundEntryDataList, log);
+            var sw = Stopwatch.StartNew();
+
+            var availableAssemblies = FindAvailableAssemblies();
+            
+            foundEntryDataList.Clear();
+            settings.entries = FindPopups(availableAssemblies, foundEntryDataList, log);
+            
+            EditorUtility.SetDirty(settings);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            log.Debug($"PopupsScanner. Scan and Save GlobalPopupSystemSettings. Elapsed: {sw.Elapsed.TotalMilliseconds:f4}ms");
         }
 
-        private static void RescanPopups(GlobalPopupSystemSettings settings, List<PopupEntryData> foundEntryDataList)
+        private static List<string> FindAvailableAssemblies()
         {
-            FindAvailableAssemblies(settings);
-            FindPopups(settings, foundEntryDataList);
-        }
-
-        private static void FindAvailableAssemblies(GlobalPopupSystemSettings settings)
-        {
-            settings.assemblies = CycladeHelpers.FindAssembliesWith(t => t.IsSubclassOf(typeof(BasePopup)))
+            return CodeHelpers.FindAssembliesWith(t => t.IsSubclassOf(typeof(BasePopup)))
                 .Select(q => q.FullName)
                 .ToList();
         }
 
-        private static void FindPopups(GlobalPopupSystemSettings settings, List<PopupEntryData> foundEntryDataList)
+        private static List<PopupEntry> FindPopups(List<string> availableAssemblies, List<PopupEntryData> foundEntryDataList, Log log)
         {
-            settings.entries = new List<PopupEntry>();
-            foundEntryDataList.Clear();
+            var entries = new List<PopupEntry>();
 
-            foreach (string assemblyName in settings.assemblies)
+            foreach (string assemblyName in availableAssemblies)
             {
-                try
+                var types = Assembly.Load(assemblyName).GetTypes();
+
+                foreach (var type in types)
                 {
-                    var types = Assembly.Load(assemblyName).GetTypes();
+                    if (!type.IsSubclassOf(typeof(BasePopup)))
+                        continue;
 
-                    foreach (var type in types)
-                    {
-                        if (type.IsSubclassOf(typeof(BasePopup)))
-                        {
-                            var typeFullName = type.FullName;
-
-                            var info = new PopupInfo(assemblyName, typeFullName);
-                            var entry = new PopupEntry(info);
-                            settings.entries.Add(entry);
-                            foundEntryDataList.Add(new PopupEntryData(entry));
-                        }
-                    }
+                    var typeFullName = type.FullName;
+                    var info = new PopupInfo(assemblyName, typeFullName);
+                    var entry = new PopupEntry(info, TryToFindAssetPathByType(assemblyName, typeFullName, log));
+                    entries.Add(entry);
+                    var entryData = new PopupEntryData(entry);
+                    entryData.Type = type;
+                    foundEntryDataList.Add(entryData);
                 }
-                catch (Exception e)
-                {
-                    Debug.LogException(e);
-                }
-            } 
+            }
 
-            foreach (var entryData in foundEntryDataList) 
-                entryData.Type = entryData.Entry.type.TryFind();
+            return entries;
         }
 
-        private static void FindAndFillByTypes(List<PopupEntryData> foundEntryDataList, Log log)
+        public static string TryToFindAssetPathByType(string assemblyName, string typeFullName, Log log)
         {
-            foreach (var data in foundEntryDataList)
-            {
-                if (!string.IsNullOrEmpty(data.Entry.assetPath))
-                    continue;
+#if UNITY_EDITOR
+            var foundType = PopupInfo.TryFind(assemblyName, typeFullName);
+            if (foundType == null)
+                return string.Empty;
 
-                data.Entry.TryToFindAndSetAssetPathByType(log);
+            var foundPrefabs = Resources.LoadAll("", foundType).Where(prefab => prefab.GetType() == foundType).ToArray();
+            if (foundPrefabs != null && foundPrefabs.Length > 0)
+            {
+                Object foundPrefab;
+                if (foundPrefabs.Length > 1)
+                {
+                    foundPrefab = foundPrefabs.FirstOrDefault(q => q.name.StartsWith("[MAIN]"));
+                    if (foundPrefab == null)
+                    {
+                        log.Warn($"Multiple prefabs of type {typeFullName} have been found, and none start with the [MAIN] prefix. The first one, {foundPrefabs[0].name}, will be selected.", foundPrefabs[0]);
+                        foundPrefab = foundPrefabs[0];
+                    }
+                }
+                else
+                {
+                    foundPrefab = foundPrefabs[0];
+                }
+                
+                var assetPath = UnityEditor.AssetDatabase.GetAssetPath(foundPrefab);
+
+                return assetPath;
             }
+
+            return string.Empty;
+#else
+            return string.Empty;
+#endif
         }
     }
 }

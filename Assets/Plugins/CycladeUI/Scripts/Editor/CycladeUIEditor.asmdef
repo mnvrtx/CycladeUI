@@ -5,7 +5,9 @@
         "Unity.TextMeshPro",
         "CycladeUI",
         "CycladeBase",
-        "CycladeBaseEditor"
+        "CycladeBaseEditor",
+        "BaseShared",
+        "GameLogger"
     ],
     "includePlatforms": [
         "Editor"

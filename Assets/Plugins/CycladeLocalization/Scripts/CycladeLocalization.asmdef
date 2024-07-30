@@ -4,7 +4,9 @@
   "references": [
     "Unity.TextMeshPro",
     "CycladeStorage",
-    "CycladeBase"
+    "CycladeBase",
+    "BaseShared",
+    "GameLogger"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

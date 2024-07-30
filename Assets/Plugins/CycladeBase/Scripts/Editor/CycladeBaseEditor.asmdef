@@ -3,7 +3,9 @@
     "rootNamespace": "CycladeBaseEditor",
     "references": [
         "Unity.TextMeshPro",
-        "CycladeBase"
+        "CycladeBase",
+        "BaseShared",
+        "GameLogger"
     ],
     "includePlatforms": [
         "Editor"

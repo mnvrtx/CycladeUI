@@ -1,0 +1,12 @@
+{
+    "name": "com.mnvrtx.baseshared",
+    "displayName": "BaseShared",
+    "author": { "name": "MnVrtx" },
+    "version": "0.0.1",
+    "unity": "2018.4",
+    "description": "Base for all. Without unity dependency",
+    "keywords": [ "baseshared" ],
+    "license": "MIT",
+    "category": "base",
+    "dependencies": {}
+}

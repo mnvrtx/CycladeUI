@@ -1,5 +1,5 @@
 using System;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 #if CYCLADEUI_TEXT_MESH_PRO
 using TMPro;
 #else
@@ -11,7 +11,7 @@ namespace CycladeUI.Popups.PrefEditor.Elements
 {
     public class PrefValueChange : PrefBaseChange
     {
-        private static readonly Log log = new(nameof(PrefValueChange));
+        private static readonly Log log = new(nameof(PrefValueChange), CycladeDebugInfo.I);
         
 #if CYCLADEUI_TEXT_MESH_PRO
         public TMP_InputField input;

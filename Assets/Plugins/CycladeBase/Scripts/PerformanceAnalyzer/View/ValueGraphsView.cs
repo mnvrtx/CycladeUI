@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CycladeBase.PerformanceAnalyzer.Trackers.Base;
 using CycladeBase.Utils;
+using Solonity.View.Utils;
 using UnityEngine;
 
 namespace CycladeBase.PerformanceAnalyzer.View

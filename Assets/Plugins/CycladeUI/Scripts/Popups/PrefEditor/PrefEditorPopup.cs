@@ -1,6 +1,6 @@
 using System;
 using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using CycladeUI.Popups.System;
 #if CYCLADEUI_TEXT_MESH_PRO
 using TMPro;
@@ -12,7 +12,7 @@ namespace CycladeUI.Popups.PrefEditor
 {
     public class PrefEditorPopup : BasePopup
     {
-        private static readonly Log log = new(nameof(PrefEditorPopup));
+        private static readonly Log log = new(nameof(PrefEditorPopup), CycladeDebugInfo.I);
         
 #if CYCLADEUI_TEXT_MESH_PRO
         public TMP_Text title;

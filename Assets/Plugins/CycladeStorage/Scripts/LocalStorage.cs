@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
+using BaseShared.DomainReload;
 using Newtonsoft.Json;
+using Shared.Utils;
+using Shared.Utils.Logging;
 using UnityEngine;
 
 namespace CycladeStorage
@@ -12,9 +13,9 @@ namespace CycladeStorage
     {
         private static readonly Log log = new(nameof(LocalStorage));
 
-        private static LocalStorage _instance;
+        [ClearOnReload] private static LocalStorage _instance;
 
-        public static bool IsDebug { get; set; }
+        [ClearOnReload] public static bool IsDebug { get; set; }
 
         public static LocalStorage I => _instance ??= new LocalStorage();
 
@@ -24,7 +25,7 @@ namespace CycladeStorage
 
         private LocalStorage()
         {
-            var keyToType = CycladeHelpers.FindTypesWith(t => typeof(IStorageSection).IsAssignableFrom(t) && t.IsClass)
+            var keyToType = CodeHelpers.FindTypesWith(t => typeof(IStorageSection).IsAssignableFrom(t) && t.IsClass)
                 .ToDictionary(q2 => $"{q2.Name}Key", q => q);
             
             _typeToKey = keyToType.SwapKeysAndValues();

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using CycladeBindings.UIStateSystem.Models;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace CycladeBindings.UIStateSystem.Base
         where TElement : Object
         where TState : BaseUIElementState
     {
-        private static readonly Log log = new(nameof(BaseSelectableState<TElement, TState>));
+        private static readonly Log log = new(nameof(BaseSelectableState<TElement, TState>), CycladeDebugInfo.I);
 
         public bool IsEnabled { get; private set; }
 

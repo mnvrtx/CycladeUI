@@ -9,6 +9,7 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Shared.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace CycladeLocalizationEditor
 {
     public class GoogleSheetsSyncManager
     {
-        public const string UpdateCommandFullName = "Cyclade/Localization/Update \"localization.json\" files from Google Sheet";
+        public const string UpdateCommandFullName = "Tools/Cyclade/Localization/Update \"localization.json\" files from Google Sheet";
 
         private const string LogTag = "[LocalizationTool]";
         private const string NotFoundLocText = "$NO_LOC_IN_GSHEET$";

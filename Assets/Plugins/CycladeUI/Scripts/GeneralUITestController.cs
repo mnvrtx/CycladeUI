@@ -1,8 +1,9 @@
 using System;
 using CycladeBase.Models;
 using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using CycladeUI.Popups.System;
+using Solonity.View.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,7 @@ namespace CycladeUI
 
         private bool IsNeedMock => optionalMock && !debugSafeArea.enabled && !disableMock;
         
+        [CycladeHelpBox("If you enable safeArea, the mock, if present, will turn off.")] public string stub2;
         private DebugSafeAreaSettings _lastDebugSafeArea;
 
         public void ShowAndDebugPopup<T>(Action<T> onCreate) where T : BasePopup
@@ -41,7 +43,7 @@ namespace CycladeUI
             if (optionalMock)
             {
                 optionalMock.transform.SetParent(_popupInstance.transform);
-                optionalMock.rectTransform.ToInitial();
+                optionalMock.rectTransform.SetToInitial();
                 optionalMock.rectTransform.StretchAcrossParent();
                 optionalMock.transform.SetAsLastSibling();
                 optionalMock.sprite = mockSprite;

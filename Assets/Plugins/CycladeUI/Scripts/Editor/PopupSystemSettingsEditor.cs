@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using CycladeBaseEditor;
 using CycladeUI.Models;
 using CycladeUI.Popups.System;
 using CycladeUI.ScriptableObjects;
+using Solonity.View.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace CycladeUIEditor
     [CustomEditor(typeof(PopupSystemSettings))]
     public class PopupSystemSettingsEditor : Editor
     {
-        private static readonly Log log = new(nameof(PopupSystemSettingsEditor));
+        private static readonly Log log = new(nameof(PopupSystemSettingsEditor), CycladeDebugInfo.I);
 
         private readonly CycladeEditorCommon _editorCommon = new();
         private readonly Dictionary<string, PopupEntryData> _cachedAssets = new();
@@ -274,8 +274,8 @@ namespace CycladeUIEditor
                 if (_currentSettings != null)
                     ResetCache(selectedPopups);
 
-                PopupsScanner.Scan(settings.globalSettings, new List<PopupEntryData>(), log);
-                PopupsDetailAnalyzer.AnalyzeOne(settings, log);
+                // PopupsScanner.ScanAndSaveToSettings(settings.globalSettings, new List<PopupEntryData>(), log);
+                PopupsDetailAnalyzer.AnalyzeOne(settings, settings.globalSettings, log);
                 ScanAvailablePopups(settings);
                 _currentSettings = settings.globalSettings;
                 UpdateModel(settings);

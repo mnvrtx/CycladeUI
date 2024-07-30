@@ -1,5 +1,6 @@
 using CycladeBase.PerformanceAnalyzer.Trackers.Base;
 using CycladeBase.Utils;
+using Shared.Utils;
 
 namespace CycladeBase.PerformanceAnalyzer
 {
@@ -18,7 +19,7 @@ namespace CycladeBase.PerformanceAnalyzer
         public float LowValueThreshold = 5;
         public bool TopValueIsGood;
 
-        public ClTimer HideTimer;
+        public Timer HideTimer;
 
         public AnalyzeData(int index, string name, ValSuffix valSuffix)
         {
@@ -38,7 +39,7 @@ namespace CycladeBase.PerformanceAnalyzer
 
         public AnalyzeData NeedHideTimer(float secondsWithoutValueChange = 3f)
         {
-            HideTimer = new ClTimer(secondsWithoutValueChange);
+            HideTimer = new Timer(secondsWithoutValueChange);
             return this;
         }
 

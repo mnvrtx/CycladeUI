@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using CycladeBase.Utils;
+using Shared.Utils;
 
 namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
 {
@@ -11,7 +11,7 @@ namespace CycladeBase.PerformanceAnalyzer.Trackers.Base
 
         public void BeginTrack(int metric)
         {
-            if (!_stopwatches.ValidIndex(metric))
+            if (!_stopwatches.IsIndexValid(metric))
             {
                 if (metric < 0)
                     throw new Exception("metric < 0");

@@ -2,7 +2,9 @@
   "name": "CycladeBase",
   "rootNamespace": "CycladeBase",
   "references": [
-    "Unity.TextMeshPro"
+    "Unity.TextMeshPro",
+    "GameLogger",
+    "BaseShared"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

@@ -1,4 +1,4 @@
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using UnityEngine;
 
 namespace CycladeUIExample.Popups.Shop

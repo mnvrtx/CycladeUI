@@ -1,17 +1,8 @@
 using System;
+using Shared.Utils.Logging;
 
 namespace CycladeUIExample
 {
-    public enum LogType
-    {
-        Trace,
-        Debug,
-        Info,
-        Warn,
-        Error,
-        Fatal,
-    }
-    
     [Serializable]
     public class TestModel
     {

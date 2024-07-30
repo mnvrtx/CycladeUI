@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Text.RegularExpressions;
-using CycladeBase.Utils;
-using CycladeBase.Utils.Logging;
 using CycladeLocalization;
 using CycladeLocalization.Definition;
+using CycladeUI.Models;
 using CycladeUI.Popups.PrefEditor;
 using CycladeUI.Popups.System;
 using CycladeUIExample.Models;
 using CycladeUIExample.Performance;
 using CycladeUIExample.Popups;
 using CycladeUIExample.Popups.Shop;
+using Shared.Utils.Logging;
+using Solonity.View.Utils;
 using UnityEngine;
 
 using static CycladeUIExample.Performance.ExampleValueTrackerValues;
@@ -77,6 +78,7 @@ namespace CycladeUIExample
                 "yes",
                 "no",
                 b => Debug.Log($"is confirm? {b}"),
+                PositiveButtonColor.Blue,
                 () => Debug.Log("confirmation closed"));
         }
 

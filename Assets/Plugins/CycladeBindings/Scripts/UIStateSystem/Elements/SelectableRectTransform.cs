@@ -1,6 +1,7 @@
 using CycladeBase.Utils;
 using CycladeBindings.UIStateSystem.Base;
 using CycladeBindings.UIStateSystem.Models;
+using Solonity.View.Utils;
 using UnityEngine;
 
 namespace CycladeBindings.UIStateSystem.Elements
@@ -10,7 +11,7 @@ namespace CycladeBindings.UIStateSystem.Elements
     {
         protected override void OnSelected(RectTransform element, RectTransformState state)
         {
-            CycladeHelpers.SetRectTransformValues(element, state.rectTransform);
+            ViewUtils.SetRectTransformValues(element, state.rectTransform);
         }
 
         [ContextMenu("Flip active")]

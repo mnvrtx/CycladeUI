@@ -16,8 +16,6 @@ namespace CycladeUI.Models
             this.fullName = fullName;
         }
 
-        public Type TryFind() => TryFind(assemblyName, fullName);
-
         public static Type TryFind(string assemblyName, string fullName)
         {
             Assembly assembly = null;
@@ -48,7 +46,6 @@ namespace CycladeUI.Models
         }
 
         public override int GetHashCode() => HashCode.Combine(assemblyName, fullName);
-
 
         public override string ToString() => ToString(assemblyName, fullName);
 

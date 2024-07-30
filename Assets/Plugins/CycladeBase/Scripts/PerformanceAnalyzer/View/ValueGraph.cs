@@ -129,6 +129,7 @@ namespace CycladeBase.PerformanceAnalyzer.View
 
         private void ProcessAndFindMinMax(float value, out float currentMaxValue, out float currentMinValue)
         {
+            value = Mathf.Abs(value);
             currentMaxValue = 0;
             currentMinValue = float.MaxValue;
 

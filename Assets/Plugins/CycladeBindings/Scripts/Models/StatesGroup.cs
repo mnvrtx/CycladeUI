@@ -12,6 +12,7 @@ namespace CycladeBindings.Models
         public StatesGroup(string name)
         {
             this.name = name;
+            states.Add("None");
         }
     }
 }

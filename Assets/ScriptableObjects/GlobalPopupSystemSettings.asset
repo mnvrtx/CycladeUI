@@ -45,7 +45,6 @@ MonoBehaviour:
       fullName: CycladeUI.Popups.PrefEditor.PrefEditorPopup
     assetPath: Assets/Plugins/CycladeUI/Resources/PrefEditor.prefab
   debugSafeAreaSettings:
-    stub2: 
     enabled: 0
     top: 20
     left: 20

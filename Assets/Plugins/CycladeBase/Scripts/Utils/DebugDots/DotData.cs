@@ -9,15 +9,15 @@ namespace CycladeBase.Utils.DebugDots
         public Color Color;
         public long StepIdx;
         public int Ticks;
-        public float Size;
+        public float Radius;
 
-        public DotData(Vector3 position, Vector3 direction, Color color, long stepIdx, float size, int ticks = -1)
+        public DotData(Vector3 position, Vector3 direction, Color color, long stepIdx, float radius, int ticks = -1)
         {
             Position = position;
             Direction = direction;
             Color = color;
             StepIdx = stepIdx;
-            Size = size;
+            Radius = radius;
             Ticks = ticks;
         }
     }

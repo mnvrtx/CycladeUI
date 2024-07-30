@@ -1,7 +1,9 @@
 using CycladeBase.PerformanceAnalyzer.Trackers;
 using CycladeLocalization;
 using CycladeStorage;
+using Shared.Utils.Logging;
 using UnityEngine;
+using LogType = Shared.Utils.Logging.LogType;
 
 namespace CycladeUIExample
 {
@@ -12,6 +14,7 @@ namespace CycladeUIExample
         {
             SetupCycladeAnalyzer();
             LocalStorage.IsDebug = true;
+            LogSystem.Initialize(LogType.Trace, new UnityLogger());
             Localization.I.Setup();
         }
 

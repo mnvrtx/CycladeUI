@@ -3,6 +3,7 @@ using System.Linq;
 using CycladeBase.Utils;
 using CycladeBaseEditor;
 using CycladeLocalization;
+using Solonity.View.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace CycladeLocalizationEditor
 {
     public class LocalizationVisualizer : EditorWindow
     {
-        [MenuItem("Cyclade/Windows/" + nameof(LocalizationVisualizer))]
+        [MenuItem("Window/Cyclade/" + nameof(LocalizationVisualizer))]
         public static void ShowWindow()
         {
             GetWindow(typeof(LocalizationVisualizer)); //Show existing window instance. If one doesn't exist, make one.

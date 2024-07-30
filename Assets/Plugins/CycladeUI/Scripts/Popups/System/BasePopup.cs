@@ -1,5 +1,6 @@
 using System;
 using CycladeBase.Utils;
+using Shared;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,13 +22,14 @@ namespace CycladeUI.Popups.System
         public bool needBackground = true;
         public Color backgroundColor = new(0f, 0f, 0f, 0.74f);
         public bool needSafeArea = true;
+        public bool needAnimation = true;
         
         public bool unloadAssetsAfterClose;
         [CycladeHelpBox("Unload unused assets after close \"OnDemand\" popup")] public string stub3;
 
-        public readonly ClSubscriptionHandlers OnClose = new();
-        public readonly ClSubscriptionHandlers OnCloseAfterAnimation = new(); 
-        public readonly ClSubscriptionHandlers OnCloseAfterAnimationRobust = new();
+        public readonly SubscriptionHandlers OnClose = new();
+        public readonly SubscriptionHandlers OnCloseAfterAnimation = new(); 
+        public readonly SubscriptionHandlers OnCloseAfterAnimationRobust = new();
 
         [NonSerialized] public RectTransform Holder;
         [NonSerialized] public bool NonClosable;

@@ -1,11 +1,11 @@
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using UnityEngine;
 
 namespace CycladeBase.Utils
 {
     public class TargetFps : MonoBehaviour
     {
-        private static readonly Log log = new(nameof(TargetFps));
+        private static readonly Log log = new(nameof(TargetFps), CycladeDebugInfo.I);
 
         public int targetFramerate = 60;
         public int targetVSyncCount;
@@ -27,6 +27,12 @@ namespace CycladeBase.Utils
             Application.targetFrameRate = t;
 
             log.Info($"set. {before} -> {Application.targetFrameRate}", gameObject);
+        }
+
+        [ContextMenu("Refresh")]
+        public void Refresh()
+        {
+            Awake();
         }
     }
 }

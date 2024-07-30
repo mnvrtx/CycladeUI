@@ -1,7 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using CycladeBase.Utils.Logging;
+using BaseShared.DomainReload;
+using Shared.Utils.Logging;
 using CycladeStorage;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -11,9 +12,16 @@ namespace CycladeLocalization
     //Usage: Localization.Get(Area.HeroNames, heroId)
     public class Localization
     {
-        private static readonly Log log = new(nameof(Localization));
+        private static readonly Log log = new(nameof(Localization), CycladeDebugInfo.I);
 
-        public static readonly Localization I = new();
+        public static Localization I = new();
+
+        [ExecuteOnReload]
+        public static void ResetCache()
+        {
+            I = new Localization();
+        }
+
         public const string ResultLocalizationJsonsPath = "Localizations";
         private const string NotFound = "$NF{0}$";
 
@@ -75,6 +83,21 @@ namespace CycladeLocalization
             }
 
             return Get((Enum)Enum.Parse(_areaEnumType, areaEnum), key, errOnNotFound, keyOnNotFound);
+        }
+
+        public static string GetAndSafeFormat(Enum areaEnum, string key, params object[] args)
+        {
+            var str = Get(areaEnum, key);
+
+            try
+            {
+                return string.Format(str, args);
+            }
+            catch (Exception e)
+            {
+                log.Error($"Cannot format string: {str} \n{e}");
+                return str;
+            }
         }
 
         public static string Get(Enum areaEnum, string key, bool errOnNotFound = true, bool keyOnNotFound = false)

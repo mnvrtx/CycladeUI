@@ -1,5 +1,5 @@
 using System.Linq;
-using CycladeBase.Utils.Logging;
+using Shared.Utils.Logging;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace CycladeBaseEditor
 {
     public static class CycladeEditorHelpers
     {
-        private static readonly Log log = new(nameof(CycladeEditorHelpers));
+        private static readonly Log log = new(nameof(CycladeEditorHelpers), CycladeDebugInfo.I);
 
         public static T TryFindGlobalSettings<T>() where T : ScriptableObject
         {
