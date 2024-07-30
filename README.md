@@ -57,12 +57,13 @@ popupSystem.ShowPopup<ExampleShopPopup>();
 
 ## 🚧 **CycladeBindings** 🚧  (WORK IN PROGRESS)
 
-This library is intended for manage states and automatically setting references in MonoBehaviour. For example, open the prefab `Assets/Resources/ExampleShop.prefab`.
+This library is intended for manage states and automatically setting references in MonoBehaviour.
 
 ![Example](imgTutorial/statesExample.gif)
 
 #### **HOW TO USE**
 ![Example Image](imgTutorial/howToUseBindingsSystem.png)
+Open the prefab `Assets/Resources/ExampleShop.prefab`.
 
 ## **CycladeLocalization**<br>
 #### **HOW TO SETUP**
