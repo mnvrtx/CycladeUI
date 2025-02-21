@@ -18,6 +18,8 @@ There are 5 libraries in the repository:
 
 1. Add Packages URLs<br>
 ```
+"com.mnvrtx.gamelogger" : "https://github.com/mnvrtx/CycladeUI.git?path=Assets/Plugins/GameLogger",
+"com.mnvrtx.baseshared" : "https://github.com/mnvrtx/CycladeUI.git?path=Assets/Plugins/BaseShared",
 "com.mnvrtx.cycladebase": "https://github.com/mnvrtx/CycladeUI.git?path=Assets/Plugins/CycladeBase",
 "com.mnvrtx.cycladebindings": "https://github.com/mnvrtx/CycladeUI.git?path=Assets/Plugins/CycladeBindings",
 "com.mnvrtx.cycladelocalization": "https://github.com/mnvrtx/CycladeUI.git?path=Assets/Plugins/CycladeLocalization",
