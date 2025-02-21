@@ -12,11 +12,16 @@ namespace CycladeUIEditor
 {
     public class CycladeAssetPostProcessor : AssetPostprocessor
     {
-        private static readonly Log log = new(nameof(CycladeAssetPostProcessor), CycladeDebugInfo.I);
+        private static Log _log;
         private static readonly StringBuilder _sb = new();
 
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
+            if (_log == null)
+            {
+                _log = new Log(nameof(CycladeAssetPostProcessor), CycladeDebugInfo.I);
+            }
+            
             bool needsUpdate = CheckAssets(importedAssets, deletedAssets, movedAssets, movedFromAssetPaths);
             if (!needsUpdate)
                 return;
@@ -24,8 +29,8 @@ namespace CycladeUIEditor
             var globalSettings = CycladeEditorCommon.TryFindGlobalSettings<GlobalPopupSystemSettings>();
 
             var list = new List<PopupEntryData>();
-            PopupsScanner.ScanAndSaveToSettings(globalSettings, list, log);
-            PopupsDetailAnalyzer.AnalyzeAll(globalSettings, log);
+            PopupsScanner.ScanAndSaveToSettings(globalSettings, list, _log);
+            PopupsDetailAnalyzer.AnalyzeAll(globalSettings, _log);
         }
 
         private static bool CheckAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
@@ -68,7 +73,7 @@ namespace CycladeUIEditor
             if (movedAssets.Any())
                 _sb.AppendLine("Moved Assets:\n" + string.Join("\n", movedAssets.Select((t, i) => $"From: {movedFromAssetPaths[i]} To: {t}")));
 
-            log.Debug(_sb.ToString());
+            _log.Debug(_sb.ToString());
 
             return result;
         }

@@ -7,9 +7,11 @@ To make working with UI interfaces convenient and fast. Adding a new screen to t
 
 
 ### **Implementation**<br>
-There are 5 libraries in the repository: 
+There are 7 libraries in the repository: 
+- **GameLogger** (required for all libraries)
+- **BaseShared** (required for all libraries)
 - **CycladeBase** (required for all libraries)
-- **CycladeBindings**
+- **CycladeBindings** (requires `com.demigiant.dotween`)
 - **CycladeLocalization** (requires `NewtonsoftJson` and `CycladeStorage` to function)
 - **CycladeStorage** (requires `NewtonsoftJson` to function)
 - **CycladeUI**
